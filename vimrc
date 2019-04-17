@@ -257,6 +257,9 @@ nnoremap <silent> # #zz
 nnoremap <silent> g* g*zz
 nnoremap <silent> g# g#zz
 
+" Search and replace current word
+nmap <Space><Space> :%s/\<<C-r>=expand("<cword>")<CR>\>/
+
 " Movement, buffers and windows ---------------------------------------------------------------
 
 set splitbelow
@@ -298,9 +301,9 @@ nnoremap k gk
 nnoremap T H
 nnoremap B L
 
-" Go to home and end using capitalized directions
+             " Go to home and end using capitalized directions             
 nnoremap H ^
-nnoremap L $
+nnoremap L g_
 
 " Window Movement
 nnoremap <silent> gh :wincmd h<CR>
@@ -578,12 +581,14 @@ let g:deoplete#enable_at_startup = 1"
 " ---------------
 " vim-airline
 " ---------------
+" if exists("g:loaded_airline")
 "  For Windows, store custom themes in ~/vimfiles/autoload/airline/themes/.
 "  For Unix,  store in ~/.vim/... 
 let g:airline_powerline_fonts = 1
 let g:airline_theme='bubblegum2'
+  " Add character value (%B in hex) to status line"
 let s:def_statusline = '%3p%% %L/%#__accent_bold#%4l%#__restore__#:%3c 0x%-3B'
-
+" endif
 
 
 " End of vimrc =====================================================================

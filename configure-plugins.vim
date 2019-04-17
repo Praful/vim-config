@@ -390,17 +390,6 @@ let g:ale_linters = {'jsx': ['stylelint', 'eslint']}
 let g:ale_linter_aliases = {'jsx': 'css'}
 
 " ---------------
-" vim-airline
-" ---------------
-if exists("g:loaded_airline")
-  let g:airline_powerline_fonts = 1
-  let g:airline_theme='pk_bubblegum'
-
-  " Add character value (%B in hex) to status line"
-  let s:def_statusline = '%3p%% %L/%#__accent_bold#%4l%#__restore__#:%3c 0x%-3B'
-endif
-
-" ---------------
 " Easymotion
 " ---------------
 if exists("g:EasyMotion_loaded")
