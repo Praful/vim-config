@@ -45,7 +45,7 @@ Plug 'bling/vim-airline'
 
 " Open File Explorer or command prompt using gof/got (file's dir) or goF/goT (working 
 " dir)
-Plug 'justinmk/vim-gtfo'
+" Plug 'justinmk/vim-gtfo'
 
 " Commands ------------------------------------------------------
 " <leader>K to invoke
@@ -68,7 +68,7 @@ Plug 'tpope/vim-speeddating'
 " vicI  Prepend new text to a column.
 " vicA  Append new text to a column.
 " viC   Visually select a WORD based colunn.
-Plug 'coderifous/textobj-word-column.vim'
+" Plug 'coderifous/textobj-word-column.vim'
 
 Plug 'junegunn/fzf', { 'do': './install --all' } | Plug 'junegunn/fzf.vim'
 
