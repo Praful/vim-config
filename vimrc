@@ -37,7 +37,7 @@ endif
 " In general, you don't need this because if a (g)vimrc is found in the 
 " usual place, it's enabled. But there are edge cases when this doesn't apply,
 " eg providing a file with -u.
-set nocompatible
+" set nocompatible
 
 filetype plugin indent on
 
@@ -177,12 +177,16 @@ endif
 set autoindent
 " Prevents inserting two spaces after punctuation on a join (J)
 set nojoinspaces    
-set smartindent
+" Not required. See https://www.reddit.com/r/vim/wiki/vimrctips
+" set smartindent
+"
+" For tabs, see https://www.reddit.com/r/vim/wiki/tabstop
+" We always use spaces for indents so tabstop is not relevant for our code.
 set smarttab
-set tabstop=2
+set tabstop=8
 set shiftwidth=2
-set shiftround
 set softtabstop=2
+set shiftround
 set expandtab
 
 "See http://stackoverflow.com/questions/19624105/how-can-i-make-vim-break-lines-only-on-whitespace
@@ -257,7 +261,7 @@ nnoremap <silent> # #zz
 nnoremap <silent> g* g*zz
 nnoremap <silent> g# g#zz
 
-" Search and replace current word
+" Search and replace current word: https://vimrcfu.com/snippet/240
 nmap <Space><Space> :%s/\<<C-r>=expand("<cword>")<CR>\>/
 
 " Movement, buffers and windows ---------------------------------------------------------------
@@ -301,7 +305,7 @@ nnoremap k gk
 nnoremap T H
 nnoremap B L
 
-             " Go to home and end using capitalized directions             
+" Go to home and end using capitalized directions
 nnoremap H ^
 nnoremap L g_
 

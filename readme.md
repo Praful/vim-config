@@ -8,9 +8,10 @@ Do not use these files as they are! They're customised for my requirements and y
 
 My `vimrc` file has evolved over many years and could do with being tidied up! For me, it's good enough.
 
-If you're a newcomer to Vim, a vimrc to start with is Tim Pope's [sensible vimrc file](https://github.com/tpope/vim-sensible). For advice on structuring your Vim config files, see:
-1. https://github.com/romainl/idiomatic-vimrc 
-2. https://vimways.org/2018/from-vimrc-to-vim
+If you're a newcomer to Vim, a vimrc to start with is Tim Pope's [sensible vimrc file](https://github.com/tpope/vim-sensible). For advice on best practice and structuring your Vim config files, see:
+1. https://www.reddit.com/r/vim/wiki/vimrctips
+2. https://github.com/romainl/idiomatic-vimrc 
+3. https://vimways.org/2018/from-vimrc-to-vim
 
 If you want to know the meaning of a setting, press K whilst the cursor is on the word. That will open Vim help for that word.
 

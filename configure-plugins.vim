@@ -333,7 +333,7 @@ nmap <Leader>bc :PlugClean<cr>
 " ---------------
 let g:search_engine = "https://www.google.co.uk/search?q="
 
-function! GoogleSearch()
+function! GoogleSearch() abort
   let searchterm=@x
   let cmd =  "!" . "\"" . Browser() . "\"" . " \"" . g:search_engine . searchterm . "\" "
   " echom "cmd=".cmd
@@ -354,7 +354,7 @@ function! FileExists(f)
   return filereadable(a:f)
 endfunction
 
-function! Browser()
+function! Browser() abort
   "NB: the dot below is a string concatenation operator.
   let browsers = [($LOCALAPPDATA."/Google/Chrome/Application/chrome.exe"), "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe", "C:/Program Files (x86)/Internet Explorer/iexplore.exe"]
 
@@ -478,7 +478,7 @@ endfunction
 "    :BufferMessage mess         "show messages
 "For more env vars, see https://vim.fandom.com/wiki/Displaying_the_current_Vim_environment
 "
-function! BufferMessage(cmd)
+function! BufferMessage(cmd) abort
   redir => message
   silent execute a:cmd
   redir END
