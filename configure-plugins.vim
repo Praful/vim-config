@@ -1,11 +1,16 @@
 "=============================================================================
 " File: configure-plugins.vim
-" Description: Set mappings, options etc once plugins have been loaded. 
+" Description: Set mappings, etc once plugins have been loaded. 
 "              Plugin pre-load work is done in vimrc.
 " Author: Praful https://github.com/Praful/vim-config
 " Licence: GPL v3
 "=============================================================================
 
+
+" ---------------
+" FZF MRU
+" ---------------
+let g:fzf_mru_case_sensitive = 0
 
 " ---------------
 " netrw
@@ -116,7 +121,7 @@ if exists("g:loaded_unimpaired")
 endif
 
 " ---------------
-" Denite
+" Denite - no longer used
 " ---------------
 "
 if exists("g:loaded_denite") 
@@ -167,19 +172,24 @@ endif
 "-----------------------------------------
 "FZF
 "-----------------------------------------
-nnoremap <leader>fp  :call fzf#vim#files(0, {'options':'--query=' . expand('%:e') . '$\ '})<CR>
-nnoremap <leader>fg  :Rg<CR>
-nnoremap <leader>fG  :call fzf#vim#grep('rg --column --line-number --no-heading --color=always --smart-case ""', 1, {'options':'--exact --delimiter : --nth 4.. --query=<C-r><C-w> +i'})<CR>
-nnoremap <leader>ft  :Tags<CR>
-nnoremap <leader>fT  :call fzf#vim#tags('^<C-r><C-w> ', {'options':'--exact +i'})<CR>
-nnoremap <leader>fb  :Buffers<CR>
-nnoremap <leader>fw  :Windows<CR>
+"https://github.com/junegunn/fzf#search-syntax
+nnoremap ,p  :call fzf#vim#files(0, {'options':'--query=' . expand('%:e') . '$\ '})<CR>
+nnoremap ,g  :Rg<CR>
+nnoremap ,G  :call fzf#vim#grep('rg --column --line-number --no-heading --color=always --smart-case ""', 1, {'options':'--exact --delimiter : --nth 4.. --query=<C-r><C-w> +i'})<CR>
+nnoremap ,t  :Tags<CR>
+nnoremap ,T  :call fzf#vim#tags('^<C-r><C-w> ', {'options':'--exact +i'})<CR>
+nnoremap ,b  :Buffers<CR>
+nnoremap ,w  :Windows<CR>
+" nnoremap ,m  :History<CR>
+nnoremap ,m  :FZFMru<CR>
+nnoremap <leader>m :History<CR>
 
 "-----------------------------------------
 "Defx
 "-----------------------------------------
 if exists("g:loaded_defx")
   autocmd! FileType defx call s:defx_my_settings()
+  nnoremap ,e :Defx -show-ignored-files<cr>
 endif
 
 function! s:defx_my_settings() abort
@@ -246,22 +256,22 @@ function! s:defx_my_settings() abort
 endfunction
 
 " ---------------
-" deoplete
+" deoplete - no longer used
 " ---------------
 
 " Enable omni completion.
 
-if has("autocmd")
-  augroup PK4
-    autocmd!
-    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-    autocmd FileType ruby,eruby setlocal omnifunc=rubycomplete#Complete
-  augroup END
-end
+" if has("autocmd")
+  " augroup PK4
+    " autocmd!
+    " autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    " autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    " autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    " autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    " autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+    " autocmd FileType ruby,eruby setlocal omnifunc=rubycomplete#Complete
+  " augroup END
+" end
 
 " ---------------
 " Ruby
@@ -333,7 +343,7 @@ nmap <Leader>bc :PlugClean<cr>
 " ---------------
 let g:search_engine = "https://www.google.co.uk/search?q="
 
-function! GoogleSearch() abort
+function! GoogleSearch()
   let searchterm=@x
   let cmd =  "!" . "\"" . Browser() . "\"" . " \"" . g:search_engine . searchterm . "\" "
   " echom "cmd=".cmd
@@ -354,7 +364,7 @@ function! FileExists(f)
   return filereadable(a:f)
 endfunction
 
-function! Browser() abort
+function! Browser()
   "NB: the dot below is a string concatenation operator.
   let browsers = [($LOCALAPPDATA."/Google/Chrome/Application/chrome.exe"), "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe", "C:/Program Files (x86)/Internet Explorer/iexplore.exe"]
 
@@ -424,6 +434,15 @@ endif
 " vmap   <expr> K  DVB_Drag('up')
 " vmap   <expr> D  DVB_Duplicate()
 "
+" ---------------
+" coc
+" ---------------
+let g:coc_global_extensions = ['coc-powershell', 'coc-html', 'coc-python', 'coc-css', 'coc-json', 'coc-emmet', 'coc-tsserver']
+
+" ---------------
+" YankRing
+" ---------------
+nnoremap <leader>y  :YRShow<CR>
 
 " ---------------
 " vim-gtfo
@@ -464,7 +483,7 @@ let g:loaded_matchparen=1
 function! TestLanguages()
   :perl print("Perl good")
   :lua print("lua good")
-  :python print("Python2 good")
+  " :python print("Python2 good")
   :python3 print("Python3 good")
   :ruby print("Ruby good")
 endfunction
@@ -478,7 +497,7 @@ endfunction
 "    :BufferMessage mess         "show messages
 "For more env vars, see https://vim.fandom.com/wiki/Displaying_the_current_Vim_environment
 "
-function! BufferMessage(cmd) abort
+function! BufferMessage(cmd)
   redir => message
   silent execute a:cmd
   redir END

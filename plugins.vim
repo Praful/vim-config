@@ -18,8 +18,8 @@ call plug#begin($PK_VIMFILES.'/vimplug')
 "
 Plug 'Lokaltog/vim-easymotion'
 
-Plug 'Shougo/denite.nvim'
-Plug 'Shougo/deoplete.nvim'
+" Plug 'Shougo/denite.nvim'
+" Plug 'Shougo/deoplete.nvim'
 " Not implemented yet
 " Plug 'Shougo/deoppet.nvim'
 
@@ -27,8 +27,8 @@ Plug 'Shougo/defx.nvim'
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 
-Plug 'Shougo/neoyank.vim'
-Plug 'Shougo/neomru.vim'
+" Plug 'Shougo/neoyank.vim'
+" Plug 'Shougo/neomru.vim'
 
 " After install, turn shell ~/.vim/bundle/vimproc, (n,g)make -f your_machines_makefile
 Plug 'Shougo/vimproc', {'do': 'make'}
@@ -37,6 +37,7 @@ Plug 'xolox/vim-easytags'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-shell'
 
+" Plug 'taglist.vim'
 " Use BD, BU, BW to remove buffer without closing window
 Plug 'qpkorr/vim-bufkill'
 
@@ -45,12 +46,14 @@ Plug 'bling/vim-airline'
 
 " Open File Explorer or command prompt using gof/got (file's dir) or goF/goT (working 
 " dir)
-" Plug 'justinmk/vim-gtfo'
+Plug 'justinmk/vim-gtfo'
 
 " Commands ------------------------------------------------------
 " <leader>K to invoke
 " Plug 'beloglazov/vim-online-thesaurus'
 Plug 'ron89/thesaurus_query.vim'
+
+Plug 'vim-scripts/YankRing.vim'
 
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
@@ -68,9 +71,11 @@ Plug 'tpope/vim-speeddating'
 " vicI  Prepend new text to a column.
 " vicA  Append new text to a column.
 " viC   Visually select a WORD based colunn.
-" Plug 'coderifous/textobj-word-column.vim'
+Plug 'coderifous/textobj-word-column.vim'
 
 Plug 'junegunn/fzf', { 'do': './install --all' } | Plug 'junegunn/fzf.vim'
+
+Plug 'pbogut/fzf-mru.vim'
 
 " Bbye allows you to delete buffers (close files) without closing your windows or messing up your layout.
 Plug 'moll/vim-bbye'
@@ -92,9 +97,30 @@ Plug 'xolox/vim-session'
 "automatic closing of quotes, parentheses, etc
 Plug 'Raimondi/delimitMate'
 
-" Language Additions (conditionally load)
+" General language plugins ------------------------------------------------------ 
+Plug 'sheerun/vim-polyglot'
 
-"   Ruby ------------------------------------------------------
+" Install nightly build, replace ./install.sh with install.cmd on windows
+" Plug 'neoclide/coc.nvim', {'do': './install.cmd nightly'}
+" Or install latest release tag
+" Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.cmd'}
+" Or build from source code
+" Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}} 
+" Plug 'yatli/coc-powershell', {'do': { -> coc#powershell#install()} }
+
+" To install Coc extensions, use
+"   :CocInstall coc-tsserver
+"   :CocInstall coc-html
+"   :CocInstall coc-css
+"   :CocInstall coc-json
+"   :CocInstall coc-emmet
+"   :CocInstall coc-python
+"   :CocInstall coc-powershell
+"
+"
+" Ruby ------------------------------------------------------
 Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
 
 " Give text-objects ar and ir eg car to change all block, dir to delete inner block.
@@ -135,7 +161,7 @@ Plug 'leafgarland/typescript-vim', {'for':'typescript'}
 "   HTML ------------------------------------------------------
 " Plug 'nono/vim-handlebars',  {'autoload':{'filetypes':['html', 'htm']}})
 " use <c-y>comma to complete expression eg html:5<c-y>,
-Plug 'mattn/emmet-vim'
+" Plug 'mattn/emmet-vim'
 Plug 'othree/html5.vim',  {'for':['html', 'htm']}
 Plug 'vim-scripts/indenthtml.vim',  {'for':['html', 'htm']}
 

@@ -37,7 +37,7 @@ endif
 " In general, you don't need this because if a (g)vimrc is found in the 
 " usual place, it's enabled. But there are edge cases when this doesn't apply,
 " eg providing a file with -u.
-" set nocompatible
+set nocompatible
 
 filetype plugin indent on
 
@@ -109,7 +109,7 @@ set spelllang=en_gb
 
 "Don't use this if "set relativenumber" is being used.
 set number
-" set relativenumber
+set relativenumber
 
 "Automatically reload a file if it changes - useful for logs
 set autoread 
@@ -131,7 +131,7 @@ autocmd! BufEnter * silent! lcd %:p:h
 
 " remember some stuff after quiting vim:
 " marks, registers, searches, buffer list
-set viminfo='20,<50,s10,h,%
+set viminfo='50,<50,s10,h,%
 
 " Show autocomplete menus.
 set wildmenu
@@ -177,16 +177,21 @@ endif
 set autoindent
 " Prevents inserting two spaces after punctuation on a join (J)
 set nojoinspaces    
-" Not required. See https://www.reddit.com/r/vim/wiki/vimrctips
+" 20190819 - commented out because lines beginning with # (eg Python comments) don't 
+"          get indented when typing >> 
+"          See https://vim.fandom.com/wiki/Restoring_indent_after_typing_hash
 " set smartindent
-"
-" For tabs, see https://www.reddit.com/r/vim/wiki/tabstop
-" We always use spaces for indents so tabstop is not relevant for our code.
+" The following are suggested in the above link but don't seem to be required. Omit 
+" for now.
+" set cindent
+" set cinkeys-=0#
+" set indentkeys-=0#
+
 set smarttab
-set tabstop=8
+set tabstop=2
 set shiftwidth=2
-set softtabstop=2
 set shiftround
+set softtabstop=2
 set expandtab
 
 "See http://stackoverflow.com/questions/19624105/how-can-i-make-vim-break-lines-only-on-whitespace
@@ -261,9 +266,6 @@ nnoremap <silent> # #zz
 nnoremap <silent> g* g*zz
 nnoremap <silent> g# g#zz
 
-" Search and replace current word: https://vimrcfu.com/snippet/240
-nmap <Space><Space> :%s/\<<C-r>=expand("<cword>")<CR>\>/
-
 " Movement, buffers and windows ---------------------------------------------------------------
 
 set splitbelow
@@ -307,7 +309,7 @@ nnoremap B L
 
 " Go to home and end using capitalized directions
 nnoremap H ^
-nnoremap L g_
+nnoremap L $
 
 " Window Movement
 nnoremap <silent> gh :wincmd h<CR>
@@ -535,6 +537,7 @@ set laststatus=2                               " make status line always appear
 " set statusline+=%h%m%r%w                     " status flags
 " set statusline+=\[%{strlen(&ft)?&ft:'none'}] " file type
 " set stl+=%{&ff!='unix'?','.toupper(&ff):''}]\   " file format
+"
 " set statusline+=%=                           " right align remainder
 " set statusline+=0x%-8B                       " character value
 " set statusline+=%-14(%l,%c%V%)               " line, character
@@ -565,11 +568,14 @@ else
 end
 "
 " ---------------
-" Denite
+" Denite - no longer used
+" Defx
 " ---------------
 
 " On *nix, remember to run 'sudo -H pip3 install neovim'. May need
 " 'sudo -H pip3 install setuptools' first.
+"
+" Python required for Defx
 if has("win32")
   let g:python3_host_prog='C:/apps/Python/latest3-64/python.exe'
 else
@@ -578,21 +584,26 @@ else
 endif
 
 " ---------------
-" deoplete
+" deoplete - no longer used
 " ---------------
-let g:deoplete#enable_at_startup = 1"
+" let g:deoplete#enable_at_startup = 1"
 
 " ---------------
 " vim-airline
 " ---------------
 " if exists("g:loaded_airline")
-"  For Windows, store custom themes in ~/vimfiles/autoload/airline/themes/.
-"  For Unix,  store in ~/.vim/... 
-let g:airline_powerline_fonts = 1
-let g:airline_theme='bubblegum2'
+  let g:airline_powerline_fonts = 1
+  let g:airline_theme='bubblegum2'
+
   " Add character value (%B in hex) to status line"
-let s:def_statusline = '%3p%% %L/%#__accent_bold#%4l%#__restore__#:%3c 0x%-3B'
+  let s:def_statusline = '%3p%% %L/%#__accent_bold#%4l%#__restore__#:%3c 0x%-3B'
 " endif
 
-
+" ---------------
+" YankRing - setup callback to override Y definition
+" ---------------
+"make Y consistent with C and D on yankring
+function! YRRunAfterMaps()
+  nnoremap <silent> Y   :<C-U>YRYankCount 'y$'<CR>
+endfunction
 " End of vimrc =====================================================================
