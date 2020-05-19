@@ -16,6 +16,14 @@ let g:fzf_mru_case_sensitive = 0
 " netrw
 " ---------------
 let g:netrw_liststyle=3
+let g:loaded_netrw= 1
+let g:netrw_loaded_netrwPlugin= 1
+
+" ---------------
+" rainbow
+" ---------------
+" Doesn't work - probably incompatible with another plugin.
+" let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
 
 " ---------------
 " IndexedSearch
@@ -62,7 +70,7 @@ if exists("g:loaded_easytags")
 
   let Tlist_GainFocus_On_ToggleOpen=1
   let Tlist_Use_Right_Window = 1
-  let Tlist_Close_On_Select = 1
+  let Tlist_Close_On_Select = 0
   noremap <leader>tt :TlistToggle<CR>
   "Easytags (enables CTRL=] and CTRL-T) by autotagging
   "set tags=./.tags;,~/.vimtags
@@ -100,7 +108,8 @@ endif
 " ---------------
 "close current buffer - use uppercase bufkill plugin command to close buffer without
 "closing window
-noremap <leader>q :BD<CR>
+" noremap <leader>q :BD<CR>
+nnoremap Q :BD<CR>
 
 " ---------------
 " Grepper
@@ -170,26 +179,12 @@ if exists("g:loaded_denite")
 endif
 
 "-----------------------------------------
-"FZF
-"-----------------------------------------
-"https://github.com/junegunn/fzf#search-syntax
-nnoremap ,p  :call fzf#vim#files(0, {'options':'--query=' . expand('%:e') . '$\ '})<CR>
-nnoremap ,g  :Rg<CR>
-nnoremap ,G  :call fzf#vim#grep('rg --column --line-number --no-heading --color=always --smart-case ""', 1, {'options':'--exact --delimiter : --nth 4.. --query=<C-r><C-w> +i'})<CR>
-nnoremap ,t  :Tags<CR>
-nnoremap ,T  :call fzf#vim#tags('^<C-r><C-w> ', {'options':'--exact +i'})<CR>
-nnoremap ,b  :Buffers<CR>
-nnoremap ,w  :Windows<CR>
-" nnoremap ,m  :History<CR>
-nnoremap ,m  :FZFMru<CR>
-nnoremap <leader>m :History<CR>
-
-"-----------------------------------------
 "Defx
 "-----------------------------------------
 if exists("g:loaded_defx")
+  let g:python3_host_prog = 'c:\\apps\\Python\\latest3-64\\python.exe'
   autocmd! FileType defx call s:defx_my_settings()
-  nnoremap ,e :Defx -show-ignored-files<cr>
+  nnoremap ,e :Defx -show-ignored-files 
 endif
 
 function! s:defx_my_settings() abort
@@ -321,6 +316,9 @@ let g:session_lock_enabled = 0
 " NERDCommenter
 " ---------------
 let NERDSpaceDelims=1
+"Toggle comments
+nmap ,c <Leader>c<Leader>
+vmap ,c <Leader>c<Leader>
 
 " ---------------
 " Bbye (Buffer Bye)
@@ -330,12 +328,12 @@ nnoremap <Leader>bd :Bdelete<CR>
 " ---------------
 " vim-plug
 " ---------------
-nmap <Leader>bi :PlugInstall<cr>
-nmap <Leader>bu :PlugUpdate<cr>
+nnoremap <Leader>bi :PlugInstall<cr>
+nnoremap <Leader>bu :PlugUpdate<cr>
 "Upgrade plug-in manager
-nmap <Leader>bp :PlugUpgrade<cr>
+nnoremap <Leader>bp :PlugUpgrade<cr>
 " Run :PlugClean. It will detect and remove undeclared plugins.
-nmap <Leader>bc :PlugClean<cr>
+nnoremap <Leader>bc :PlugClean<cr>
 
 " ---------------
 " Search Google using gs
@@ -403,15 +401,15 @@ let g:ale_linter_aliases = {'jsx': 'css'}
 " Easymotion
 " ---------------
 if exists("g:EasyMotion_loaded")
-  " echom "easymotion loaded"
-  noremap <leader>s <Plug>(easymotion-S)
+  " noremap <leader>s <Plug>(easymotion-S)
 
   " Set colour for target letter and background.
   " hi link EasyMotionTarget IncSearch
  hi EasyMotionTarget guifg=red
   " hi EasyMotionShade  guifg=#FFFF80
 
-  nnoremap <Leader> <Plug>(easymotion-prefix)
+  " nnoremap <Leader> <Plug>(easymotion-prefix)
+  let g:EasyMotion_do_mapping = 0 " Disable default mappings
   nmap s <Plug>(easymotion-overwin-f)
 
   " Ignore case unless uppercase character specified.
@@ -419,9 +417,13 @@ if exists("g:EasyMotion_loaded")
 
   " select lines usng c<leader><leader>l - c can be replaced by d, v, or y)
   " use p instead of l to act on two random points instead of the whole line.
-  let g:EasyMotion_do_special_mapping = 1
+  " let g:EasyMotion_do_special_mapping = 1
 endif
 
+" ---------------
+" Python
+" ---------------
+" call VimTK_default_remap()
 
 " ---------------
 " vim-dragvisual
@@ -437,13 +439,169 @@ endif
 " ---------------
 " coc
 " ---------------
-let g:coc_global_extensions = ['coc-powershell', 'coc-html', 'coc-python', 'coc-css', 'coc-json', 'coc-emmet', 'coc-tsserver']
+
+let g:coc_global_extensions = ['coc-powershell', 'coc-html', 'coc-python', 'coc-css', 'coc-json', 'coc-emmet', 'coc-tsserver', 'coc-spell-checker']
+
+" let g:node_client_debug = 1
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+set signcolumn=yes
+
+"
+" Settings copied from
+"https://github.com/neoclide/coc.nvim/tree/6c8a2e5875d235d0363bbccb04acf67dbe412995
+"
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Or use `complete_info` if your vim support it, like:
+" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+" nmap <silent> [g <Plug>(coc-diagnostic-prev)
+" nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gt <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+"
+" set keywordprg=:call\ <SID>show_documentation()<CR>
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" coc-spell-checker
+" vmap <leader>a <Plug>(coc-codeaction-selected)
+" nmap <leader>a <Plug>(coc-codeaction-selected)
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+" xmap <leader>f  <Plug>(coc-format-selected)
+" nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+" xmap <leader>a  <Plug>(coc-codeaction-selected)
+" nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+" nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+" nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Create mappings for function text object, requires document symbols feature of languageserver.
+" xmap if <Plug>(coc-funcobj-i)
+" xmap af <Plug>(coc-funcobj-a)
+" omap if <Plug>(coc-funcobj-i)
+" omap af <Plug>(coc-funcobj-a)
+
+" Use <C-d> for select selections ranges, needs server support, like: coc-tsserver, coc-python
+" nmap <silent> <C-d> <Plug>(coc-range-select)
+" xmap <silent> <C-d> <Plug>(coc-range-select)
+
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` to fold current buffer
+" command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" use `:OR` for organize import of current buffer
+" command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add status line support, for integration with other plugin, checkout `:h coc-status`
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Using CocList
+" Show all diagnostics
+" nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+" nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+" nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+" nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+" nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+" nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+" nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+" nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+"
+nnoremap <silent> ,o  :<C-u>CocList outline<cr>
+nnoremap ,f  :CocFix<CR>
+
+" Update time for linting
+set updatetime=300
+"
+"-----------------------------------------
+"FZF and Coc
+"-----------------------------------------
+"https://github.com/junegunn/fzf#search-syntax
+nnoremap ,p  :call fzf#vim#files(0, {'options':'--query=' . expand('%:e') . '$\ '})<CR>
+nnoremap ,F  :Files 
+nnoremap ,g  :Rg<CR>
+nnoremap ,G  :call fzf#vim#grep('rg --column --line-number --no-heading --color=always --smart-case ""', 1, {'options':'--exact --delimiter : --nth 4.. --query=<C-r><C-w> +i'})<CR>
+nnoremap ,t  :Tags<CR>
+nnoremap ,T  :call fzf#vim#tags('^<C-r><C-w> ', {'options':'--exact +i'})<CR>
+" nnoremap ,b  :Buffers<CR>
+" nnoremap ,b  :CocList --strict buffers<CR>
+nnoremap ,b  :CocList buffers<CR>
+" nnoremap ,w  :Windows<CR>
+nnoremap ,w  :CocList words<CR>
+" nnoremap ,m  :History<CR>
+" nnoremap ,m  :FZFMru<CR>
+nnoremap ,m  :CocList mru -A<CR>
+" nnoremap ,m  :CocList --strict mru -A<CR>
+nnoremap <leader>m :History<CR>
+
+"
 
 " ---------------
 " YankRing
 " ---------------
-nnoremap <leader>y  :YRShow<CR>
-
+" nnoremap <leader>y  :RShow<CR>
+nnoremap <leader>y  :<C-u>CocList --normal yank<cr>
 " ---------------
 " vim-gtfo
 " ---------------
@@ -475,17 +633,32 @@ let g:loaded_matchparen=1
 "
 
 " ---------------
+" janko-m/vim-test
+" ---------------
+let test#strategy = "dispatch"
+" let test#strategy = "asyncrun_background"
+map <leader>rt :TestFile<CR>
+map <leader>rs :TestSuite<CR>
+map <leader>rl :TestLast<CR>
+map <leader>rv :TestVisit<CR>
+"
+" run current file (unrelated to vim-test
+map <leader>rr :!"%:p"<CR>
+" noremap <leader>tr :silent !start "1" "%:p"<CR>
+" nmap <leader>tr :! start "1" "%:p"<CR>
+
+" ---------------
 " Misc functions
 " ---------------
 "
 " To run, type:
 "   :call TestLanguages
 function! TestLanguages()
-  :perl print("Perl good")
   :lua print("lua good")
-  " :python print("Python2 good")
   :python3 print("Python3 good")
+  :perl print("Perl good")
   :ruby print("Ruby good")
+  " :python print("Python2 good")
 endfunction
 " noremap <C-F11> :call TestLanguages()<CR>
 
@@ -519,6 +692,19 @@ function! ToggleVerbose()
 endfunction
 command! -complete=command ToggleVerbose call ToggleVerbose()
 "-----------------------
+if !exists('*StripTrailingWhitespace')
+    function! StripTrailingWhitespace()
+        if !&binary && &filetype != 'diff'
+            let b:win_view = winsaveview()
+            silent! keepjumps keeppatterns %s/\s\+$//e
+            call winrestview(b:win_view)
+        endif
+    endfunction
+endif
+command! Cls call StripTrailingWhitespace()
+cnoreabbrev cls Cls
+cnoreabbrev StripTrailingSpace Cls
+" nnoremap <Leader>s :call StripTrailingWhitespace()
 
 "Autocompletion -----------------------
 "Move in omni pop-up with C-j/k

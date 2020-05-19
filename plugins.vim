@@ -37,7 +37,10 @@ Plug 'xolox/vim-easytags'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-shell'
 
+" This has to be installed manually. See
+" http://vim-taglist.sourceforge.net/installation.html
 " Plug 'taglist.vim'
+"
 " Use BD, BU, BW to remove buffer without closing window
 Plug 'qpkorr/vim-bufkill'
 
@@ -53,29 +56,21 @@ Plug 'justinmk/vim-gtfo'
 " Plug 'beloglazov/vim-online-thesaurus'
 Plug 'ron89/thesaurus_query.vim'
 
-Plug 'vim-scripts/YankRing.vim'
+Plug 'rhysd/vim-grammarous'
+
+" Plug 'vim-scripts/YankRing.vim'
 
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 Plug 'sickill/vim-pasta'
 " vim-speeddating:  use CTRL-A/CTRL-X to increment dates, times etc
 Plug 'tpope/vim-speeddating'
 " Plug "atweiden/vim-dragvisuals")
-"
-
-" Column text object eg
-" vic   Visually select a column.
-" cic   Change a column.
-" dac   Delete a column.
-" vicI  Prepend new text to a column.
-" vicA  Append new text to a column.
-" viC   Visually select a WORD based colunn.
-Plug 'coderifous/textobj-word-column.vim'
 
 Plug 'junegunn/fzf', { 'do': './install --all' } | Plug 'junegunn/fzf.vim'
 
-Plug 'pbogut/fzf-mru.vim'
+" Plug 'pbogut/fzf-mru.vim'
 
 " Bbye allows you to delete buffers (close files) without closing your windows or messing up your layout.
 Plug 'moll/vim-bbye'
@@ -100,6 +95,11 @@ Plug 'Raimondi/delimitMate'
 " General language plugins ------------------------------------------------------ 
 Plug 'sheerun/vim-polyglot'
 
+" unit testing
+Plug 'janko-m/vim-test'
+
+Plug 'tpope/vim-dispatch'
+
 " Install nightly build, replace ./install.sh with install.cmd on windows
 " Plug 'neoclide/coc.nvim', {'do': './install.cmd nightly'}
 " Or install latest release tag
@@ -116,10 +116,27 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "   :CocInstall coc-css
 "   :CocInstall coc-json
 "   :CocInstall coc-emmet
-"   :CocInstall coc-python
+"   :CocInstall coc-python (don't install if pyright installed)
+"   :CocInstall coc-pyright (alternative to coc-python)
 "   :CocInstall coc-powershell
-"
-"
+"   :CocInstall coc-lists
+"   :CocInstall coc-yank
+"or
+"   :CocInstall coc-tsserver coc-html coc-css coc-json coc-emmet coc-python coc-powershell coc-lists coc-yank coc-spell-checker coc-pyright
+
+" <leader>j  - Norma/visual: go to any variable/class/constant/name/symbol 
+" <leader>ab - Normal mode: open previous opened file (after jump)
+" <leader>al - Normal mode: open last closed search window again
+" More help: https://github.com/pechorin/any-jump.vim
+Plug 'pechorin/any-jump.vim'
+
+" Python ------------------------------------------------------
+" Install following Python modules:
+"   pip install ubelt
+"   pip install pyperclip
+" Plug 'sjl/badwolf'
+" Plug 'Erotemic/vimtk'
+
 " Ruby ------------------------------------------------------
 Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
 
@@ -150,8 +167,7 @@ Plug 'vim-scripts/endwise.vim', {'for': 'ruby'}
 "
 "   JavaScript ------------------------------------------------------
 Plug 'pangloss/vim-javascript', {'for':'javascript'}
-" Plug 'mxw/vim-jsx'
-Plug 'neoclide/vim-jsx-improve', {'for':'jsx'}
+" Plug 'neoclide/vim-jsx-improve', {'for':'jsx'}
 Plug 'leshill/vim-json', {'for':'json'}
 Plug 'w0rp/ale'
 
@@ -182,6 +198,8 @@ Plug 'hail2u/vim-css3-syntax', {'for':['css','scss','sass']}
 "PowerShell highlighting/help
 Plug 'PProvost/vim-ps1', {'for': 'powershell'}
 
+" Plug 'Shougo/echodoc.vim'
+
 " Plug 'romainl/vim-devdocs'
 
 " Matching  ------------------------------------------------------
@@ -191,14 +209,40 @@ Plug 'wellle/targets.vim'
 
 Plug 'vim-scripts/matchit.zip'
 Plug 'kana/vim-textobj-user'
+
+" Column text object eg
+" vic   Visually select a column.
+" cic   Change a column.
+" dac   Delete a column.
+" vicI  Prepend new text to a column.
+" vicA  Append new text to a column.
+" viC   Visually select a WORD based colunn.
+Plug 'coderifous/textobj-word-column.vim'
+
+" <count>ai	An Indentation level and line above.
+" <count>ii	Inner Indentation level (no line above).
+" <count>aI	An Indentation level and lines above/below.
+Plug 'michaeljsmith/vim-indent-object'
+
 Plug 'nelstrom/vim-visual-star-search', {'for': 'ruby'}
 
 Plug 'tpope/vim-unimpaired'
+
+" search/replace highlighting
+Plug 'markonm/traces.vim'
+" coloured brackets
+" Plug 'luochen1990/rainbow'
 
 " Libraries ------------------------------------------------------
 Plug 'vim-scripts/L9'
 Plug 'tpope/vim-repeat'
 
 Plug 'mattn/webapi-vim'
+
+" makes textboxes in firefoxa and chrome run nvim;
+" this sort of worked but I need to add more conditional logic
+" in vimrc to differentiate between when firenvim is being 
+" loaded.
+" Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
 call plug#end()

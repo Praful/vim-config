@@ -78,6 +78,16 @@ set nottimeout
 set autowrite
 " keep a backup file
 set backup	
+"
+" Set PowerShell as shell
+" stops FZFMru and other FZF commands working
+" if has("win32")
+  " set shell=pwsh
+  " " set shellcmdflag=-NonInteractive\ -Command
+  " set shellcmdflag=-Command
+  " set shellpipe=|
+  " set shellredir=>
+" endif
 
 " This loads large files with long lines quicker since syntax highlighting isn't
 " attempted up to 3000 characters per line (the default)
@@ -85,7 +95,8 @@ set backup
 "set dictionary=/usr/share/dict/words
 " Use ^x^k to look up word.
 set dictionary=$PK_VIMFILES/UK.dic
-" From http://www.gutenberg.org/dirs/etext02/mthes10.zip. Use ^x^t to invoke.
+" From http://www.gutenberg.org/dirs/etext02/mthes10.zip. Use ^x^t to invoke or (for 
+" thesaurus plugin) <leader>K
 set thesaurus=$PK_VIMFILES./mthesaur.txt
 
 " Two trailing slashes tells vim to use whole of file path to create temp files
@@ -133,6 +144,8 @@ autocmd! BufEnter * silent! lcd %:p:h
 " marks, registers, searches, buffer list
 set viminfo='50,<50,s10,h,%
 
+set path=.,.\\**,c:\\data\\dev\\projects\\**
+
 " Show autocomplete menus.
 set wildmenu
 set wildmode=list:full
@@ -148,19 +161,24 @@ set wildignorecase
 set guioptions-=T
 " Remove right hand scollbar
 set guioptions-=r
+" Remove left hand scollbar
+set guioptions-=l
 " set guioptions+=egmrtL
-set guioptions+=egmL
+set guioptions-=L
+set guioptions+=egmk
 
 " Use Windows clipboard as default register for yank, delete, change and put.
 " This make * the default register, which is used to access the Windows
 " clipboard.
 " The first (unnamedplus) works for Linux and the second for Win32.
-set clipboard^=unnamedplus
-set clipboard^=unnamed
+set clipboard^=unnamedplus,unnamed
 
 " Allow using the repeat operator with a visual selection (!)
 " http://stackoverflow.com/a/8064607/127816
 vnoremap . :normal .<CR>
+
+" Replace highlighted text
+vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
 
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
@@ -229,7 +247,7 @@ command! Thtml set ft=html | execute "%!tidy -q -i -html"
 
 
 set incsearch
-set hlsearch
+" set hlsearch
 set showmatch
 set ignorecase 
 set smartcase 
@@ -275,9 +293,9 @@ set scrolloff=5
 " Easy buffer navigation
 
 "close window eg when displaying help
-nnoremap <leader>Q :bd<CR>
+" nnoremap <leader>Q :BD<CR>
+nnoremap <leader>q <c-w>c
 " Q puts into Ex mode, which I don't use.
-nnoremap Q :bd<CR>
 
 "Scoll two lines and leave cursor where it is.
 nnoremap <C-K> 2<C-y>
@@ -286,8 +304,8 @@ nnoremap <C-J> 2<C-e>
 inoremap <C-J> 2<C-e>
 
 " change cursor position in insert mode
-inoremap <C-h> <left>
-inoremap <C-l> <right>
+" inoremap <C-h> <left>
+" inoremap <C-l> <right>
 
 "Ctrl-{up,down} to scroll.
 "The following only works in gvim?
@@ -307,9 +325,9 @@ nnoremap k gk
 nnoremap T H
 nnoremap B L
 
-" Go to home and end using capitalized directions
-nnoremap H ^
-nnoremap L $
+" Go to beginning or end of line regardless of whether line is wrapped on not
+nnoremap H g^
+nnoremap L g$
 
 " Window Movement
 nnoremap <silent> gh :wincmd h<CR>
@@ -331,6 +349,15 @@ nnoremap <bar> :vsp<cr>
 noremap <leader>n :enew<CR>
 noremap <c-h> :bprevious<CR>
 noremap <c-l> :bnext<CR>
+inoremap <c-h> <esc>:bprevious<cr>
+inoremap <c-l> <esc>:bnext<cr>
+
+" Tabs
+noremap <leader>N :tabnew<CR>
+noremap <m-h> :tabprevious<CR>
+noremap <m-l> :tabnext<CR>
+inoremap <m-h> <esc>:tabprevious<CR>
+inoremap <m-l> <esc>:tabnext<CR>
 
 " Command mode
 cnoremap <c-a> <home>
@@ -404,6 +431,11 @@ if !exists(":DiffOrig")
 endif
 
 if has("win32")
+    " for vimtk for python
+    " Fix issue where system() breaks when running from git-bash on win32
+    " set shell=C:\WINDOWS\system32\cmd.exe
+    " set pythonthreedll="C:\apps\Python\latest3-64\python38.dll"
+
   " source $HOME/mswin.vim
   behave mswin
 endif
@@ -425,6 +457,7 @@ nnoremap <leader>ev :e $MYVIMRC<cr>
 nnoremap <leader>ep :e $PK_PLUGINS<cr>
 nnoremap <leader>ec :e $PK_PLUGINS_CONFIG<cr>
 nnoremap <leader>eb :e $HOME/.bashrc<cr>
+nnoremap <leader>es :e $DATA/PowerShell/profile.ps1<cr>
 
 " reload vimrc once it's saved (http://vim.wikia.com/wiki/Open_vimrc_file)
 autocmd! BufWritePost $MYVIMRC :source $MYVIMRC
@@ -456,7 +489,12 @@ nnoremap <leader>fw Vgq
 " Format whole file then return cursor to current location.
 "nnoremap <leader>fef ggVG=
 nnoremap <leader>fef mmgg=G'm
-"
+
+" operator pending mapping allows to operate on the whole buffer (A = all)
+" with normal mode commands such as, dA, cA, yA,...
+" onoremap A :<c-u>normal! ggVG<cr>
+" onoremap af :<C-u>normal! mzggVG<CR>`z
+
 " Yank entire buffer with gy
 nnoremap gy :%y+<cr>
 
@@ -594,6 +632,8 @@ endif
 " if exists("g:loaded_airline")
   let g:airline_powerline_fonts = 1
   let g:airline_theme='bubblegum2'
+  " percent/total lines/current line/current column/hex character code
+  let g:airline_section_z = '%3p%% %L/%#__accent_bold#%4l%#__restore__#:%3c 0x%-3B'
 
   " Add character value (%B in hex) to status line"
   let s:def_statusline = '%3p%% %L/%#__accent_bold#%4l%#__restore__#:%3c 0x%-3B'
