@@ -18,22 +18,11 @@ call plug#begin($PK_VIMFILES.'/vimplug')
 "
 Plug 'Lokaltog/vim-easymotion'
 
-" Plug 'Shougo/denite.nvim'
-" Plug 'Shougo/deoplete.nvim'
-" Not implemented yet
-" Plug 'Shougo/deoppet.nvim'
-
-Plug 'Shougo/defx.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-
-" Plug 'Shougo/neoyank.vim'
-" Plug 'Shougo/neomru.vim'
-
 " After install, turn shell ~/.vim/bundle/vimproc, (n,g)make -f your_machines_makefile
 Plug 'Shougo/vimproc', {'do': 'make'}
 
-Plug 'xolox/vim-easytags'
+" Plug 'xolox/vim-easytags'
+"required by vim-session
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-shell'
 
@@ -49,14 +38,14 @@ Plug 'bling/vim-airline'
 
 " Open File Explorer or command prompt using gof/got (file's dir) or goF/goT (working 
 " dir)
-Plug 'justinmk/vim-gtfo'
+" Plug 'justinmk/vim-gtfo'
 
 " Commands ------------------------------------------------------
 " <leader>K to invoke
 " Plug 'beloglazov/vim-online-thesaurus'
 Plug 'ron89/thesaurus_query.vim'
 
-Plug 'rhysd/vim-grammarous'
+" Plug 'rhysd/vim-grammarous'
 
 " Plug 'vim-scripts/YankRing.vim'
 
@@ -93,10 +82,10 @@ Plug 'xolox/vim-session'
 Plug 'Raimondi/delimitMate'
 
 " General language plugins ------------------------------------------------------ 
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
 
 " unit testing
-Plug 'janko-m/vim-test'
+" Plug 'janko-m/vim-test'
 
 Plug 'tpope/vim-dispatch'
 
@@ -121,6 +110,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "   :CocInstall coc-powershell
 "   :CocInstall coc-lists
 "   :CocInstall coc-yank
+"   :CocInstall coc-flutter
 "or
 "   :CocInstall coc-tsserver coc-html coc-css coc-json coc-emmet coc-python coc-powershell coc-lists coc-yank coc-spell-checker coc-pyright
 
@@ -128,7 +118,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " <leader>ab - Normal mode: open previous opened file (after jump)
 " <leader>al - Normal mode: open last closed search window again
 " More help: https://github.com/pechorin/any-jump.vim
-Plug 'pechorin/any-jump.vim'
+" Plug 'pechorin/any-jump.vim'
 
 " Python ------------------------------------------------------
 " Install following Python modules:
@@ -151,7 +141,7 @@ Plug 'lucapette/vim-ruby-doc', {'for':'ruby'}
 Plug 'hlissner/vim-forrestgump', {'for':'ruby'}
 
 " Ruby style checker
-Plug 'ngmy/vim-rubocop', {'on':'RuboCop'}
+Plug 'ngmy/vim-rubocop', {'for':'ruby', 'on':'RuboCop'}
 
 " Run ruby commands selectively 
 Plug 't9md/vim-ruby-xmpfilter', {'for':'ruby'}
@@ -169,7 +159,7 @@ Plug 'vim-scripts/endwise.vim', {'for': 'ruby'}
 Plug 'pangloss/vim-javascript', {'for':'javascript'}
 " Plug 'neoclide/vim-jsx-improve', {'for':'jsx'}
 Plug 'leshill/vim-json', {'for':'json'}
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
 
 Plug 'leshill/vim-json', {'for':['javascript','json']}
 Plug 'leafgarland/typescript-vim', {'for':'typescript'}
@@ -194,11 +184,10 @@ Plug 'hail2u/vim-css3-syntax', {'for':['css','scss','sass']}
 "Plug 'groenewege/vim-less'
 "Plug 'wavded/vim-stylus'
 "Plug 'tpope/vim-cucumber'
-
+Plug 'JuliaEditorSupport/julia-vim'
 "PowerShell highlighting/help
-Plug 'PProvost/vim-ps1', {'for': 'powershell'}
+" Plug 'PProvost/vim-ps1', {'for': 'powershell'}
 
-" Plug 'Shougo/echodoc.vim'
 
 " Plug 'romainl/vim-devdocs'
 
@@ -207,7 +196,9 @@ Plug 'PProvost/vim-ps1', {'for': 'powershell'}
 " See https://github.com/wellle/targets.vim
 Plug 'wellle/targets.vim'
 
-Plug 'vim-scripts/matchit.zip'
+" Plug 'vim-scripts/matchit.zip'
+"https://github.com/andymass/vim-matchup#detailed-feature-documentation
+Plug 'andymass/vim-matchup'
 Plug 'kana/vim-textobj-user'
 
 " Column text object eg
@@ -217,12 +208,14 @@ Plug 'kana/vim-textobj-user'
 " vicI  Prepend new text to a column.
 " vicA  Append new text to a column.
 " viC   Visually select a WORD based colunn.
-Plug 'coderifous/textobj-word-column.vim'
+" Plug 'coderifous/textobj-word-column.vim'
 
 " <count>ai	An Indentation level and line above.
 " <count>ii	Inner Indentation level (no line above).
 " <count>aI	An Indentation level and lines above/below.
-Plug 'michaeljsmith/vim-indent-object'
+" eg >ii indents current level; vii selects current level;
+" >ai indents currrent level and line and above.
+" Plug 'michaeljsmith/vim-indent-object'
 
 Plug 'nelstrom/vim-visual-star-search', {'for': 'ruby'}
 

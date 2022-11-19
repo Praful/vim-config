@@ -1,4 +1,5 @@
 "=============================================================================
+"
 " File: configure-plugins.vim
 " Description: Set mappings, etc once plugins have been loaded. 
 "              Plugin pre-load work is done in vimrc.
@@ -6,6 +7,14 @@
 " Licence: GPL v3
 "=============================================================================
 
+let g:airline#extensions#searchcount#enabled = 0
+
+" https://github.com/andymass/vim-matchup#deferred-highlighting
+let g:matchup_matchparen_deferred = 1
+let g:matchup_delim_stopline      = 5000000 " generally
+let g:matchup_matchparen_stopline = 5000000  " for match highlighting only
+let g:matchup_matchparen_timeout = 5000
+let g:matchup_matchparen_insert_timeout = 2500
 
 " ---------------
 " FZF MRU
@@ -15,6 +24,7 @@ let g:fzf_mru_case_sensitive = 0
 " ---------------
 " netrw
 " ---------------
+"  don't load netrw
 let g:netrw_liststyle=3
 let g:loaded_netrw= 1
 let g:netrw_loaded_netrwPlugin= 1
@@ -129,130 +139,6 @@ if exists("g:loaded_unimpaired")
   vmap <m-j> ]egv
 endif
 
-" ---------------
-" Denite - no longer used
-" ---------------
-"
-if exists("g:loaded_denite") 
-  " nnoremap [denite]g :Grepper -tool rg<cr>
-  " --column: Show column number
-  " --line-number: Show line number
-  " --no-heading: Do not show file headings in results
-  " --fixed-strings: Search term as a literal string
-  " --ignore-case: Case insensitive search
-  " --no-ignore: Do not respect .gitignore, etc...
-  " --hidden: Search hidden files and folders
-  " --follow: Follow symlinks
-  " --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
-  " --color: Search color options
-  "
-  "From help fzf-vim
-  command! -bang -nargs=* Rg
-    \ call fzf#vim#grep(
-    \   'rg --column --smart-case --line-number --hidden --glob "!.git/*" --no-heading --color=always '.shellescape(<q-args>), 1,
-    \   <bang>0 ? fzf#vim#with_preview('up:60%')
-    \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-    \   <bang>0)
-  " command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)"
-
-
-  if executable('rg')
-    let g:denite_source_grep_command = 'rg'
-    let g:denite_source_grep_default_opts = '--vimgrep --no-heading --smart-case --follow'
-    let g:denite_source_grep_recursive_opt = ''
-    let g:denite_source_grep_encoding = 'utf-8'
-  endif
-
-  " Prefix key
-  nmap , [denite]
-  nnoremap [denite] <nop>
-
-  " Use regex for mru instead of fuzzy finder
-  call denite#custom#source('file_mru', 'matchers', ['matcher/regexp'])
-  call denite#custom#source('neoyank', 'matchers', ['matcher/regexp'])
-
-  nnoremap [denite]m :Denite file_mru<cr>
-  nnoremap [denite]y :Denite neoyank<cr>
-  nnoremap [denite]e :Defx -show-ignored-files<cr>
-  nnoremap [denite]h :Denite defx/history<cr>
-  nnoremap [denite]b :Denite buffer<cr>
-endif
-
-"-----------------------------------------
-"Defx
-"-----------------------------------------
-if exists("g:loaded_defx")
-  let g:python3_host_prog = 'c:\\apps\\Python\\latest3-64\\python.exe'
-  autocmd! FileType defx call s:defx_my_settings()
-  nnoremap ,e :Defx -show-ignored-files 
-endif
-
-function! s:defx_my_settings() abort
-  " Define mappings
-  nnoremap <silent><buffer><expr> <CR>
-  \ defx#do_action('open')
-  nnoremap <silent><buffer><expr> y
-  \ defx#do_action('copy')
-  nnoremap <silent><buffer><expr> m
-  \ defx#do_action('move')
-  nnoremap <silent><buffer><expr> p
-  \ defx#do_action('paste')
-  nnoremap <silent><buffer><expr> l
-  \ defx#do_action('open')
-  nnoremap <silent><buffer><expr> E
-  \ defx#do_action('open', 'vsplit')
-  nnoremap <silent><buffer><expr> P
-  \ defx#do_action('open', 'pedit')
-  nnoremap <silent><buffer><expr> K
-  \ defx#do_action('new_directory')
-  nnoremap <silent><buffer><expr> N
-  \ defx#do_action('new_file')
-  nnoremap <silent><buffer><expr> M
-  \ defx#do_action('new_multiple_files')
-  nnoremap <silent><buffer><expr> C
-  \ defx#do_action('toggle_columns',
-  \                'mark:filename:type:size:time')
-  nnoremap <silent><buffer><expr> S
-  \ defx#do_action('toggle_sort', 'time')
-  nnoremap <silent><buffer><expr> d
-  \ defx#do_action('remove')
-  nnoremap <silent><buffer><expr> r
-  \ defx#do_action('rename')
-  nnoremap <silent><buffer><expr> !
-  \ defx#do_action('execute_command')
-  nnoremap <silent><buffer><expr> x
-  \ defx#do_action('execute_system')
-  nnoremap <silent><buffer><expr> yy
-  \ defx#do_action('yank_path')
-  nnoremap <silent><buffer><expr> .
-  \ defx#do_action('toggle_ignored_files')
-  nnoremap <silent><buffer><expr> ;
-  \ defx#do_action('repeat')
-  nnoremap <silent><buffer><expr> h
-  \ defx#do_action('cd', ['..'])
-  nnoremap <silent><buffer><expr> ~
-  \ defx#do_action('cd')
-  nnoremap <silent><buffer><expr> q
-  \ defx#do_action('quit')
-  nnoremap <silent><buffer><expr> <Space>
-  \ defx#do_action('toggle_select') . 'j'
-  nnoremap <silent><buffer><expr> *
-  \ defx#do_action('toggle_select_all')
-  nnoremap <silent><buffer><expr> j
-  \ line('.') == line('$') ? 'gg' : 'j'
-  nnoremap <silent><buffer><expr> k
-  \ line('.') == 1 ? 'G' : 'k'
-  nnoremap <silent><buffer><expr> <C-l>
-  \ defx#do_action('redraw')
-  nnoremap <silent><buffer><expr> <C-g>
-  \ defx#do_action('print')
-  nnoremap <silent><buffer><expr> cd
-  \ defx#do_action('change_vim_cwd')
-endfunction
-
-" ---------------
-" deoplete - no longer used
-" ---------------
 
 " Enable omni completion.
 
@@ -319,6 +205,13 @@ let NERDSpaceDelims=1
 "Toggle comments
 nmap ,c <Leader>c<Leader>
 vmap ,c <Leader>c<Leader>
+" control / mappings don't work having tried options on
+"https://vi.stackexchange.com/questions/26611/is-it-possible-to-map-control-forward-slash-with-vim
+"https://stackoverflow.com/questions/9051837/how-to-map-c-to-toggle-comments-in-vim
+" noremap <C-s-/> <Leader>c<Leader>
+" vnoremap <C-s-/> Leader>c<Leader>
+nmap <C-/>   <Plug>NERDCommenterToggle
+vmap <C-/>   <Plug>NERDCommenterToggle<CR>gv
 
 " ---------------
 " Bbye (Buffer Bye)
@@ -440,7 +333,9 @@ endif
 " coc
 " ---------------
 
-let g:coc_global_extensions = ['coc-powershell', 'coc-html', 'coc-python', 'coc-css', 'coc-json', 'coc-emmet', 'coc-tsserver', 'coc-spell-checker']
+"removed coc-powershell because of the persistent terminal window.
+"removed coc-spell-checker because of the constant prompts in irrelevant files
+let g:coc_global_extensions = ['coc-html', 'coc-python', 'coc-css', 'coc-json', 'coc-emmet', 'coc-tsserver',  'coc-flutter', 'coc-solargraph']
 
 " let g:node_client_debug = 1
 
@@ -449,35 +344,37 @@ let g:coc_global_extensions = ['coc-powershell', 'coc-html', 'coc-python', 'coc-
 set signcolumn=yes
 
 "
-" Settings copied from
-"https://github.com/neoclide/coc.nvim/tree/6c8a2e5875d235d0363bbccb04acf67dbe412995
-"
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+" Settings copied from coc help :h coc-completion-example
+
+
+" Map <tab> for trigger completion, completion confirm, snippet expand and jump
+" like VSCode: >
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+  \ coc#pum#visible() ? coc#_select_confirm() :
+  \ coc#expandableOrJumpable() ?
+  \ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ coc#refresh()
 
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
+let g:coc_snippet_next = '<tab>'
+
 " Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
 inoremap <silent><expr> <c-space> coc#refresh()
 
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-" Or use `complete_info` if your vim support it, like:
-" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
 " nmap <silent> [g <Plug>(coc-diagnostic-prev)
 " nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gt <Plug>(coc-type-definition)
@@ -573,13 +470,18 @@ nnoremap ,f  :CocFix<CR>
 
 " Update time for linting
 set updatetime=300
+
+" Issue of persistent floating windows. Press ESC twice to remove
+" https://www.reddit.com/r/vim/comments/jzjbdd/coc_auto_suggestions_are_stuck_on_the_screen/
+nnoremap <silent> <ESC><ESC> :nohlsearch \| match none \| 2match none \| call coc#float#close_all()<CR>
 "
 "-----------------------------------------
 "FZF and Coc
 "-----------------------------------------
 "https://github.com/junegunn/fzf#search-syntax
 nnoremap ,p  :call fzf#vim#files(0, {'options':'--query=' . expand('%:e') . '$\ '})<CR>
-nnoremap ,F  :Files 
+nnoremap ,f  :Files c:\data\dev\projects<cr>
+nnoremap ,F  :Files c:\data\
 nnoremap ,g  :Rg<CR>
 nnoremap ,G  :call fzf#vim#grep('rg --column --line-number --no-heading --color=always --smart-case ""', 1, {'options':'--exact --delimiter : --nth 4.. --query=<C-r><C-w> +i'})<CR>
 nnoremap ,t  :Tags<CR>
@@ -690,7 +592,7 @@ function! ToggleVerbose()
     set verbosefile=
   endif
 endfunction
-command! -complete=command ToggleVerbose call ToggleVerbose()
+command! -nargs=+ -complete=command ToggleVerbose call ToggleVerbose()
 "-----------------------
 if !exists('*StripTrailingWhitespace')
     function! StripTrailingWhitespace()
@@ -705,7 +607,18 @@ command! Cls call StripTrailingWhitespace()
 cnoreabbrev cls Cls
 cnoreabbrev StripTrailingSpace Cls
 " nnoremap <Leader>s :call StripTrailingWhitespace()
-
+"
+"
+" Search for a string then type :CopyMatches [reg] to copy to clipboard or reg (if 
+" specified
+" https://vim.fandom.com/wiki/Copy_search_matches
+function! CopyMatches(reg)
+  let hits = []
+  %s//\=len(add(hits, submatch(0))) ? submatch(0) : ''/gne
+  let reg = empty(a:reg) ? '+' : a:reg
+  execute 'let @'.reg.' = join(hits, "\n") . "\n"'
+endfunction
+command! -register CopyMatches call CopyMatches(<q-reg>)
 "Autocompletion -----------------------
 "Move in omni pop-up with C-j/k
 function! OmniPopup(action)

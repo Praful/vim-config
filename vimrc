@@ -13,12 +13,16 @@
 " 
 " Used in Windows gvim mainly but works in vim and on Unix-like systems if set up
 " correctly.
+"
+" A quick, sorted, list of slow plugins is produced by:
+"   https://github.com/hyiltiz/vim-plugins-profile
+"
 "=============================================================================
 
 
 " Set environment variables ---------------------------------------------------
-
 if has("win32")
+  let $VIMRUNTIME = $APPS.'/Vim/current/'
   let $PK_VIMFILES = $HOME.'/vimfiles'
 else
   let $PK_VIMFILES = $HOME.'/.vim'
@@ -31,6 +35,13 @@ if (!empty(glob($PK_PLUGINS)))
   source $PK_PLUGINS
 endif
 
+if has("win32")
+  " see DLL installed since vim binary was compiled with ruby 3.0
+  " set rubydll=C:/apps/ruby/3.1.2-1/bin/x64-ucrt-ruby310.dll
+  set rubydll=$APPS/ruby/3.1.2-1/bin/x64-ucrt-ruby310.dll
+  " set pythonthreedll=C:/apps/Python/current/python311.dll
+  set pythonthreedll=$APPS/Python/current/python311.dll
+endif
 
 " Basic options ---------------------------------------------------------------
 
@@ -44,6 +55,13 @@ filetype plugin indent on
 " set all& "reset everything to their defaults
 "
 set encoding=utf-8
+if has("win32")
+  " directx allows coloured emoji; the others are trial and error. See:
+  " https://docs.microsoft.com/en-gb/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createcustomrenderingparams?redirectedfrom=MSDN
+  " https://www.reddit.com/r/vim/comments/2ex6kh/set_renderoptions_windows/
+  set rop=type:directx,contrast:1,level:1,geom:1,renmode:4,taamode:1
+endif
+
 scriptencoding utf-8
 
 set modelines=0
@@ -89,9 +107,7 @@ set backup
   " set shellredir=>
 " endif
 
-" This loads large files with long lines quicker since syntax highlighting isn't
-" attempted up to 3000 characters per line (the default)
-" set synmaxcol=100
+
 "set dictionary=/usr/share/dict/words
 " Use ^x^k to look up word.
 set dictionary=$PK_VIMFILES/UK.dic
@@ -120,7 +136,7 @@ set spelllang=en_gb
 
 "Don't use this if "set relativenumber" is being used.
 set number
-set relativenumber
+" set relativenumber
 
 "Automatically reload a file if it changes - useful for logs
 set autoread 
@@ -144,7 +160,7 @@ autocmd! BufEnter * silent! lcd %:p:h
 " marks, registers, searches, buffer list
 set viminfo='50,<50,s10,h,%
 
-set path=.,.\\**,c:\\data\\dev\\projects\\**
+set path=.,./**,$DATA/dev/projects/**
 
 " Show autocomplete menus.
 set wildmenu
@@ -186,9 +202,16 @@ if has('mouse')
   set mousehide  
 endif
 
+" This loads large files with long lines quicker since syntax highlighting isn't
+" attempted up to 3000 characters per line (the default)
+set synmaxcol=150
+
 if has('syntax') && !exists('g:syntax_on')
   syntax enable
 endif
+
+" Disable syntax highlighting for large files
+autocmd BufWinEnter * if line2byte(line("$") + 1) > 1000000 | syntax clear | endif
 
 " Tabs, spaces, wrapping ---------------------------------------------------------------
 
@@ -247,7 +270,7 @@ command! Thtml set ft=html | execute "%!tidy -q -i -html"
 
 
 set incsearch
-" set hlsearch
+set hlsearch
 set showmatch
 set ignorecase 
 set smartcase 
@@ -395,7 +418,9 @@ if has("autocmd")
 
     "Autosave file when focus is lost; the silent! ignores the error
     "message that appears when a buffer has never been saved before.
-    "autocmd BufLeave,FocusLost * silent! wall
+    "Removed because causes infinite loop if file is read-only permissions
+    autocmd BufLeave * silent! wall
+    " autocmd BufLeave,FocusLost * silent! wall
 
     " When editing a file, always jump to the last known cursor position.
     " Don't do it when the position is invalid or when inside an event handler
@@ -408,6 +433,7 @@ if has("autocmd")
           \ endif
 
     autocmd BufRead,BufNewFile *.md setlocal spell
+    " autocmd BufRead,BufNewFile *.txt setlocal spell
     " Exclude .txt files otherwise vim's help is spell-checked.
     " autocmd BufRead,BufNewFile *.txt setlocal spell
     autocmd BufRead,BufNewFile *.eml setlocal spell
@@ -431,12 +457,6 @@ if !exists(":DiffOrig")
 endif
 
 if has("win32")
-    " for vimtk for python
-    " Fix issue where system() breaks when running from git-bash on win32
-    " set shell=C:\WINDOWS\system32\cmd.exe
-    " set pythonthreedll="C:\apps\Python\latest3-64\python38.dll"
-
-  " source $HOME/mswin.vim
   behave mswin
 endif
 
@@ -502,12 +522,12 @@ nnoremap gy :%y+<cr>
 nnoremap Y y$
 
 " Alt-shift-J: Duplicate line down
-nnoremap <silent> <m-J> mzyyp`zj
+nnoremap <silent> <m-s-j> mzyyp`zj
 
 " Alt-shift-k: Duplicate line up
-nnoremap <silent> <m-K> mzyyp`z
+nnoremap <silent> <m-s-k> mzyyp`z
 
-" Can also use unimpaired for this now: [e and ]e
+" Use unimpaired for this now: [e and ]e
 " Alt-j: Move current line up
 " nnoremap <silent> <m-j> mz:m+<cr>`z==
 " Alt-k: Move current line down
@@ -552,18 +572,22 @@ endif
 if has("gui_running")
   if has("win32")
     " set gfn=DejaVu_Sans_Mono:h9:cANSI
-    set gfn=DejaVu_Sans_Mono_for_Powerline:h9:cANSI
-    " set gfn=DejaVu_Sans_Mono_for_Powerline:h10:cANSI
+    " set gfn=DejaVu_Sans_Mono_for_Powerline:h9:cANSI
+    set gfn=DejaVuSansMono_NF:h9:cANSI
   elseif has('macunix')
     set guifont=DejaVu_Sans_Mono_for_Powerline:h12
   elseif has('unix')
-    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
+    " set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
+    set guifont=DejaVu\ Sans\ Mono\ Nerd\ Font\ Complete\ Mono 10
   endif
 
   colorscheme deep-onyx
 
 else
-  " colorscheme darkblue
+  set termguicolors
+  set gfn=DejaVuSansMono_NF:h9:cANSI
+  " colorscheme slate
+  colorscheme deep-onyx
 endif
 
 " Status line -----------------------------------------------------------------
@@ -604,22 +628,7 @@ if has("win32")
 else
   set tags=~/.vimtags
 end
-"
-" ---------------
-" Denite - no longer used
-" Defx
-" ---------------
 
-" On *nix, remember to run 'sudo -H pip3 install neovim'. May need
-" 'sudo -H pip3 install setuptools' first.
-"
-" Python required for Defx
-if has("win32")
-  let g:python3_host_prog='C:/apps/Python/latest3-64/python.exe'
-else
-  let g:python_host_prog='/usr/bin/python'
-  let g:python3_host_prog='/usr/bin/python3'
-endif
 
 " ---------------
 " deoplete - no longer used
@@ -631,9 +640,15 @@ endif
 " ---------------
 " if exists("g:loaded_airline")
   let g:airline_powerline_fonts = 1
-  let g:airline_theme='bubblegum2'
+" wordcount can slow down opening large text files
+  let g:airline#extensions#wordcount#enabled = 0
+  " let g:airline_theme='bubblegum2'
+  " let g:airline_theme='wombat2'
+  let g:airline_theme='molokai'
   " percent/total lines/current line/current column/hex character code
-  let g:airline_section_z = '%3p%% %L/%#__accent_bold#%4l%#__restore__#:%3c 0x%-3B'
+  " let g:airline_section_z = '%3p%% %L/%#__accent_bold#%4l%#__restore__#:%3c 0x%-3B'
+  " percent current-line/total-lines : current-column 0x hex-character-code
+  let g:airline_section_z = '☰ %3p%% %#__accent_bold#%l%#__restore__#/%L :%#__accent_bold#%3c%#__restore__# 0x%-3B'
 
   " Add character value (%B in hex) to status line"
   let s:def_statusline = '%3p%% %L/%#__accent_bold#%4l%#__restore__#:%3c 0x%-3B'
