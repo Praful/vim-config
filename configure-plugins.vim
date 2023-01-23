@@ -80,7 +80,7 @@ if exists("g:loaded_easytags")
 
   let Tlist_GainFocus_On_ToggleOpen=1
   let Tlist_Use_Right_Window = 1
-  let Tlist_Close_On_Select = 0
+  let Tlist_Close_On_Select = 1
   noremap <leader>tt :TlistToggle<CR>
   "Easytags (enables CTRL=] and CTRL-T) by autotagging
   "set tags=./.tags;,~/.vimtags
@@ -316,8 +316,11 @@ endif
 " ---------------
 " Python
 " ---------------
-" call VimTK_default_remap()
-
+" jupyter-vim: Send current line to jupyter console 
+" nnoremap <buffer> <silent> <F3> :JupyterSendCode getline('.')<CR>
+nnoremap <silent> <F2> :JupyterConnect<CR>
+nnoremap <silent> <C-ENTER> :JupyterSendCode getline('.')<CR>
+vmap <silent> <C-ENTER> <plug>JupyterRunVisual
 " ---------------
 " vim-dragvisual
 " ---------------
@@ -384,7 +387,7 @@ nmap <silent> gr <Plug>(coc-references)
 " Use K to show documentation in preview window
 "
 " set keywordprg=:call\ <SID>show_documentation()<CR>
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> gh :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)

@@ -21,7 +21,7 @@ Plug 'Lokaltog/vim-easymotion'
 " After install, turn shell ~/.vim/bundle/vimproc, (n,g)make -f your_machines_makefile
 Plug 'Shougo/vimproc', {'do': 'make'}
 
-" Plug 'xolox/vim-easytags'
+Plug 'xolox/vim-easytags'
 "required by vim-session
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-shell'
@@ -126,6 +126,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "   pip install pyperclip
 " Plug 'sjl/badwolf'
 " Plug 'Erotemic/vimtk'
+Plug 'jupyter-vim/jupyter-vim'
 
 " Ruby ------------------------------------------------------
 Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}

@@ -41,6 +41,7 @@ if has("win32")
   set rubydll=$APPS/ruby/3.1.2-1/bin/x64-ucrt-ruby310.dll
   " set pythonthreedll=C:/apps/Python/current/python311.dll
   set pythonthreedll=$APPS/Python/current/python311.dll
+  set pythonthreehome=$APPS/Python/current
 endif
 
 " Basic options ---------------------------------------------------------------
@@ -577,8 +578,8 @@ if has("gui_running")
   elseif has('macunix')
     set guifont=DejaVu_Sans_Mono_for_Powerline:h12
   elseif has('unix')
-    " set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
-    set guifont=DejaVu\ Sans\ Mono\ Nerd\ Font\ Complete\ Mono 10
+    " set guifont=DejaVu\ Sans\ Mono\ Nerd\ Font\ Complete\ Mono 10
+    set guifont=DejaVuSansMono\ Nerd\ Font\ Mono\ 10
   endif
 
   colorscheme deep-onyx
