@@ -19,7 +19,7 @@ call plug#begin($PK_VIMFILES.'/vimplug')
 Plug 'Lokaltog/vim-easymotion'
 
 " After install, turn shell ~/.vim/bundle/vimproc, (n,g)make -f your_machines_makefile
-Plug 'Shougo/vimproc', {'do': 'make'}
+" Plug 'Shougo/vimproc', {'do': 'make'}
 
 Plug 'xolox/vim-easytags'
 "required by vim-session
@@ -59,7 +59,7 @@ Plug 'tpope/vim-speeddating'
 
 Plug 'junegunn/fzf', { 'do': './install --all' } | Plug 'junegunn/fzf.vim'
 
-" Plug 'pbogut/fzf-mru.vim'
+Plug 'pbogut/fzf-mru.vim'
 
 " Bbye allows you to delete buffers (close files) without closing your windows or messing up your layout.
 Plug 'moll/vim-bbye'

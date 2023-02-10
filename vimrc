@@ -188,7 +188,11 @@ set guioptions+=egmk
 " This make * the default register, which is used to access the Windows
 " clipboard.
 " The first (unnamedplus) works for Linux and the second for Win32.
-set clipboard^=unnamedplus,unnamed
+" set clipboard^=unnamedplus,unnamed
+" Changed 20230130 for Linux to allow text selected in kitty to be pasted; it get 
+" copied to * reg by xsel (need to sudo apt install xsel).
+" See https://stackoverflow.com/questions/23946289/vim-change-default-paste-register 
+set clipboard^=unnamed
 
 " Allow using the repeat operator with a visual selection (!)
 " http://stackoverflow.com/a/8064607/127816
@@ -478,6 +482,7 @@ nnoremap <leader>ev :e $MYVIMRC<cr>
 nnoremap <leader>ep :e $PK_PLUGINS<cr>
 nnoremap <leader>ec :e $PK_PLUGINS_CONFIG<cr>
 nnoremap <leader>eb :e $HOME/.bashrc<cr>
+nnoremap <leader>ez :e $HOME/.zshrc<cr>
 nnoremap <leader>es :e $DATA/PowerShell/profile.ps1<cr>
 
 " reload vimrc once it's saved (http://vim.wikia.com/wiki/Open_vimrc_file)

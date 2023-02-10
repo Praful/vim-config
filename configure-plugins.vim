@@ -203,8 +203,8 @@ let g:session_lock_enabled = 0
 " ---------------
 let NERDSpaceDelims=1
 "Toggle comments
-nmap ,c <Leader>c<Leader>
-vmap ,c <Leader>c<Leader>
+" nmap ,c <Leader>c<Leader>
+" vmap ,c <Leader>c<Leader>
 " control / mappings don't work having tried options on
 "https://vi.stackexchange.com/questions/26611/is-it-possible-to-map-control-forward-slash-with-vim
 "https://stackoverflow.com/questions/9051837/how-to-map-c-to-toggle-comments-in-vim
@@ -483,22 +483,26 @@ nnoremap <silent> <ESC><ESC> :nohlsearch \| match none \| 2match none \| call co
 "-----------------------------------------
 "https://github.com/junegunn/fzf#search-syntax
 nnoremap ,p  :call fzf#vim#files(0, {'options':'--query=' . expand('%:e') . '$\ '})<CR>
-nnoremap ,f  :Files c:\data\dev\projects<cr>
-nnoremap ,F  :Files c:\data\
+nnoremap ,f  :Files $DATA/dev/projects<cr>
+nnoremap ,F  :Files $DATA/
 nnoremap ,g  :Rg<CR>
 nnoremap ,G  :call fzf#vim#grep('rg --column --line-number --no-heading --color=always --smart-case ""', 1, {'options':'--exact --delimiter : --nth 4.. --query=<C-r><C-w> +i'})<CR>
 nnoremap ,t  :Tags<CR>
 nnoremap ,T  :call fzf#vim#tags('^<C-r><C-w> ', {'options':'--exact +i'})<CR>
-" nnoremap ,b  :Buffers<CR>
+nnoremap ,b  :Buffers<CR>
 " nnoremap ,b  :CocList --strict buffers<CR>
-nnoremap ,b  :CocList buffers<CR>
+" nnoremap ,b  :CocList buffers<CR>
 " nnoremap ,w  :Windows<CR>
 nnoremap ,w  :CocList words<CR>
 " nnoremap ,m  :History<CR>
-" nnoremap ,m  :FZFMru<CR>
-nnoremap ,m  :CocList mru -A<CR>
+nnoremap ,m  :FZFMru<CR>
+" nnoremap ,m  :CocList mru -A<CR>
 " nnoremap ,m  :CocList --strict mru -A<CR>
+" command history; similar to :<c-f> but uses FZF
+nnoremap ,c :History:<CR> 
 nnoremap <leader>m :History<CR>
+" search history via FZF
+nnoremap <leader>/ :History/<CR>
 
 "
 
