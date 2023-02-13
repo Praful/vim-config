@@ -11,6 +11,13 @@
 " vim-plug, which is simple and just works (so far!).
 "=============================================================================
 
+" automate installation of vimplug
+"
+" let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob($PK_VIMFILES . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.$PK_VIMFILES.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
 call plug#begin($PK_VIMFILES.'/vimplug')
 
@@ -57,7 +64,8 @@ Plug 'sickill/vim-pasta'
 Plug 'tpope/vim-speeddating'
 " Plug "atweiden/vim-dragvisuals")
 
-Plug 'junegunn/fzf', { 'do': './install --all' } | Plug 'junegunn/fzf.vim'
+" Plug 'junegunn/fzf', { 'do': './install --all' } | Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
 Plug 'pbogut/fzf-mru.vim'
 
