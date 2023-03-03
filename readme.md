@@ -1,8 +1,17 @@
 This repository contains my Vim config files. I keep them on GitHub so that I can download them onto whichever computer I'm using.
 
-I've made the repository public so that others can look at the files. There's nothing special about them. I put them here for those few people who like to browse other people's Vim config files in the hope that they may learn something. I learnt more about Vim by looking at vimrc files of those with greater experience.
+I've made the repository public so that others can look at the files. There's nothing special about them. I put them here for those few people who like to browse other people's Vim config files in the hope that they may learn something. I learnt more about Vim by looking at `vimrc` files of those with greater experience.
 
 Do not use these files as they are! They're customised for my requirements and yours will be different. The files will just make Vim confusing for you, especially if you're learning! 
+
+More recently (Mar 2023) I restructured the git repository so that it mirrors the vim folder structure. Therefore, once cloned, the repository can be copied to `.vim` or `vimfiles` folder as is. I use this config on Windows 10/11 and Linux Mint.
+
+My configuration and the plugins I use require the following to be present:
+- [ctags](https://github.com/universal-ctags/ctags): add to path.
+- [node](https://nodejs.org/en/download/): required by neoclide/coc.nvim.
+- [fzf](https://github.com/junegunn/fzf.vim): add to path
+- [ripgrep](https://github.com/BurntSushi/ripgrep): add to path
+- [Deja Vu Sans Mono Nerd Font](https://www.nerdfonts.com/font-downloads): my default font for Vim, VS Code, Windows Terminal, Kitty and anywhere else where I prefer a fixed width font. The Nerd Font variant has extra characters used by my Vim and [oh-my-posh](https://ohmyposh.dev/docs/) configs.
 
 # vimrc
 
@@ -29,7 +38,7 @@ Some of the more possibly interesting mappings are:
 
 The `plugins.vim` file contains the plugins I use. Again, don't use this file! However, it may give you some ideas about plugins to explore if your needs are not met by Vim alone.
 
-If I had the time, I'd probably remove some of these plugins because I know Vim better now. However, for me, there is little downside including the plugins. I did a quick test loading a 600MB text file with and without plugins and there was little difference on Windows 10 if GVim was running. I always have GVim running but I rarely edit 600MB files!
+If I had the time, I'd probably remove some of these plugins because I know Vim better now. However, for me, there is little downside including the plugins. I did a quick test loading a 600MB text file with and without plugins and there was little difference on Windows 10 if GVim was running. I always have GVim running but I rarely edit 600MB files! On Linux, GVim and vim load almost instantly.
 
 If you're starting to learn Vim, I'd suggest you don't use any plugins. Exploring, installing and configuring Vim plugins is a rabbit hole that will eat into your time and distract you from your goal, which is, presumably, editing text! Focus on learning Vim commands. You may find my [cheatsheet](https://github.com/Praful/vim-cheatsheet) a useful memory aid.
 
@@ -37,7 +46,7 @@ If you're tempted to install a plugin, search Vim's help or the web. If I knew w
 
 On modern computers (mine are four years old as I write this), Vim is fast even with the 54 plugins I have (some are loaded on demand). My desktop is an i7 (Skylake) with 32GB RAM and my laptop has an i7 (mobile Skylake) and 16GB RAM. I doubled the RAM of both two years ago given how inexpensive it is and the benefit it gives. These specs make Windows 10 fast for me. If you're using Linux or macOS, another spec may be optimal. My ten-year old Linux laptop has only 5GB and is too slow for my liking. That said the CPU is ancient!
 
-If you're a developer (especially editing JavaScript/HTML/CSS) and don't want to use a full-blown IDE, consider using VS Code with the Vim plugin. There are development features that you could spend considerable time configuring in Vim that ship with VS Code. If you do need to use plugins in VS Code, it's generally a better experience than Vim, especially since plugins are part of VS Code's design. With Vim, plugins are generally fine but I get the impression that they were more of an afterthought rather than an integral part of Vim's design. For comparison, on my PCs, VS Code loads in less than a second and is generally fast.
+If you're a developer (especially editing JavaScript/HTML/CSS) and don't want to use a full-blown IDE, consider using [VS Code](https://code.visualstudio.com) with the Vim plugin. There are development features that you could spend considerable time configuring in Vim that ship with VS Code. If you do need to use plugins in VS Code, it's generally a better experience than Vim, especially since plugins are part of VS Code's design. With Vim, plugins are generally fine but I get the impression that they were more of an afterthought rather than an integral part of Vim's design. For comparison, on my PCs (Intel i7 6700K), VS Code loads in less than a second and is generally fast.
 
 # configure-plugins.vim
 
