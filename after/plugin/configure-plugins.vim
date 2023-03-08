@@ -651,3 +651,6 @@ inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 inoremap <silent><C-ENTER> <C-R>=OmniPopup('r')<CR>
 
 "-----------------------
+" auto-format plugin
+" let g:python3_host_prog="/usr/bin/python3"
+noremap <F4> :Autoformat<CR>
