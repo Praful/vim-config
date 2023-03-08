@@ -425,7 +425,7 @@ if has("autocmd")
     "message that appears when a buffer has never been saved before.
     "Removed because causes infinite loop if file is read-only permissions
     autocmd BufLeave * silent! wall
-    " autocmd BufLeave,FocusLost * silent! wall
+    autocmd BufLeave,FocusLost * silent! wall
 
     " When editing a file, always jump to the last known cursor position.
     " Don't do it when the position is invalid or when inside an event handler
@@ -584,7 +584,7 @@ if has("gui_running")
     set guifont=DejaVu_Sans_Mono_for_Powerline:h12
   elseif has('unix')
     " set guifont=DejaVu\ Sans\ Mono\ Nerd\ Font\ Complete\ Mono 10
-    set guifont=DejaVuSansMono\ Nerd\ Font\ Mono\ 10
+    set guifont=DejaVuSansMono\ Nerd\ Font\ Mono\ 9
   endif
 
   colorscheme deep-onyx
