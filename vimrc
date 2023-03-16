@@ -584,7 +584,7 @@ if has("gui_running")
     set guifont=DejaVu_Sans_Mono_for_Powerline:h12
   elseif has('unix')
     " set guifont=DejaVu\ Sans\ Mono\ Nerd\ Font\ Complete\ Mono 10
-    set guifont=DejaVuSansMono\ Nerd\ Font\ Mono\ 9
+    set guifont=DejaVuSansMono\ Nerd\ Font\ Mono\ 11
   endif
 
   colorscheme deep-onyx

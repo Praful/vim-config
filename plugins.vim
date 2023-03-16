@@ -64,8 +64,8 @@ Plug 'sickill/vim-pasta'
 Plug 'tpope/vim-speeddating'
 " Plug "atweiden/vim-dragvisuals")
 
-" Plug 'junegunn/fzf', { 'do': './install --all' } | Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 Plug 'pbogut/fzf-mru.vim'
 
