@@ -421,9 +421,16 @@ if has("autocmd")
     " see http://stackoverflow.com/questions/15353988/progressively-slower-reloading-time-of-vimrc
     autocmd!
 
+    " Set readonly files to also be non-modifiable by default, and others to be modifiable by default.
+    " https://groups.google.com/g/vim_use/c/gpRquKx-HGI?pli=1
+    " This allows the autosave when focus is lost below by stopping us changing 
+    " a readonly file in the first place.
+    autocmd BufRead,BufWinEnter * if &ft!='qf' | let &l:modifiable = (&readonly ? 0 : 1) | endif
+
     "Autosave file when focus is lost; the silent! ignores the error
     "message that appears when a buffer has never been saved before.
-    "Removed because causes infinite loop if file is read-only permissions
+    "- Removed because it causes infinite loop if file is read-only 
+    "- 20230627 - re-enabled by adding above autocmd to stop readonly files being changed 
     autocmd BufLeave * silent! wall
     autocmd BufLeave,FocusLost * silent! wall
 
