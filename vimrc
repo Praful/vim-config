@@ -456,7 +456,16 @@ if has("autocmd")
 endif 
 
 " Open in VS code
-:command! OpenInVSCode exe "silent !\"C:/Program Files/Microsoft VS Code/Code.exe\" --goto " . expand("%") . ":" . line(".") . ":" . col(".")  | redraw!
+"
+
+if has("win32")
+  let $vscode = "C:/Program Files/Microsoft VS Code/Code.exe"
+else
+  let $vscode = "/usr/bin/code"
+endif
+
+:command! OpenInVSCode exe "silent !\"" . $vscode . "\" --goto " . expand("%") . ":" . line(".") . ":" . col(".")  | redraw!
+
 nnoremap <c-F10> :OpenInVSCode<CR>
 inoremap <c-F10> :OpenInVSCode<CR>
 
