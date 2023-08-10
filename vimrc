@@ -599,8 +599,11 @@ if has("gui_running")
   elseif has('macunix')
     set guifont=DejaVu_Sans_Mono_for_Powerline:h12
   elseif has('unix')
-    " set guifont=DejaVu\ Sans\ Mono\ Nerd\ Font\ Complete\ Mono 10
-    set guifont=DejaVuSansMono\ Nerd\ Font\ Mono\ 11
+    if IsOnHost('portegez30')
+      set guifont=DejaVuSansMono\ Nerd\ Font\ Mono\ 11
+    else
+      set guifont=DejaVuSansMono\ Nerd\ Font\ Mono\ 9.5
+    endif
   endif
 
   colorscheme deep-onyx
@@ -682,5 +685,9 @@ end
 "make Y consistent with C and D on yankring
 function! YRRunAfterMaps()
   nnoremap <silent> Y   :<C-U>YRYankCount 'y$'<CR>
+endfunction
+
+function! IsOnHost(hostname)
+    return match(system("echo -n $HOST"), a:hostname) >= 0
 endfunction
 " End of vimrc =====================================================================
