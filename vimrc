@@ -19,6 +19,9 @@
 "
 "=============================================================================
 
+function! IsOnHost(hostname)
+    return match(system("echo -n $HOST"), a:hostname) >= 0
+endfunction
 
 " Set environment variables ---------------------------------------------------
 if has("win32")
@@ -687,7 +690,4 @@ function! YRRunAfterMaps()
   nnoremap <silent> Y   :<C-U>YRYankCount 'y$'<CR>
 endfunction
 
-function! IsOnHost(hostname)
-    return match(system("echo -n $HOST"), a:hostname) >= 0
-endfunction
 " End of vimrc =====================================================================
