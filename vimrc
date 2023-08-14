@@ -602,7 +602,7 @@ if has("gui_running")
   elseif has('macunix')
     set guifont=DejaVu_Sans_Mono_for_Powerline:h12
   elseif has('unix')
-    if IsOnHost('portegez30')
+    if IsOnHost('portegez30-mint')
       set guifont=DejaVuSansMono\ Nerd\ Font\ Mono\ 11
     else
       set guifont=DejaVuSansMono\ Nerd\ Font\ Mono\ 9.5
