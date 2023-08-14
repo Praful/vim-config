@@ -20,7 +20,7 @@
 "=============================================================================
 
 function! IsOnHost(hostname)
-    return match(system("echo -n $HOST"), a:hostname) >= 0
+    return match(system("echo -n $HOST"), '^'.a:hostname.'$') >= 0
 endfunction
 
 " Set environment variables ---------------------------------------------------
@@ -596,8 +596,6 @@ endif
 
 if has("gui_running")
   if has("win32")
-    " set gfn=DejaVu_Sans_Mono:h9:cANSI
-    " set gfn=DejaVu_Sans_Mono_for_Powerline:h9:cANSI
     set gfn=DejaVuSansMono_NF:h9:cANSI
   elseif has('macunix')
     set guifont=DejaVu_Sans_Mono_for_Powerline:h12
@@ -605,7 +603,7 @@ if has("gui_running")
     if IsOnHost('portegez30-mint')
       set guifont=DejaVuSansMono\ Nerd\ Font\ Mono\ 11
     else
-      set guifont=DejaVuSansMono\ Nerd\ Font\ Mono\ 9.5
+      set guifont=DejaVuSansMono\ Nerd\ Font\ Mono\ 9
     endif
   endif
 
