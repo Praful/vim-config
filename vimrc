@@ -47,6 +47,13 @@ if has("win32")
   set pythonthreehome=$APPS/Python/current
 endif
 
+
+" if has("win32")
+behave mswin
+" this has shortcuts like c-x, c-insert. Use for Linux too
+so $VIMRUNTIME/mswin.vim
+" endif
+
 " Basic options ---------------------------------------------------------------
 
 " In general, you don't need this because if a (g)vimrc is found in the 
@@ -480,9 +487,6 @@ if !exists(":DiffOrig")
         \ | wincmd p | diffthis
 endif
 
-if has("win32")
-  behave mswin
-endif
 
 " Misc leader keys and other mappings --------------------------------------
 
