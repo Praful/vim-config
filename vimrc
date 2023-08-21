@@ -49,9 +49,9 @@ endif
 
 
 " if has("win32")
-behave mswin
+" behave mswin -> in mwswin-personal
 " this has shortcuts like c-x, c-insert. Use for Linux too
-so $VIMRUNTIME/mswin.vim
+so $PK_VIMFILES/mswin-personal.vim
 " endif
 
 " Basic options ---------------------------------------------------------------
