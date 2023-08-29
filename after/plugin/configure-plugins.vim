@@ -318,6 +318,10 @@ endif
 " ---------------
 " jupyter-vim: Send current line to jupyter console 
 " nnoremap <buffer> <silent> <F3> :JupyterSendCode getline('.')<CR>
+"
+" let g:jupyter_highlight_cells=1
+" let g:jupyter_cell_separators=''
+
 nnoremap <silent> <F2> :JupyterConnect<CR>
 nnoremap <silent> <C-ENTER> :JupyterSendCode getline('.')<CR>
 vmap <silent> <C-ENTER> <plug>JupyterRunVisual
@@ -652,5 +656,6 @@ inoremap <silent><C-ENTER> <C-R>=OmniPopup('r')<CR>
 
 "-----------------------
 " auto-format plugin
-" let g:python3_host_prog="/usr/bin/python3"
+" let g:python3_host_prog="/usr/bin/python"
+" let g:python3_host_prog="/home/praful/.pyenv/shims/python3"
 noremap <F4> :Autoformat<CR>
