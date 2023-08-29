@@ -38,10 +38,10 @@ if has("clipboard")
     vnoremap <C-Insert> "+y
 
     " CTRL-V and SHIFT-Insert are Paste
-    map <C-V>		"+gP
+    " map <C-V>		"+gP
     map <S-Insert>		"+gP
 
-    cmap <C-V>		<C-R>+
+    " cmap <C-V>		<C-R>+
     cmap <S-Insert>		<C-R>+
 endif
 
@@ -51,13 +51,13 @@ endif
 " Uses the paste.vim autoload script.
 " Use CTRL-G u to have CTRL-Z only undo the paste.
 
-if 1
-    exe 'inoremap <script> <C-V> <C-G>u' . paste#paste_cmd['i']
-    exe 'vnoremap <script> <C-V> ' . paste#paste_cmd['v']
-endif
+" if 1
+    " exe 'inoremap <script> <C-V> <C-G>u' . paste#paste_cmd['i']
+    " exe 'vnoremap <script> <C-V> ' . paste#paste_cmd['v']
+" endif
 
-imap <S-Insert>		<C-V>
-vmap <S-Insert>		<C-V>
+" imap <S-Insert>		<C-V>
+" vmap <S-Insert>		<C-V>
 
 " Use CTRL-Q to do what CTRL-V used to do
 noremap <C-Q>		<C-V>
