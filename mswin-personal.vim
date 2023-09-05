@@ -56,8 +56,8 @@ endif
     " exe 'vnoremap <script> <C-V> ' . paste#paste_cmd['v']
 " endif
 
-" imap <S-Insert>		<C-V>
-" vmap <S-Insert>		<C-V>
+imap <S-Insert>		<C-R>+
+vmap <S-Insert>		<C-R>+
 
 " Use CTRL-Q to do what CTRL-V used to do
 noremap <C-Q>		<C-V>
