@@ -90,6 +90,10 @@ Plug 'xolox/vim-session'
 Plug 'Raimondi/delimitMate'
 
 " General language plugins ------------------------------------------------------ 
+
+" Like Github copilot
+Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
+
 " Plug 'sheerun/vim-polyglot'
 Plug 'vim-autoformat/vim-autoformat'
 
