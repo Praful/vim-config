@@ -41,6 +41,7 @@ Plug 'xolox/vim-shell'
 Plug 'qpkorr/vim-bufkill'
 
 " UI Additions ------------------------------------------------------
+" Plug 'junegunn/seoul256.vim' 
 Plug 'bling/vim-airline'
 
 " Open File Explorer or command prompt using gof/got (file's dir) or goF/goT (working 

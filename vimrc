@@ -612,12 +612,15 @@ if has("gui_running")
   endif
 
   colorscheme deep-onyx
+  " let g:seoul256_background = 235
+  " colorscheme seoul256
 
 else
   set termguicolors
   set gfn=DejaVuSansMono_NF:h9:cANSI
   " colorscheme slate
   colorscheme deep-onyx
+
 endif
 
 " Status line -----------------------------------------------------------------
