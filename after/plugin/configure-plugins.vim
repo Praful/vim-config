@@ -337,6 +337,10 @@ endif
 nnoremap <silent> <F2> :JupyterConnect<CR>
 nnoremap <silent> <C-ENTER> :JupyterSendCode getline('.')<CR>
 vmap <silent> <C-ENTER> <plug>JupyterRunVisual
+
+let g:slime_target = "kitty"
+let g:slime_bracketed_paste = 1
+
 " ---------------
 " vim-dragvisual
 " ---------------
@@ -454,7 +458,6 @@ nmap <leader>cl  <Plug>(coc-codelens-action)
 " provide custom statusline: lightline.vim, vim-airline
 " set statusline+=%3{codeium#GetStatusString()}
 set statusline+=%{coc#status()}%{get(b:,'coc_current_function','')}
-
 
 " Mappings for CoCList
 " Show all diagnostics

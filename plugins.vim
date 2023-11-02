@@ -140,7 +140,9 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "   pip install pyperclip
 " Plug 'sjl/badwolf'
 " Plug 'Erotemic/vimtk'
+
 Plug 'jupyter-vim/jupyter-vim'
+Plug 'jpalardy/vim-slime'
 
 " Ruby ------------------------------------------------------
 Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
