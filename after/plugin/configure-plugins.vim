@@ -360,6 +360,12 @@ let g:codeium_no_map_tab = v:true
 " use c-o, which we also use in zsh to accept suggestion
 imap <script><silent><nowait><expr> <C-o> codeium#Accept()
 
+" Set URL of Tabby server
+" didn't work well; try again when it matures
+" let g:tabby_server_url = 'http://127.0.0.1:8080'
+" let g:tabby_accept_binding = '<C-O>'
+" let g:tabby_dismiss_binding = '<C-]>'
+
 " ---------------
 " coc
 " ---------------

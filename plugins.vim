@@ -93,7 +93,15 @@ Plug 'Raimondi/delimitMate'
 " General language plugins ------------------------------------------------------ 
 
 " Like Github copilot
+"   Clear current suggestion C-]
+"   Next suggestion	<M-]
+"   Previous suggestion	<M-[
+"   Insert suggestion	<Tab>
+"   Manually trigger suggestion	<M-Bslash>
 Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
+
+" Add this to the vim-plug config
+" Plug 'TabbyML/tabby', {'rtp': 'clients/vim'}
 
 " Plug 'sheerun/vim-polyglot'
 Plug 'vim-autoformat/vim-autoformat'
