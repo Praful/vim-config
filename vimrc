@@ -78,8 +78,8 @@ scriptencoding utf-8
 set modelines=0
 set showmode
 set showcmd
-" allows new buffer to be created in current window without prompting you to save current buffer
-set hidden 
+" hidden allows new buffer to be created in current window without prompting you to save current buffer
+" set hidden 
 "Disable ALT-menu keys so that eg ALT-H (m-h) can be remapped"
 set winaltkeys=no 
 set visualbell
