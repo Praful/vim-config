@@ -322,6 +322,9 @@ nnoremap <silent> # #zz
 nnoremap <silent> g* g*zz
 nnoremap <silent> g# g#zz
 
+" search for selected text
+vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
+
 " Movement, buffers and windows ---------------------------------------------------------------
 
 set splitbelow
@@ -506,6 +509,7 @@ nnoremap <leader>ep :e $PK_PLUGINS<cr>
 nnoremap <leader>ec :e $PK_PLUGINS_CONFIG<cr>
 nnoremap <leader>eb :e $HOME/.bashrc<cr>
 nnoremap <leader>ez :e $HOME/.zshrc<cr>
+nnoremap <leader>em :e $HOME/.commonrc<cr>
 nnoremap <leader>es :e $DATA/PowerShell/profile.ps1<cr>
 
 " reload vimrc once it's saved (http://vim.wikia.com/wiki/Open_vimrc_file)
