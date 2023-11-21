@@ -100,7 +100,7 @@ Plug 'Raimondi/delimitMate'
 "   Manually trigger suggestion	<M-Bslash>
 Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
 
-" Add this to the vim-plug config
+" not mature enough yet
 " Plug 'TabbyML/tabby', {'rtp': 'clients/vim'}
 
 " Plug 'sheerun/vim-polyglot'
@@ -148,9 +148,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "   pip install pyperclip
 " Plug 'sjl/badwolf'
 " Plug 'Erotemic/vimtk'
-
 Plug 'jupyter-vim/jupyter-vim'
-Plug 'jpalardy/vim-slime'
 
 " Ruby ------------------------------------------------------
 Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
