@@ -420,8 +420,13 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 " GoTo code navigation
 nmap <silent> gd <Plug>(coc-definition)
 " nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+nmap <silent>gi<Plug>(coc-implementation)
+nmap <silent>gr<Plug>(coc-references)
+
+" show methods
+nmap <leader>gm :CocList outline methods<cr>
+" show symbols in all indexed files
+nmap <leader>ga :CocList symbols<cr>
 
 
 " Use K to show documentation in preview window
