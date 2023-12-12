@@ -133,12 +133,6 @@ endif
 " noremap <leader>q :BD<CR>
 nnoremap Q :BD<CR>
 
-" ---------------
-" Grepper
-" ---------------
-nnoremap <leader>g :Grepper<cr>
-let g:grepper = { 'next_tool': '<leader>g' }
-let g:grepper.tools = ['git', 'rg', 'ag', 'grep']
 
 " ---------------
 " Unimpaired
@@ -501,10 +495,27 @@ nnoremap <silent> <ESC><ESC> :nohlsearch \| match none \| 2match none \| call co
 nnoremap ,p  :call fzf#vim#files(0, {'options':'--query=' . expand('%:e') . '$\ '})<CR>
 nnoremap ,f  :Files $DATA/dev/projects<cr>
 nnoremap ,F  :Files $DATA/
-nnoremap ,g  :Rg<CR>
-nnoremap ,G  :call fzf#vim#grep('rg --column --line-number --no-heading --color=always --smart-case ""', 1, {'options':'--exact --delimiter : --nth 4.. --query=<C-r><C-w> +i'})<CR>
-nnoremap ,t  :Tags<CR>
-nnoremap ,T  :call fzf#vim#tags('^<C-r><C-w> ', {'options':'--exact +i'})<CR>
+
+"Rg2 allows :Rg2 <search> <dir>
+" https://github.com/junegunn/fzf.vim/issues/837
+command! -bang -nargs=* RgDir
+  \ call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".<q-args>, 1, {'dir': system('git -C '.expand('%:p:h').' rev-parse --show-toplevel 2> /dev/null')[:-2]}, <bang>0)
+
+"Rg3 allows :Rgf <search> <dir> with preview and allows dir completion using <tab> key
+" eg Rgf bfs $DATA<tab>
+command! -bang -nargs=* -complete=file Rg3
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.<q-args>, 1,
+  \   fzf#vim#with_preview({
+  \     'dir': system('git -C '.expand('%:p:h').' rev-parse --show-toplevel 2> /dev/null')[:-2]
+  \   }), <bang>0)
+
+nnoremap ,g  :Rg3 
+
+" tags in current buffer
+nnoremap ,t  :BTags<CR>
+" tags for project
+nnoremap ,T  :Tags
 nnoremap ,b  :Buffers<CR>
 " nnoremap ,b  :CocList --strict buffers<CR>
 " nnoremap ,b  :CocList buffers<CR>

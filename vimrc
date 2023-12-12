@@ -304,7 +304,8 @@ if executable('pt')
   set grepformat=%f:%l:%c:%m
 endif
 if executable('rg')
-  set grepprg=rg\ --vimgrep\ --smart-case\ --follow
+  " set grepprg=rg\ --vimgrep\ --smart-case\ --follow
+  set grepprg=rg\ --vimgrep\ --smart-case\ --follow\ --color=never
   set grepformat=%f:%l:%c:%m
 endif
 

@@ -73,10 +73,6 @@ Plug 'pbogut/fzf-mru.vim'
 " Bbye allows you to delete buffers (close files) without closing your windows or messing up your layout.
 Plug 'moll/vim-bbye'
 
-" Automatic Helpers ------------------------------------------------------
-" https://github.com/mhinz/vim-grepper/wiki/example-configurations-and-mappings
-Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
-
 "Tells you where you search: at match n out of m matches. Freeze plugin because it 
 "overwrites \\. We're not missing any updates: plugin was last updated 9 years ago.
 "Update: no longer frozen because I've put post-plugin config in 
@@ -134,7 +130,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "   :CocInstall coc-yank
 "   :CocInstall coc-flutter
 "or
-"   :CocInstall coc-tsserver coc-html coc-css coc-json coc-emmet coc-python coc-powershell coc-lists coc-yank coc-spell-checker coc-pyright
+"   :CocInstall coc-tsserver coc-html coc-css coc-json coc-emmet coc-powershell coc-lists coc-yank coc-spell-checker coc-pyright
 
 " <leader>j  - Norma/visual: go to any variable/class/constant/name/symbol 
 " <leader>ab - Normal mode: open previous opened file (after jump)
