@@ -146,6 +146,9 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'Erotemic/vimtk'
 Plug 'jupyter-vim/jupyter-vim'
 
+Plug 'jpalardy/vim-slime'
+
+
 " Ruby ------------------------------------------------------
 Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
 

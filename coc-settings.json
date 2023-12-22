@@ -9,4 +9,5 @@
   ],
   "coc.preferences.formatOnPaste": true,
   "inlayHint.enable": false
+  "python.pythonPath": "/home/praful/.pyenv/shims/python",
 }
