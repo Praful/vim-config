@@ -329,11 +329,17 @@ endif
 " let g:jupyter_cell_separators=''
 
 nnoremap <silent> <F2> :JupyterConnect<CR>
-nnoremap <silent> <C-ENTER> :JupyterSendCode getline('.')<CR>
-vmap <silent> <C-ENTER> <plug>JupyterRunVisual
+" nnoremap <silent> <C-ENTER> :JupyterSendCode getline('.')<CR>
+" vmap <silent> <C-ENTER> <plug>JupyterRunVisual
+
+" disable default slime mapping
+let g:slime_no_mappings = 1
 
 let g:slime_target = "kitty"
 let g:slime_bracketed_paste = 1
+nmap <silent> <C-ENTER> :SlimeSendCurrentLine<cr>
+" send selected text to terminal
+xmap <silent> <C-ENTER> <Plug>SlimeRegionSend
 
 " ---------------
 " vim-dragvisual
