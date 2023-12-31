@@ -320,26 +320,42 @@ if exists("g:EasyMotion_loaded")
 endif
 
 " ---------------
-" Python
+" Send to terminal
 " ---------------
+function! CustomSlimConfig()
+  :SlimConfig
+  let g:slime_default_config = b:slime_config
+  let g:slime_dont_ask_default = 1
+
+  " Display a message (optional)
+  echo "SlimConfig executed"
+endfunction
+
+" Map F2 to the custom function
+nnoremap <F2> :call CustomSlimConfig()<CR>
+
+
 " jupyter-vim: Send current line to jupyter console 
 " nnoremap <buffer> <silent> <F3> :JupyterSendCode getline('.')<CR>
 "
 " let g:jupyter_highlight_cells=1
 " let g:jupyter_cell_separators=''
 
-nnoremap <silent> <F2> :JupyterConnect<CR>
+" nnoremap <silent> <F2> :JupyterConnect<CR>
+nnoremap <silent> <F2> :SlimeConfig<CR>
 " nnoremap <silent> <C-ENTER> :JupyterSendCode getline('.')<CR>
 " vmap <silent> <C-ENTER> <plug>JupyterRunVisual
 
 " disable default slime mapping
 let g:slime_no_mappings = 1
+" let g:slime_dont_ask_default = 1
 
 let g:slime_target = "kitty"
 let g:slime_bracketed_paste = 1
 nmap <silent> <C-ENTER> :SlimeSendCurrentLine<cr>
 " send selected text to terminal
 xmap <silent> <C-ENTER> <Plug>SlimeRegionSend
+
 
 " ---------------
 " vim-dragvisual

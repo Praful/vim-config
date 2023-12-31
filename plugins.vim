@@ -102,6 +102,8 @@ Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
 " Plug 'sheerun/vim-polyglot'
 Plug 'vim-autoformat/vim-autoformat'
 
+Plug 'fladson/vim-kitty'
+
 " unit testing
 " Plug 'janko-m/vim-test'
 
