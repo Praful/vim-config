@@ -322,19 +322,26 @@ endif
 " ---------------
 " Send to terminal
 " ---------------
-function! CustomSlimConfig()
-  :SlimConfig
-  let g:slime_default_config = b:slime_config
+" Calls SlimeConfig then makes the setting the same for all buffers and 
+" doesn't ask again.
+function! CustomSlimeConfig()
+  SlimeConfig
   let g:slime_dont_ask_default = 1
-
-  " Display a message (optional)
-  echo "SlimConfig executed"
+  let g:slime_default_config = b:slime_config
+  " echo "SlimeConfig executed"
 endfunction
 
-" Map F2 to the custom function
-nnoremap <F2> :call CustomSlimConfig()<CR>
+nnoremap <F2> :call CustomSlimeConfig()<CR>
 
+" disable default slime mapping
+let g:slime_no_mappings = 1
+let g:slime_target = "kitty"
+let g:slime_bracketed_paste = 1
+nmap <silent> <C-ENTER> :SlimeSendCurrentLine<cr>
+" send selected text to terminal
+xmap <silent> <C-ENTER> <Plug>SlimeRegionSend
 
+" Previousl used jupyter-vim; replaced by slime above
 " jupyter-vim: Send current line to jupyter console 
 " nnoremap <buffer> <silent> <F3> :JupyterSendCode getline('.')<CR>
 "
@@ -342,21 +349,9 @@ nnoremap <F2> :call CustomSlimConfig()<CR>
 " let g:jupyter_cell_separators=''
 
 " nnoremap <silent> <F2> :JupyterConnect<CR>
-nnoremap <silent> <F2> :SlimeConfig<CR>
 " nnoremap <silent> <C-ENTER> :JupyterSendCode getline('.')<CR>
 " vmap <silent> <C-ENTER> <plug>JupyterRunVisual
-
-" disable default slime mapping
-let g:slime_no_mappings = 1
-" let g:slime_dont_ask_default = 1
-
-let g:slime_target = "kitty"
-let g:slime_bracketed_paste = 1
-nmap <silent> <C-ENTER> :SlimeSendCurrentLine<cr>
-" send selected text to terminal
-xmap <silent> <C-ENTER> <Plug>SlimeRegionSend
-
-
+"
 " ---------------
 " vim-dragvisual
 " ---------------
