@@ -333,9 +333,10 @@ endfunction
 
 nnoremap <F2> :call CustomSlimeConfig()<CR>
 
-let g:slime_dont_ask_default = 1
+" set deafult kitty tab for slime output from env vars; assumes vim launched from 
+" that kitty tab so that the env vars are set 
 let g:slime_default_config = {'window_id': $KITTY_WINDOW_ID, 'listen_on': $KITTY_LISTEN_ON}
-
+let g:slime_dont_ask_default = 1
 " disable default slime mapping
 let g:slime_no_mappings = 1
 let g:slime_target = "kitty"

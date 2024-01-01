@@ -509,8 +509,9 @@ nnoremap <leader>ev :e $MYVIMRC<cr>
 nnoremap <leader>ep :e $PK_PLUGINS<cr>
 nnoremap <leader>ec :e $PK_PLUGINS_CONFIG<cr>
 nnoremap <leader>eb :e $HOME/.bashrc<cr>
-nnoremap <leader>ez :e $HOME/.zshrc<cr>
-nnoremap <leader>em :e $HOME/.commonrc<cr>
+nnoremap <leader>ez :e $ZDOTDIR/.zshrc<cr>
+nnoremap <leader>em :e $HOME/.common_environment<cr>
+nnoremap <leader>ea :e $HOME/.common_aliases<cr>
 nnoremap <leader>es :e $DATA/PowerShell/profile.ps1<cr>
 
 " reload vimrc once it's saved (http://vim.wikia.com/wiki/Open_vimrc_file)
