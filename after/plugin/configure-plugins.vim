@@ -333,6 +333,9 @@ endfunction
 
 nnoremap <F2> :call CustomSlimeConfig()<CR>
 
+let g:slime_dont_ask_default = 1
+let g:slime_default_config = {'window_id': $KITTY_WINDOW_ID, 'listen_on': $KITTY_LISTEN_ON}
+
 " disable default slime mapping
 let g:slime_no_mappings = 1
 let g:slime_target = "kitty"
