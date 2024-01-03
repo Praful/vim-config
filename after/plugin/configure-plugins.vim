@@ -368,6 +368,9 @@ xmap <silent> <C-ENTER> <Plug>SlimeRegionSend
 " vmap   <expr> D  DVB_Duplicate()
 "
 " ---------------
+"  LLMs:
+"
+"
 " codeium
 "
 " disable tab mapping since coc uses it
@@ -380,6 +383,61 @@ imap <script><silent><nowait><expr> <C-o> codeium#Accept()
 " let g:tabby_server_url = 'http://127.0.0.1:8080'
 " let g:tabby_accept_binding = '<C-O>'
 " let g:tabby_dismiss_binding = '<C-]>'
+
+" vim_ai
+" https://github.com/madox2/vim-ai?tab=readme-ov-file
+
+" :AIChat works but is very slow. Disable for now.
+" let g:vim_ai_chat = {
+"
+" \  "options": {
+" \    "model": "gpt-3.5-turbo",
+" \    "endpoint_url": "http://localhost:8080/v1/chat/completions",
+" \    "temperature": 1,
+" \    "enable_auth": 0,
+" \    "max_tokens": 50, 
+" \		 "request_timeout": 20,
+" \  },
+" \  "ui": {
+" \    "code_syntax_enabled": 1,
+" \    "populate_options": 0,
+" \    "open_chat_command": "preset_below",
+" \    "scratch_buffer_keep_open": 0,
+" \    "paste_mode": 1,
+" \  },
+" \}
+" let g:vim_ai_complete = {
+" \  "engine": "complete",
+" \  "options": {
+" \    "model": "gpt-3.5-turbo-instruct",
+" \    "endpoint_url": "http://localhost:8080/v1/completions",
+" \    "max_tokens": 50,
+" \    "temperature": 0.1,
+" \    "request_timeout": 20,
+" \    "enable_auth": 0,
+" \    "selection_boundary": "#####",
+" \  },
+" \  "ui": {
+" \    "paste_mode": 1,
+" \  },
+" \}
+
+" let g:vim_ai_edit = {
+" \  "engine": "complete",
+" \  "options": {
+" \    "model": "gpt-3.5-turbo-instruct",
+" \    "endpoint_url": "http://localhost:8080/v1/completions",
+" \    "max_tokens": 50,
+" \    "temperature": 0.1,
+" \    "request_timeout": 20,
+" \    "enable_auth": 0,
+" \    "selection_boundary": "#####",
+" \  },
+" \  "ui": {
+" \    "paste_mode": 1,
+
+" \  },
+" \}
 
 " ---------------
 " coc

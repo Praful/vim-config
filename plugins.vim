@@ -96,6 +96,8 @@ Plug 'Raimondi/delimitMate'
 "   Manually trigger suggestion	<M-Bslash>
 Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
 
+" Plug 'madox2/vim-ai'
+
 " not mature enough yet
 " Plug 'TabbyML/tabby', {'rtp': 'clients/vim'}
 
