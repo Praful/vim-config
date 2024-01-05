@@ -28,6 +28,7 @@ if has("win32")
   let $VIMRUNTIME = $APPS.'/Vim/current/'
   let $PK_VIMFILES = $HOME.'/vimfiles'
 else
+" let $VIMRUNTIME = '/usr/local/share/vim/vim90/' 
   let $PK_VIMFILES = $HOME.'/.vim'
 endif
 let $PK_PLUGINS = $PK_VIMFILES.'/plugins.vim'
