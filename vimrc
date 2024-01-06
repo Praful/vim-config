@@ -310,22 +310,40 @@ if executable('rg')
   set grepformat=%f:%l:%c:%m
 endif
 
+" https://stackoverflow.com/questions/2362914/fold-function-in-vim
+set foldmethod=indent
+set foldlevel=20 " don't fold statements only functions"
+set foldclose=all
+
+
+" shows match position in vim >= 8.1.1270
+set shortmess-=S
+
 " Keep search matches in the middle of the window.
-" This version works with folds, which we don't use at the moment.
-" zv = open enough folds to view the cursor line.
-"nnoremap n nzzzv
-"nnoremap N Nzzzv
-" Note that this is overwritten by IndexedSearch.vim (as is \). Therefore edit that file
-" directly eg when the plugin is updated.
-nnoremap <silent> n nzz
-nnoremap <silent> N Nzz
+" 
+" if fold versions of n and N mappings aren't being used, use zv to open
+" enough folds to view the cursor line.
+"
+" these open folds automatically when searching
+" TODO: setting these stops vim showing match number ([2/7], etc)
+" nnoremap n nzzzv
+" nnoremap N Nzzzv
+
+" non-fold version:
+" nnoremap <silent> n nzz
+" nnoremap <silent> N Nzz
+"
 nnoremap <silent> * *zz
 nnoremap <silent> # #zz
+"
 nnoremap <silent> g* g*zz
 nnoremap <silent> g# g#zz
 
 " search for selected text
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
+"
+" Unhighlight search results. 
+nmap \\ :noh<return>
 
 " Movement, buffers and windows ---------------------------------------------------------------
 

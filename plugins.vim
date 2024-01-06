@@ -73,12 +73,8 @@ Plug 'pbogut/fzf-mru.vim'
 " Bbye allows you to delete buffers (close files) without closing your windows or messing up your layout.
 Plug 'moll/vim-bbye'
 
-"Tells you where you search: at match n out of m matches. Freeze plugin because it 
-"overwrites \\. We're not missing any updates: plugin was last updated 9 years ago.
-"Update: no longer frozen because I've put post-plugin config in 
-"configure-plugins.vim
-" Plug 'vim-scripts/IndexedSearch', {'frozen': 'on'}
-Plug 'vim-scripts/IndexedSearch'
+" not required in vim 8.1+
+" Plug 'vim-scripts/IndexedSearch'
 
 Plug 'xolox/vim-session'
 " Plug 'tpope/vim-obsession'

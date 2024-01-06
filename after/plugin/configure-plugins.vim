@@ -41,18 +41,6 @@ let g:netrw_liststyle=3
 let g:loaded_netrw= 1
 let g:netrw_loaded_netrwPlugin= 1
 
-" ---------------
-" rainbow
-" ---------------
-" Doesn't work - probably incompatible with another plugin.
-" let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
-
-" ---------------
-" IndexedSearch
-" ---------------
-" Unhighlight search results. This is here and not vimrc to override IndexedSearch's 
-" mapping.
-nmap \\ :noh<return>
 
 " ---------------
 " Speeddating
