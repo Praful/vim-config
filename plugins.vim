@@ -41,12 +41,7 @@ Plug 'xolox/vim-shell'
 Plug 'qpkorr/vim-bufkill'
 
 " UI Additions ------------------------------------------------------
-" Plug 'junegunn/seoul256.vim' 
 Plug 'bling/vim-airline'
-
-" Open File Explorer or command prompt using gof/got (file's dir) or goF/goT (working 
-" dir)
-" Plug 'justinmk/vim-gtfo'
 
 " Commands ------------------------------------------------------
 " <leader>K to invoke
@@ -54,8 +49,6 @@ Plug 'bling/vim-airline'
 Plug 'ron89/thesaurus_query.vim'
 
 " Plug 'rhysd/vim-grammarous'
-
-" Plug 'vim-scripts/YankRing.vim'
 
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
@@ -72,9 +65,6 @@ Plug 'pbogut/fzf-mru.vim'
 
 " Bbye allows you to delete buffers (close files) without closing your windows or messing up your layout.
 Plug 'moll/vim-bbye'
-
-" not required in vim 8.1+
-" Plug 'vim-scripts/IndexedSearch'
 
 Plug 'xolox/vim-session'
 " Plug 'tpope/vim-obsession'
@@ -102,34 +92,18 @@ Plug 'vim-autoformat/vim-autoformat'
 
 Plug 'fladson/vim-kitty'
 
-" unit testing
-" Plug 'janko-m/vim-test'
-
 Plug 'tpope/vim-dispatch'
 
 " Install nightly build, replace ./install.sh with install.cmd on windows
-" Plug 'neoclide/coc.nvim', {'do': './install.cmd nightly'}
-" Or install latest release tag
-" Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.cmd'}
-" Or build from source code
-" Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}} 
-" Plug 'yatli/coc-powershell', {'do': { -> coc#powershell#install()} }
 
-" To install Coc extensions, use
-"   :CocInstall coc-tsserver
-"   :CocInstall coc-html
-"   :CocInstall coc-css
-"   :CocInstall coc-json
-"   :CocInstall coc-emmet
-"   :CocInstall coc-python (don't install if pyright installed)
-"   :CocInstall coc-pyright (alternative to coc-python)
-"   :CocInstall coc-powershell
-"   :CocInstall coc-lists
-"   :CocInstall coc-yank
-"   :CocInstall coc-flutter
-"or
+let g:coc_global_extensions = [
+      \ 'coc-html',
+      \ 'coc-css',
+      \ 'coc-pyright',
+      \ 'coc-json',
+      \ ]
+
 "   :CocInstall coc-tsserver coc-html coc-css coc-json coc-emmet coc-powershell coc-lists coc-yank coc-spell-checker coc-pyright
 
 " <leader>j  - Norma/visual: go to any variable/class/constant/name/symbol 
@@ -139,13 +113,10 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'pechorin/any-jump.vim'
 
 " Python ------------------------------------------------------
-" Install following Python modules:
-"   pip install ubelt
-"   pip install pyperclip
-" Plug 'sjl/badwolf'
-" Plug 'Erotemic/vimtk'
-Plug 'jupyter-vim/jupyter-vim'
+" this was temperamental; replace with vim-slime, which works in kitty
+" Plug 'jupyter-vim/jupyter-vim'
 
+" sends selected text to terminal; doesn't need to be in any mode
 Plug 'jpalardy/vim-slime'
 
 
@@ -155,7 +126,6 @@ Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
 " Give text-objects ar and ir eg car to change all block, dir to delete inner block.
 " See https://github.com/nelstrom/vim-textobj-rubyblock
 Plug 'nelstrom/vim-textobj-rubyblock', {'for':'ruby'}
-" Plug 'ecomba/vim-ruby-refactoring'
 Plug 'lucapette/vim-ruby-doc', {'for':'ruby'}
 
 "Run Ruby program
@@ -168,12 +138,6 @@ Plug 'ngmy/vim-rubocop', {'for':'ruby', 'on':'RuboCop'}
 " Run ruby commands selectively 
 Plug 't9md/vim-ruby-xmpfilter', {'for':'ruby'}
 
-" https://github.com/zweifisch/pipe2eval - REPL in Vim for Ruby, JS, and other
-" languages.
-" Press v<space> to evaluate current line, vip<space> to evaluate a paragraph.
-" Removed: doesn't work on Windows.
-" Plug 'zweifisch/pipe2eval'
-"
 " add "end" after typing "begin" in Ruby.
 Plug 'vim-scripts/endwise.vim', {'for': 'ruby'}
 "
@@ -218,7 +182,6 @@ Plug 'JuliaEditorSupport/julia-vim'
 " See https://github.com/wellle/targets.vim
 Plug 'wellle/targets.vim'
 
-" Plug 'vim-scripts/matchit.zip'
 "https://github.com/andymass/vim-matchup#detailed-feature-documentation
 Plug 'andymass/vim-matchup'
 Plug 'kana/vim-textobj-user'
@@ -232,14 +195,14 @@ Plug 'kana/vim-textobj-user'
 " viC   Visually select a WORD based colunn.
 " Plug 'coderifous/textobj-word-column.vim'
 
-" <count>ai	An Indentation level and line above.
+" <count>ai	An Indentation level and line above. eg 2vai
 " <count>ii	Inner Indentation level (no line above).
 " <count>aI	An Indentation level and lines above/below.
 " eg >ii indents current level; vii selects current level;
 " >ai indents currrent level and line and above.
-" Plug 'michaeljsmith/vim-indent-object'
+Plug 'michaeljsmith/vim-indent-object'
 
-Plug 'nelstrom/vim-visual-star-search', {'for': 'ruby'}
+" Plug 'nelstrom/vim-visual-star-search', {'for': 'ruby'}
 
 Plug 'tpope/vim-unimpaired'
 
@@ -252,7 +215,7 @@ Plug 'markonm/traces.vim'
 Plug 'vim-scripts/L9'
 Plug 'tpope/vim-repeat'
 
-Plug 'mattn/webapi-vim'
+" Plug 'mattn/webapi-vim'
 
 " makes textboxes in firefoxa and chrome run nvim;
 " this sort of worked but I need to add more conditional logic

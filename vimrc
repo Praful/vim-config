@@ -315,6 +315,8 @@ set foldmethod=indent
 set foldlevel=20 " don't fold statements only functions"
 set foldclose=all
 
+" mapping to toggle fold
+nnoremap <silent> <leader>c za
 
 " shows match position in vim >= 8.1.1270
 set shortmess-=S

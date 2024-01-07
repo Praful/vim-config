@@ -484,11 +484,10 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" show methods
-nmap <leader> gm :CocList outline methods<cr>
+" show methods; also ,t and ,T for tags from FZF
+nmap <silent> gm :CocList outline methods<cr>
 " show symbols in all indexed files
-nmap <leader> ga :CocList symbols<cr>
-
+nmap <silent> ga :CocList symbols<cr>
 
 " Use K to show documentation in preview window
 nnoremap <silent> gh :call ShowDocumentation()<CR>
@@ -584,31 +583,25 @@ nnoremap ,t  :BTags<CR>
 " tags for project
 nnoremap ,T  :Tags
 nnoremap ,b  :Buffers<CR>
-" nnoremap ,b  :CocList --strict buffers<CR>
-" nnoremap ,b  :CocList buffers<CR>
-" nnoremap ,w  :Windows<CR>
 nnoremap ,w  :CocList words<CR>
-" nnoremap ,m  :History<CR>
-nnoremap ,m  :FZFMru<CR>
-" nnoremap ,m  :CocList mru -A<CR>
-" nnoremap ,m  :CocList --strict mru -A<CR>
+
 " command history; similar to :<c-f> but uses FZF
 nnoremap ,c :History:<CR> 
-nnoremap <leader>m :History<CR>
-" search history via FZF
-nnoremap <leader>/ :History/<CR>
 
-"
+" file open history: two ways?
+nnoremap ,m  :FZFMru<CR>
+" files history from v:oldfiles - above seems to better but haven't 
+" thoroughly checked
+" nnoremap <leader>m :History<CR>
+
+" history of searches via FZF
+nnoremap ,/ :History/<CR>
 
 " ---------------
 " YankRing
 " ---------------
 " nnoremap <leader>y  :RShow<CR>
 nnoremap <leader>y  :<C-u>CocList --normal yank<cr>
-" ---------------
-" vim-gtfo
-" ---------------
-let g:gtfo#terminals = { 'win': 'pwsh -NoLogo -NoExit -Command' }
 
 " ---------------
 " online thesaurus

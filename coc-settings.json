@@ -1,13 +1,7 @@
 {
   "python.formatting.provider": "autopep8",
-  "coc.preferences.formatOnType": true,
-  "coc.preferences.formatOnSaveFiletypes": [
-    "python",
-    "html",
-    "markdown",
-    "json"
-  ],
-  "coc.preferences.formatOnPaste": true,
-  "inlayHint.enable": false
   "python.pythonPath": "/home/praful/.pyenv/shims/python",
+  "coc.preferences.formatOnType": true,
+  "coc.preferences.formatOnSave": true,
+  "inlayHint.enable": false
 }
