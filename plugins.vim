@@ -50,7 +50,13 @@ Plug 'ron89/thesaurus_query.vim'
 
 " Plug 'rhysd/vim-grammarous'
 
+" must set before calling plugin
+"  disable default mappings
+let g:NERDCreateDefaultMappings = 0
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
 Plug 'scrooloose/nerdcommenter'
+
 Plug 'tpope/vim-surround'
 " Plug 'tpope/vim-fugitive'
 Plug 'sickill/vim-pasta'

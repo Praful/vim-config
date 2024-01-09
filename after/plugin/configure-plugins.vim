@@ -195,15 +195,13 @@ let g:session_lock_enabled = 0
 " ---------------
 " NERDCommenter
 " ---------------
-let NERDSpaceDelims=1
+
+" Note: to set NERDCommenter global vars, do before initialising plugin in 
+" plugins.vim
+"
 "Toggle comments
-" nmap ,c <Leader>c<Leader>
-" vmap ,c <Leader>c<Leader>
-" control / mappings don't work having tried options on
 "https://vi.stackexchange.com/questions/26611/is-it-possible-to-map-control-forward-slash-with-vim
 "https://stackoverflow.com/questions/9051837/how-to-map-c-to-toggle-comments-in-vim
-" noremap <C-s-/> <Leader>c<Leader>
-" vnoremap <C-s-/> Leader>c<Leader>
 nmap <C-/>   <Plug>NERDCommenterToggle
 vmap <C-/>   <Plug>NERDCommenterToggle<CR>gv
 
