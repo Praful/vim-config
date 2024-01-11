@@ -185,6 +185,8 @@ set wildignorecase
 " PK 20101013 don't autocopy because we want to select text and replace selected text from clipboard.
 " set guioptions+=a
 
+" Remove menu
+set guioptions-=m
 " Remove toolbar
 set guioptions-=T
 " Remove right hand scollbar
@@ -193,7 +195,7 @@ set guioptions-=r
 set guioptions-=l
 " set guioptions+=egmrtL
 set guioptions-=L
-set guioptions+=egmk
+set guioptions+=egk
 
 " Use Windows clipboard as default register for yank, delete, change and put.
 " This make * the default register, which is used to access the Windows

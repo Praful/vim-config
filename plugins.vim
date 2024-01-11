@@ -103,14 +103,6 @@ Plug 'tpope/vim-dispatch'
 " Install nightly build, replace ./install.sh with install.cmd on windows
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-let g:coc_global_extensions = [
-      \ 'coc-html',
-      \ 'coc-css',
-      \ 'coc-pyright',
-      \ 'coc-json',
-      \ ]
-
-"   :CocInstall coc-tsserver coc-html coc-css coc-json coc-emmet coc-powershell coc-lists coc-yank coc-spell-checker coc-pyright
 
 " <leader>j  - Norma/visual: go to any variable/class/constant/name/symbol 
 " <leader>ab - Normal mode: open previous opened file (after jump)

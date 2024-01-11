@@ -429,10 +429,12 @@ imap <script><silent><nowait><expr> <C-o> codeium#Accept()
 " coc
 " ---------------
 
+
+"   :CocInstall coc-tsserver coc-html coc-css coc-json coc-emmet coc-powershell coc-lists coc-yank coc-spell-checker coc-pyright
 "removed coc-powershell because of the persistent terminal window.
 "removed coc-spell-checker because of the constant prompts in irrelevant files
 "replace coc-python with coc-pyright
-let g:coc_global_extensions = ['coc-html', 'coc-pyright', 'coc-css', 'coc-json', 'coc-emmet', 'coc-tsserver', 'coc-solargraph', 'coc-prettier']
+let g:coc_global_extensions = ['coc-html', 'coc-pyright', 'coc-css', 'coc-json']
 " TODO add extensions from below list
 " let g:coc_global_extensions = ['coc-html', 'coc-pyright', 'coc-css', 'coc-json', 'coc-emmet', 'coc-tsserver',  'coc-flutter', 'coc-solargraph']
 
@@ -445,9 +447,12 @@ set signcolumn=yes
 " Update time for linting
 set updatetime=300
 
-"
+
 " Settings copied from coc help :h coc-completion-example
-"
+
+inoremap <silent><expr> <C-j> coc#pum#visible() ? coc#pum#next(1) : "\<C-j>"
+inoremap <silent><expr> <C-k> coc#pum#visible() ? coc#pum#prev(1) : "\<C-k>"
+
 inoremap <silent><expr> <TAB>
       \ coc#pum#visible() ? coc#pum#next(1) :
       \ CheckBackspace() ? "\<Tab>" :
@@ -713,27 +718,29 @@ endfunction
 command! -register CopyMatches call CopyMatches(<q-reg>)
 "Autocompletion -----------------------
 "Move in omni pop-up with C-j/k
-function! OmniPopup(action)
-  if pumvisible()
-    if a:action == 'j'
-      return "\<DOWN>"
-      "return "\<C-N>"
-    elseif a:action == 'k'
-      "return "\<C-P>"
-      return "\<UP>"
-    elseif a:action == 'r'
-      return "\<C-y>"
-    endif
-  endif
-  return a:action
-endfunction
+" function! OmniPopup(action)
+"
+  " if pumvisible()
+    " if a:action == 'j'
+      " " return "\<DOWN>"
+      " return "\<C-N>"
+    " elseif a:action == 'k'
+      " return "\<C-P>"
+      " " return "\<UP>"
+    " elseif a:action == 'r'
+      " return "\<C-y>"
+    " endif
+  " endif
+  " return a:action
+" endfunction
 "
 " Move down without choosing option
-inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
-" Move up without choosing option
-inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
-" Choose currently highlighted option for autocompletion
-inoremap <silent><C-ENTER> <C-R>=OmniPopup('r')<CR>
+" inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
+"
+" " Move up without choosing option
+" inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
+" " Choose currently highlighted option for autocompletion
+" inoremap <silent><C-ENTER> <C-R>=OmniPopup('r')<CR>
 
 "-----------------------
 " auto-format plugin
