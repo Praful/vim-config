@@ -62,6 +62,10 @@ so $PK_VIMFILES/mswin-personal.vim
 " eg providing a file with -u.
 set nocompatible
 
+" this tells NERDcommenter what the comment character is for the filetype
+filetype plugin on
+
+" load default indents for filetype
 filetype plugin indent on
 
 " set all& "reset everything to their defaults

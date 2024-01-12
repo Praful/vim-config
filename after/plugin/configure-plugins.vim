@@ -429,13 +429,8 @@ imap <script><silent><nowait><expr> <C-o> codeium#Accept()
 " coc
 " ---------------
 
-
-"   :CocInstall coc-tsserver coc-html coc-css coc-json coc-emmet coc-powershell coc-lists coc-yank coc-spell-checker coc-pyright
-"removed coc-powershell because of the persistent terminal window.
-"removed coc-spell-checker because of the constant prompts in irrelevant files
-"replace coc-python with coc-pyright
 let g:coc_global_extensions = ['coc-html', 'coc-pyright', 'coc-css', 'coc-json']
-" TODO add extensions from below list
+" other options:
 " let g:coc_global_extensions = ['coc-html', 'coc-pyright', 'coc-css', 'coc-json', 'coc-emmet', 'coc-tsserver',  'coc-flutter', 'coc-solargraph']
 
 " let g:node_client_debug = 1
@@ -447,34 +442,16 @@ set signcolumn=yes
 " Update time for linting
 set updatetime=300
 
-
-" Settings copied from coc help :h coc-completion-example
-
+" mapping to move to next/prev autocompletion option in dropdown
 inoremap <silent><expr> <C-j> coc#pum#visible() ? coc#pum#next(1) : "\<C-j>"
 inoremap <silent><expr> <C-k> coc#pum#visible() ? coc#pum#prev(1) : "\<C-k>"
 
-inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1) :
-      \ CheckBackspace() ? "\<Tab>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+" if autocompletion dropdown visible, use <tab> to accept highlighted completion
+" otherwise use <tab> as a normal tab.
+inoremap <silent><expr> <tab> pumvisible() ? coc#pum#confirm() : "\<C-g>u\<tab>"
 
-" Make <CR> to accept selected completion item or notify coc.nvim to format
-" <C-g>u breaks current undo, please make your own choice
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" Use <c-space> to trigger completion
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
+" use <c-enter> to show completion dropdown
+inoremap <silent><expr> <c-enter> coc#refresh()
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
@@ -544,12 +521,6 @@ nnoremap <silent><nowait> <space>cc  :<C-u>CocList commands<cr>
 nnoremap <silent><nowait> <space>co  :<C-u>CocList outline<cr>
 " Search workspace symbols
 nnoremap <silent><nowait> <space>cs  :<C-u>CocList -I symbols<cr>
-" Do default action for next item
-" nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item
-" nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list
-" nnoremap <silent><nowait> <space>cp  :<C-u>CocListResume<CR>
 
 
 
