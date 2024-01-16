@@ -429,7 +429,7 @@ imap <script><silent><nowait><expr> <C-o> codeium#Accept()
 " coc
 " ---------------
 
-let g:coc_global_extensions = ['coc-html', 'coc-pyright', 'coc-css', 'coc-json']
+let g:coc_global_extensions = ['coc-html', 'coc-pyright', 'coc-css', 'coc-json', 'coc-markdown-preview-enhanced', 'coc-webview']
 " other options:
 " let g:coc_global_extensions = ['coc-html', 'coc-pyright', 'coc-css', 'coc-json', 'coc-emmet', 'coc-tsserver',  'coc-flutter', 'coc-solargraph']
 
@@ -441,6 +441,8 @@ set signcolumn=yes
 
 " Update time for linting
 set updatetime=300
+
+nmap <F5> :CocCommand markdown-preview-enhanced.openPreview<CR>
 
 " mapping to move to next/prev autocompletion option in dropdown
 inoremap <silent><expr> <C-j> coc#pum#visible() ? coc#pum#next(1) : "\<C-j>"
@@ -498,8 +500,11 @@ augroup end
 
 " Remap keys for applying refactor code actions
 nmap <silent> <leader>re <Plug>(coc-codeaction-refactor)
-xmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
-nmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
+xmap <silent> <leader>rf  <Plug>(coc-codeaction-refactor-selected)
+nmap <silent> <leader>rf  <Plug>(coc-codeaction-refactor-selected)
+"
+" Remap keys for applying code actions at the cursor position
+nmap <leader>ac <Plug>(coc-codeaction-cursor)
 
 " Run the Code Lens action on the current line
 nmap <leader>cl  <Plug>(coc-codelens-action)
@@ -512,7 +517,7 @@ set statusline+=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings for CoCList
 " Show all diagnostics
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent><nowait> <space>cd  :<C-u>CocList diagnostics<cr>
 " Manage extensions
 nnoremap <silent><nowait> <space>ce  :<C-u>CocList extensions<cr>
 " Show commands
