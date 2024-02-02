@@ -117,6 +117,9 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " sends selected text to terminal; doesn't need to be in any mode
 Plug 'jpalardy/vim-slime'
 
+" rainbow parentheses
+Plug 'luochen1990/rainbow'
+let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
 
 " Ruby ------------------------------------------------------
 Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
