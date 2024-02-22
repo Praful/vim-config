@@ -582,6 +582,16 @@ nnoremap ,/ :History/<CR>
 " nnoremap <leader>y  :RShow<CR>
 nnoremap <leader>y  :<C-u>CocList --normal yank<cr>
 
+
+" ---------------
+" rainbow
+" ---------------
+" Use brighter colours
+let g:rainbow_conf = {
+\	'guifgs': ['yellow', 'lightmagenta', 'lightgreen', 'lightyellow'],
+\	'ctermfgs': ['yellow', 'lightmagenta', 'lightgreen', 'lightyellow'],
+\	}
+"
 " ---------------
 " online thesaurus
 " ---------------
