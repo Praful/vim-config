@@ -114,12 +114,18 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " this was temperamental; replace with vim-slime, which works in kitty
 " Plug 'jupyter-vim/jupyter-vim'
 
+
+" General language plugins ------------------------------------------------------
+
 " sends selected text to terminal; doesn't need to be in any mode
 Plug 'jpalardy/vim-slime'
 
 " rainbow parentheses
 Plug 'luochen1990/rainbow'
 let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
+
+" colourises #123456 codes
+Plug 'chrisbra/Colorizer'
 
 " Ruby ------------------------------------------------------
 Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
@@ -209,8 +215,6 @@ Plug 'tpope/vim-unimpaired'
 
 " search/replace highlighting
 Plug 'markonm/traces.vim'
-" coloured brackets
-" Plug 'luochen1990/rainbow'
 
 " Libraries ------------------------------------------------------
 Plug 'vim-scripts/L9'
