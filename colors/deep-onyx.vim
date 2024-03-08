@@ -70,7 +70,8 @@ hi Comment      guibg=NONE guifg=#A0A0A0 gui=none
 " hi String       gui=NONE guifg=#BAF187 guibg=NONE
 " hi String       gui=BOLD guifg=#708670 guibg=NONE
 " hi String       gui=BOLD guifg=#6E8D78 guibg=NONE
-hi String       gui=BOLD guifg=#6B8F6F guibg=NONE
+" hi String       gui=BOLD guifg=#6B8F6F guibg=NONE
+hi String       gui=BOLD guifg=#778B7A guibg=NONE
 " hi Constant     gui=NONE guifg=#BAF187 guibg=NONE
 hi Constant     gui=BOLD guifg=#92d4ff guibg=NONE
 hi Character    gui=NONE guifg=#D86868 guibg=NONE
