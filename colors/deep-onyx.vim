@@ -67,18 +67,25 @@ hi SpellBad gui=undercurl
 
 " Syntax group
 hi Comment      guibg=NONE guifg=#A0A0A0 gui=none 
-hi String       gui=NONE guifg=#BAF187 guibg=NONE
-hi Constant     gui=NONE guifg=#BAF187 guibg=NONE
+" hi String       gui=NONE guifg=#BAF187 guibg=NONE
+" hi String       gui=BOLD guifg=#708670 guibg=NONE
+" hi String       gui=BOLD guifg=#6E8D78 guibg=NONE
+hi String       gui=BOLD guifg=#6B8F6F guibg=NONE
+" hi Constant     gui=NONE guifg=#BAF187 guibg=NONE
+hi Constant     gui=BOLD guifg=#92d4ff guibg=NONE
 hi Character    gui=NONE guifg=#D86868 guibg=NONE
 hi Error        gui=BOLD guifg=#ffffff guibg=#8000ff
-hi Identifier   gui=NONE guifg=#92d4ff guibg=NONE
+" hi Identifier   gui=NONE guifg=#92d4ff guibg=NONE
+hi Identifier   gui=BOLD guifg=#8483A7 guibg=NONE
 hi Delimiter    gui=BOLD guifg=#F8B453 guibg=NONE
-hi Operator     gui=BOLD guifg=CornflowerBlue guibg=NONE
+" hi Operator     gui=BOLD guifg=CornflowerBlue guibg=NONE
+hi Operator     gui=BOLD guifg=#F8B453 guibg=NONE
 hi Ignore       gui=NONE guifg=bg      guibg=NONE
 hi PreProc      gui=NONE guifg=#D86868 guibg=NONE
-hi Special      gui=NONE guifg=CornflowerBlue guibg=NONE
+" hi Special      gui=NONE guifg=CornflowerBlue guibg=NONE
+hi Special      gui=BOLD guifg=#A58274 guibg=NONE
 hi SpecialChar  gui=NONE guifg=#ffc890 guibg=NONE
-hi Statement    gui=NONE guifg=#F8B453 guibg=NONE
+hi Statement    gui=BOLD guifg=#F8B453 guibg=NONE
 hi Todo         gui=BOLD,UNDERLINE guifg=red guibg=NONE
 hi Type         gui=NONE guifg=#F8B453 guibg=NONE
 hi Underlined   gui=UNDERLINE guifg=CornflowerBlue guibg=NONE
