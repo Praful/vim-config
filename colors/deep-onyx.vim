@@ -76,8 +76,9 @@ hi Delimiter    gui=BOLD guifg=#F8B453 guibg=NONE
 hi Operator     gui=BOLD guifg=#F8B453 guibg=NONE
 hi Ignore       gui=NONE guifg=bg      guibg=NONE
 hi PreProc      gui=NONE guifg=#D86868 guibg=NONE
-hi Special      gui=BOLD guifg=#A58274 guibg=NONE
-hi SpecialChar  gui=NONE guifg=#ffc890 guibg=NONE
+" hi Special      gui=BOLD guifg=#A58274 guibg=NONE
+hi Special      gui=BOLD guifg=#ffc890 guibg=NONE
+hi SpecialChar  gui=BOLD guifg=#ffc890 guibg=NONE
 hi Statement    gui=BOLD guifg=#F8B453 guibg=NONE
 hi Todo         gui=BOLD,UNDERLINE guifg=red guibg=NONE
 hi Type         gui=NONE guifg=#F8B453 guibg=NONE
