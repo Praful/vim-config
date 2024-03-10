@@ -74,7 +74,8 @@ hi Constant     gui=BOLD guifg=#92d4ff guibg=NONE
 hi Character    gui=NONE guifg=#D86868 guibg=NONE
 hi Error        gui=BOLD guifg=#ffffff guibg=#8000ff
 " hi Identifier   gui=BOLD guifg=#87CEEB guibg=NONE
-hi Identifier   gui=BOLD guifg=#6CB4EE guibg=NONE
+" hi Identifier   gui=BOLD guifg=#6CB4EE guibg=NONE
+hi Identifier   gui=BOLD guifg=#89CFF0 guibg=NONE
 hi Delimiter    gui=BOLD guifg=#F8B453 guibg=NONE
 hi Operator     gui=BOLD guifg=#F8B453 guibg=NONE
 hi Ignore       gui=NONE guifg=bg      guibg=NONE
