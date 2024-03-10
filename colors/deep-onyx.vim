@@ -4,6 +4,8 @@
 "              Inspired by a theme I found years ago called Neon by Tiza.
 " Author: Praful https://github.com/Praful/vim-colour-scheme
 " Licence: GPL v3
+"
+" Good choice of colours here: https://creativebooster.net/blogs/colors/
 "=============================================================================
 
 
@@ -71,7 +73,8 @@ hi String       gui=BOLD guifg=#8CBC7C guibg=NONE
 hi Constant     gui=BOLD guifg=#92d4ff guibg=NONE
 hi Character    gui=NONE guifg=#D86868 guibg=NONE
 hi Error        gui=BOLD guifg=#ffffff guibg=#8000ff
-hi Identifier   gui=BOLD guifg=#8483A7 guibg=NONE
+" hi Identifier   gui=BOLD guifg=#87CEEB guibg=NONE
+hi Identifier   gui=BOLD guifg=#6CB4EE guibg=NONE
 hi Delimiter    gui=BOLD guifg=#F8B453 guibg=NONE
 hi Operator     gui=BOLD guifg=#F8B453 guibg=NONE
 hi Ignore       gui=NONE guifg=bg      guibg=NONE
