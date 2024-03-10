@@ -70,7 +70,7 @@ hi SpellBad gui=undercurl
 " Syntax group
 hi Comment      guibg=NONE guifg=#A0A0A0 gui=none 
 hi String       gui=BOLD guifg=#8CBC7C guibg=NONE
-hi Constant     gui=BOLD guifg=#92d4ff guibg=NONE
+hi Constant     gui=BOLD guifg=#89CFF0 guibg=NONE
 hi Character    gui=NONE guifg=#D86868 guibg=NONE
 hi Error        gui=BOLD guifg=#ffffff guibg=#8000ff
 " hi Identifier   gui=BOLD guifg=#87CEEB guibg=NONE
