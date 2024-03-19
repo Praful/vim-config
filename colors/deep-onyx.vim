@@ -85,7 +85,7 @@ hi Special      gui=BOLD guifg=#ffc890 guibg=NONE
 hi SpecialChar  gui=BOLD guifg=#ffc890 guibg=NONE
 hi Statement    gui=BOLD guifg=#F8B453 guibg=NONE
 hi Todo         gui=BOLD,UNDERLINE guifg=red guibg=NONE
-hi Type         gui=NONE guifg=#F8B453 guibg=NONE
+hi Type         gui=BOLD,ITALIC guifg=#F8B453 guibg=NONE
 hi Underlined   gui=UNDERLINE guifg=CornflowerBlue guibg=NONE
 hi Macro        gui=NONE guifg=#CC6666 guibg=NONE
 
