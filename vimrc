@@ -46,6 +46,20 @@ if has("win32")
   " set pythonthreedll=C:/apps/Python/current/python311.dll
   set pythonthreedll=$APPS/Python/current/python311.dll
   set pythonthreehome=$APPS/Python/current
+elseif has('unix')
+  " temporary fix for python3 because package libpython3.12-dev is not available yet for Linux Mint
+  if executable('pyenv')
+    " Construct the path to the libpython file
+    let pythonthreedll = trim(system('pyenv prefix')) . '/lib/libpython3.12.so.1.0'
+
+    if filereadable(pythonthreedll)
+      let &pythonthreedll = pythonthreedll
+    else
+      echomsg "Error: libpython file not found in the active pyenv environment."
+    endif
+  else
+    echomsg "Error: pyenv is not installed or not in PATH."
+  endif
 endif
 
 
