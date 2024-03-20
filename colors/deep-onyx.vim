@@ -68,7 +68,7 @@ hi VisualNOS    gui=NONE guifg=#ffe8c8 guibg=#c06800
 hi SpellBad gui=undercurl
 
 " Syntax group
-hi Comment      guibg=NONE guifg=#A0A0A0 gui=none 
+hi Comment      gui=ITALIC  guifg=#A0A0A0 guibg=NONE
 hi String       gui=BOLD guifg=#8CBC7C guibg=NONE
 hi Constant     gui=BOLD guifg=#89CFF0 guibg=NONE
 hi Character    gui=NONE guifg=#D86868 guibg=NONE
