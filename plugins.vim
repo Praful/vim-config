@@ -88,10 +88,20 @@ Plug 'Raimondi/delimitMate'
 "   Manually trigger suggestion	<M-Bslash>
 Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
 
-" Plug 'madox2/vim-ai'
+" Not fast enough yet (comment out for now)
+" Setup:
+"     sudo docker run --entrypoint /opt/tabby/bin/tabby-cpu -it -p 8080:8080 -v $HOME/.tabby:/data tabbyml/tabby serve --model StarCoder-1B 
+"     To stop server: sudo docker stop <container id>  (use docker ps to find container id)
+"     Get token from http://localhost:8080/
+"     In ~/.tabby-client/agent/config.toml, add section [server] with token.
+"
+" Plug 'TabbyML/vim-tabby'
+" Tabby plugin will not show inline completion automatically, you can trigger the completion manually by pressing <C-\>.
+" let g:tabby_trigger_mode = 'manual'
+" let g:tabby_keybinding_accept = '<C-F9>'
+" let g:tabby_node_binary = '$HOME/.config/nvm/versions/node/v21.5.0/bin/node'
 
-" not mature enough yet
-" Plug 'TabbyML/tabby', {'rtp': 'clients/vim'}
+" Plug 'madox2/vim-ai'
 
 " Plug 'sheerun/vim-polyglot'
 Plug 'vim-autoformat/vim-autoformat'
