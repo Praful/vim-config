@@ -646,7 +646,7 @@ if has("gui_running")
   if has("win32")
     set gfn=DejaVuSansMono_NF:h9:cANSI
   elseif has('macunix')
-    set guifont=DejaVu_Sans_Mono_for_Powerline:h12
+    set guifont=DejaVuSansMNF:h13
   elseif has('unix')
     if IsOnHost('portegez30-mint')
       set guifont=DejaVuSansMono\ Nerd\ Font\ Mono\ 11
