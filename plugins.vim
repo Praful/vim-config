@@ -78,7 +78,7 @@ Plug 'moll/vim-bbye'
 " For nvim the same applies as vim but it's worse because after nvim is used in browser with 
 " firenvim, the session manager sets the windows to whatever the text area was
 " and this results in nvim taking on the same dimensions in the terminal
-if has('gui_running')
+if has('gui_running') && !has('nvim')
   " Plug 'xolox/vim-session', has('vim') ? {} : {'on': []}
   Plug 'xolox/vim-session'
 endif

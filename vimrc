@@ -656,7 +656,11 @@ endif
 
 " Font and colours -------------------------------
 
-if has("gui_running")
+if has('nvim')
+  if has("gui_running")
+    set guifont=DejaVuSansMono\ Nerd\ Font\ Mono:h11
+  endif
+elseif has("gui_running")
   if has("win32")
     set gfn=DejaVuSansMono_NF:h9:cANSI
   elseif has('macunix')
@@ -668,17 +672,12 @@ if has("gui_running")
       set guifont=DejaVuSansMono\ Nerd\ Font\ Mono\ 9
     endif
   endif
-
-  colorscheme deep-onyx
-  " let g:seoul256_background = 235
-  " colorscheme seoul256
-
 else
   set termguicolors
-  set gfn=DejaVuSansMono_NF:h9:cANSI
-  " colorscheme slate
-  colorscheme deep-onyx
+  " the font is set in the terminal emulator
+  " set gfn=DejaVuSansMono_NF:h9:cANSI
 endif
+colorscheme deep-onyx
 
 " Status line -----------------------------------------------------------------
 
