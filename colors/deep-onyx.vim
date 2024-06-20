@@ -43,10 +43,16 @@ hi DiffDelete   gui=NONE guifg=#a0d0ff guibg=#0020a0
 hi DiffAdd      gui=NONE guifg=#a0d0ff guibg=#0020a0
 
 " Cursor
+"
+" for some reason vim terminal underlines the cursor line. Clearing it solves the 
+" problem. nvim works fine without clearing it
+hi clear CursorLine
 hi Cursor       gui=NONE guifg=#000000 guibg=#FF8000
 hi lCursor       gui=NONE guifg=#000000 guibg=#FF8000
 hi CursorIM       gui=NONE guifg=#000000 guibg=#FF8000
 hi CursorLine   gui=NONE guifg=NONE guibg=#282a2e
+hi clear CursorLineNR
+hi CursorLineNR    gui=NONE guifg=#FFFF80 
 
 " Fold
 hi Folded       gui=NONE guifg=#40f0f0 guibg=#006090
@@ -54,6 +60,7 @@ hi FoldColumn   gui=NONE guifg=#40c0ff guibg=#404040
 
 " Other
 hi Directory    gui=NONE guifg=#c8c8ff guibg=NONE
+
 hi LineNr       gui=NONE guifg=#707070 guibg=NONE
 hi SignColumn   gui=NONE guifg=#60f0a8 guibg=#404040
 hi NonText      gui=BOLD guifg=#d84070 guibg=#383838

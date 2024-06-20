@@ -72,7 +72,9 @@ Plug 'pbogut/fzf-mru.vim'
 " Bbye allows you to delete buffers (close files) without closing your windows or messing up your layout.
 Plug 'moll/vim-bbye'
 
-Plug 'xolox/vim-session'
+" load for vim only
+Plug 'xolox/vim-session', has('vim') ? {} : {'on': []}
+" Plug 'xolox/vim-session'
 " Plug 'tpope/vim-obsession'
 
 "automatic closing of quotes, parentheses, etc
@@ -233,9 +235,8 @@ Plug 'tpope/vim-repeat'
 " Plug 'mattn/webapi-vim'
 
 " makes textboxes in firefoxa and chrome run nvim;
-" this sort of worked but I need to add more conditional logic
-" in vimrc to differentiate between when firenvim is being 
-" loaded.
-" Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+" load for nvim only since it doesn't work with vim
+" See https://github.com/junegunn/vim-plug/wiki/tips
+Plug 'glacambre/firenvim', has('nvim') ? { 'do': { _ -> firenvim#install(0) } } : {'on': []}
 
 call plug#end()

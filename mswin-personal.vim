@@ -17,8 +17,14 @@ if 1	" only do this when compiled with expression evaluation
 endif
 set cpo&vim
 
+" echomsg "has vim"
 " set 'selection', 'selectmode', 'mousemodel' and 'keymodel' for MS-Windows
-behave mswin
+if has('nvim') 
+  "skip
+else
+  " echomsg "has vim"
+  behave mswin
+endif
 
 " backspace and cursor keys wrap to previous/next line
 set backspace=indent,eol,start whichwrap+=<,>,[,]

@@ -50,13 +50,19 @@ elseif has('unix')
   " temporary fix for python3 because package libpython3.12-dev is not available yet for Linux Mint
   if executable('pyenv')
     " Construct the path to the libpython file
-    let pythonthreedll = trim(system('pyenv prefix')) . '/lib/libpython3.12.so.1.0'
-
-    if filereadable(pythonthreedll)
-      let &pythonthreedll = pythonthreedll
+    if has('nvim')
+      "TODO how to set python location to pyenv 
+      let g:python3_host_prog = trim(system('pyenv prefix')) . '/bin/python3'
+      let g:ruby_host_prog = '/usr/local/bin/neovim-ruby-host'
+      " let g:ruby_host_prog = '/var/lib/gems/3.0.0/gems/neovim-0.10.0/exe/neovim-ruby-host'
     else
-      echomsg "Error: libpython file not found in the active pyenv environment."
-    endif
+      let pythonthreedll = trim(system('pyenv prefix')) . '/lib/libpython3.12.so.1.0'
+      if filereadable(pythonthreedll)
+        let &pythonthreedll = pythonthreedll
+      else
+        echomsg "Error: libpython file not found in the active pyenv environment."
+      endif
+    end
   else
     echomsg "Error: pyenv is not installed or not in PATH."
   endif
@@ -432,12 +438,20 @@ noremap <c-l> :bnext<CR>
 inoremap <c-h> <esc>:bprevious<cr>
 inoremap <c-l> <esc>:bnext<cr>
 
+" as above but use alt key because in kitty, we define c-h/c-l as next/prev kitty tab
+noremap <m-h> :bprevious<CR>
+noremap <m-l> :bnext<CR>
+inoremap <m-h> <esc>:bprevious<cr>
+inoremap <m-l> <esc>:bnext<cr>
+
 " Tabs
-noremap <leader>N :tabnew<CR>
-noremap <m-h> :tabprevious<CR>
-noremap <m-l> :tabnext<CR>
-inoremap <m-h> <esc>:tabprevious<CR>
-inoremap <m-l> <esc>:tabnext<CR>
+" we don't use tabs
+" noremap <leader>N :tabnew<CR>
+"
+" noremap <m-h> :tabprevious<CR>
+" noremap <m-l> :tabnext<CR>
+" inoremap <m-h> <esc>:tabprevious<CR>
+" inoremap <m-l> <esc>:tabnext<CR>
 
 " Command mode
 cnoremap <c-a> <home>
