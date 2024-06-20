@@ -72,8 +72,16 @@ Plug 'pbogut/fzf-mru.vim'
 " Bbye allows you to delete buffers (close files) without closing your windows or messing up your layout.
 Plug 'moll/vim-bbye'
 
-" load for vim only
-Plug 'xolox/vim-session', has('vim') ? {} : {'on': []}
+" Load for gvim only.
+" For vim, session changes the position so gvim appears in a different place; also if
+" gvim is open and vim is opened, vim gets messages about swap files.
+" For nvim the same applies as vim but it's worse because after nvim is used in browser with 
+" firenvim, the session manager sets the windows to whatever the text area was
+" and this results in nvim taking on the same dimensions in the terminal
+if has('gui_running')
+  " Plug 'xolox/vim-session', has('vim') ? {} : {'on': []}
+  Plug 'xolox/vim-session'
+endif
 " Plug 'xolox/vim-session'
 " Plug 'tpope/vim-obsession'
 
