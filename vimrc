@@ -657,9 +657,7 @@ endif
 " Font and colours -------------------------------
 
 if has('nvim')
-  if has("gui_running")
     set guifont=DejaVuSansMono\ Nerd\ Font\ Mono:h11
-  endif
 elseif has("gui_running")
   if has("win32")
     set gfn=DejaVuSansMono_NF:h9:cANSI
@@ -729,22 +727,27 @@ end
 " ---------------
 " if exists("g:loaded_airline")
 " add tab bar at top to show opened files
+if exists('g:started_by_firenvim') && g:started_by_firenvim
+  let g:airline#extensions#tabline#enabled = 0
+else
   let g:airline#extensions#tabline#enabled = 1
-  let g:airline_powerline_fonts = 1
-  " let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-  let g:airline#extensions#tabline#formatter = 'unique_tail'
-" wordcount can slow down opening large text files
-  let g:airline#extensions#wordcount#enabled = 0
-  " let g:airline_theme='bubblegum2'
-  " let g:airline_theme='wombat2'
-  let g:airline_theme='molokai'
-  " percent/total lines/current line/current column/hex character code
-  " let g:airline_section_z = '%3p%% %L/%#__accent_bold#%4l%#__restore__#:%3c 0x%-3B'
-  " percent current-line/total-lines : current-column 0x hex-character-code
-  let g:airline_section_z = '☰ %3p%% %#__accent_bold#%l%#__restore__#/%L :%#__accent_bold#%3c%#__restore__# 0x%-3B'
+end
 
-  " Add character value (%B in hex) to status line"
-  let s:def_statusline = '%3p%% %L/%#__accent_bold#%4l%#__restore__#:%3c 0x%-3B'
+let g:airline_powerline_fonts = 1
+" let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+" wordcount can slow down opening large text files
+let g:airline#extensions#wordcount#enabled = 0
+" let g:airline_theme='bubblegum2'
+" let g:airline_theme='wombat2'
+let g:airline_theme='molokai'
+" percent/total lines/current line/current column/hex character code
+" let g:airline_section_z = '%3p%% %L/%#__accent_bold#%4l%#__restore__#:%3c 0x%-3B'
+" percent current-line/total-lines : current-column 0x hex-character-code
+let g:airline_section_z = '☰ %3p%% %#__accent_bold#%l%#__restore__#/%L :%#__accent_bold#%3c%#__restore__# 0x%-3B'
+
+" Add character value (%B in hex) to status line"
+let s:def_statusline = '%3p%% %L/%#__accent_bold#%4l%#__restore__#:%3c 0x%-3B'
 " endif
 
 " ---------------

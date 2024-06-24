@@ -40,6 +40,11 @@ Plug 'xolox/vim-shell'
 " Use BD, BU, BW to remove buffer without closing window
 Plug 'qpkorr/vim-bufkill'
 
+" makes textboxes in firefoxa and chrome run nvim;
+" load for nvim only since it doesn't work with vim
+" See https://github.com/junegunn/vim-plug/wiki/tips
+Plug 'glacambre/firenvim', has('nvim') ? { 'do': { _ -> firenvim#install(0) } } : {'on': []}
+
 " UI Additions ------------------------------------------------------
 Plug 'bling/vim-airline'
 
@@ -72,11 +77,6 @@ Plug 'pbogut/fzf-mru.vim'
 " Bbye allows you to delete buffers (close files) without closing your windows or messing up your layout.
 Plug 'moll/vim-bbye'
 
-" Load for gvim only.
-" For vim, session changes the position so gvim appears in a different place; also if
-" gvim is open and vim is opened, vim gets messages about swap files.
-" For nvim the same applies as vim but it's worse because after nvim is used in browser with 
-" firenvim, the session manager sets the windows to whatever the text area was
 " and this results in nvim taking on the same dimensions in the terminal
 if has('gui_running') && !has('nvim')
   " Plug 'xolox/vim-session', has('vim') ? {} : {'on': []}
@@ -242,9 +242,5 @@ Plug 'tpope/vim-repeat'
 
 " Plug 'mattn/webapi-vim'
 
-" makes textboxes in firefoxa and chrome run nvim;
-" load for nvim only since it doesn't work with vim
-" See https://github.com/junegunn/vim-plug/wiki/tips
-Plug 'glacambre/firenvim', has('nvim') ? { 'do': { _ -> firenvim#install(0) } } : {'on': []}
 
 call plug#end()
