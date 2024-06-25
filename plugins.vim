@@ -1,3 +1,4 @@
+"
 "=============================================================================
 " File: plugins.vim
 " Description: Defines plugins to be loaded after vimrc executes but before 

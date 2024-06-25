@@ -19,28 +19,28 @@ vim.o.undodir = os.getenv('PK_VIMFILES') .. '/undo-nvim//'
 -- manually removing status line using set laststatus=0, results in two lines,
 -- which is how many there are normally
 vim.api.nvim_create_autocmd({'UIEnter'}, {
-    callback = function(event)
-        local client = vim.api.nvim_get_chan_info(vim.v.event.chan).client
-        if client ~= nil and client.name == "Firenvim" then
-            -- remove clutter
-            vim.opt.laststatus = 0
-            vim.opt.number = false
-            vim.opt.signcolumn = "no"
-        end
+  callback = function(event)
+    if vim.g.started_by_firenvim then
+      -- remove clutter
+      vim.opt.laststatus = 0
+      vim.opt.number = false
+      vim.opt.signcolumn = "no"
     end
+  end
 })
 
 vim.api.nvim_create_autocmd({'TextChanged', 'TextChangedI'}, {
-    callback = function()
-        if vim.g.timer_started then
-            return
-        end
-        vim.g.timer_started = true
-        vim.fn.timer_start(5000, function()
-            vim.g.timer_started = false
-            vim.cmd('silent write')
-        end)
+  callback = function(event)
+    if not vim.g.started_by_firenvim or vim.g.timer_started then
+      return
     end
+
+    vim.g.timer_started = true
+    vim.fn.timer_start(5000, function()
+      vim.g.timer_started = false
+      vim.cmd('silent write')
+    end)
+  end
 })
 
 -- don't automatically takeover textareas. Use c-e shortcut when required
@@ -53,4 +53,4 @@ vim.g.firenvim_config = {
   }
 }
 
--- end firenvim config --------------------------------------------------------  
+-- end firenvim config --------------------------------------------------------
