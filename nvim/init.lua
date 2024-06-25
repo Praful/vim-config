@@ -26,9 +26,6 @@ vim.api.nvim_create_autocmd({'UIEnter'}, {
             vim.opt.laststatus = 0
             vim.opt.number = false
             vim.opt.signcolumn = "no"
-
-            -- Suppress the file written message since we're autowriting
-            vim.opt.shortmess:append("s")
         end
     end
 })
