@@ -564,7 +564,7 @@ nnoremap <leader>eb :e $HOME/.bashrc<cr>
 nnoremap <leader>ez :e $ZDOTDIR/.zshrc<cr>
 nnoremap <leader>em :e $HOME/.common_environment<cr>
 nnoremap <leader>ea :e $HOME/.common_aliases<cr>
-nnoremap <leader>es :e $DATA/PowerShell/profile.ps1<cr>
+nnoremap <leader>ew :e $DATA/PowerShell/profile.ps1<cr>
 
 " reload vimrc once it's saved (http://vim.wikia.com/wiki/Open_vimrc_file)
 autocmd! BufWritePost $MYVIMRC :source $MYVIMRC

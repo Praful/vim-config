@@ -77,13 +77,9 @@ Plug 'pbogut/fzf-mru.vim'
 " Bbye allows you to delete buffers (close files) without closing your windows or messing up your layout.
 Plug 'moll/vim-bbye'
 
-" and this results in nvim taking on the same dimensions in the terminal
-if has('gui_running') && !has('nvim')
-  " Plug 'xolox/vim-session', has('vim') ? {} : {'on': []}
-  Plug 'xolox/vim-session'
-endif
+" don't need because viminfo seems to take care of it
 " Plug 'xolox/vim-session'
-" Plug 'tpope/vim-obsession'
+" Plug 'xolox/vim-session', !has('nvim') ? { 'do': {} } : {'on': []}
 
 "automatic closing of quotes, parentheses, etc
 Plug 'Raimondi/delimitMate'

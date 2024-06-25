@@ -184,13 +184,20 @@ let g:shell_fullscreen_always_on_top = 0
 " ---------------
 " Session
 " ---------------
-set sessionoptions=resize,winpos,winsize,curdir,folds,help,tabpages,buffers
+" set sessionoptions=resize,winpos,winsize,curdir,folds,help,tabpages,buffers
+"
 
-let g:session_autoload = 'yes'
-let g:session_autosave = 'yes'
-let g:session_autosave_periodic = 5
-let g:session_autosave_silent = "yes"
-let g:session_lock_enabled = 0
+" if has('nvim')
+  " let g:session_autoload = 'no'
+  " let g:session_autosave = 'no'
+" else
+  " let g:session_autoload = 'yes'
+  " let g:session_autosave = 'yes'
+  " let g:session_autosave_periodic = 5
+  " let g:session_autosave_silent = "yes"
+  " let g:session_lock_enabled = 0
+" end
+
 "
 " ---------------
 " NERDCommenter
