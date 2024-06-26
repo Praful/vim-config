@@ -286,7 +286,7 @@ set expandtab
 "Make softwrap wrap on vim default chars not in middle of word
 set nolist wrap linebreak breakat&vim
 
-set textwidth=85
+set textwidth=100
 " Autoformat comments only
 set formatoptions=qcrn1owj
 
