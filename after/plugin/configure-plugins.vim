@@ -368,6 +368,8 @@ xmap <silent> <C-ENTER> <Plug>SlimeRegionSend
 "
 " disable tab mapping since coc uses it
 let g:codeium_no_map_tab = v:true
+" let g:codeium_server_config = "~/.codeium/config.json"
+
 " use c-o, which we also use in zsh to accept suggestion
 imap <script><silent><nowait><expr> <C-o> codeium#Accept()
 

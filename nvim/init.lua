@@ -54,3 +54,4 @@ vim.g.firenvim_config = {
 }
 
 -- end firenvim config --------------------------------------------------------
+
