@@ -713,13 +713,10 @@ set ruler
 " Easytags
 " ---------------
 if has("win32")
-  " set tags=./tags;~/_vimtags;c:/apps/ruby/1.9.3/tags
-  set tags=~\_vimtags;c:\apps\ruby\2.0-64\tags
-  " let g:easytags_cmd = "ctags.exe"
+  set tags=~\.vim\vimtags;c:\apps\ruby\2.0-64\tags
   let g:easytags_cmd = "C:\\apps\\ctags58\\ctags.exe"
-  " let g:easytags_cmd = "C:\\apps\\ctags58\\ctags.exe --c-kinds=+p --fields=+S"
 else
-  set tags=~/.vimtags
+  set tags=~/.vim/vimtags
 end
 
 
