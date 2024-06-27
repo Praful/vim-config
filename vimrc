@@ -194,11 +194,12 @@ autocmd! BufEnter * silent! lcd %:p:h
 
 " remember some stuff after quiting vim:
 " marks, registers, searches, buffer list
+" ' =command history; < =lines of history; s =marks and buffer list;
+" h =save help history; n =file to save info; % =save/restore buffers
 if exists('g:started_by_firenvim') && g:started_by_firenvim
-  " set viminfo=''
-  set viminfo='50,<50,s10,h
+  set viminfo='100,<80,s100,h,n~/.vim/viminfo
 else
-  set viminfo='50,<50,s10,h,%
+  set viminfo='100,<80,s100,h,%,n~/.vim/viminfo
 end
 
 set path=.,./**,$DATA/dev/projects/**
