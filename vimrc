@@ -192,15 +192,19 @@ set confirm
 " set autochdir " current directory is always matching the content of the active window
 autocmd! BufEnter * silent! lcd %:p:h
 
-" remember some stuff after quiting vim:
-" marks, registers, searches, buffer list
+" remember some stuff after quiting vim: marks, registers, searches, buffer list. vim and nvim can't
+" share viminfo since they have different formats. nvim uses a shada file; store it in its own (default) directory
 " ' =command history; < =lines of history; s =marks and buffer list;
 " h =save help history; n =file to save info; % =save/restore buffers
-if exists('g:started_by_firenvim') && g:started_by_firenvim
-  set viminfo='100,<80,s100,h,n~/.vim/viminfo
+if has('nvim')
+  if exists('g:started_by_firenvim') && g:started_by_firenvim
+    set viminfo='100,<80,s100,h
+  else
+    set viminfo='100,<80,s100,h,%
+  end
 else
   set viminfo='100,<80,s100,h,%,n~/.vim/viminfo
-end
+endif
 
 set path=.,./**,$DATA/dev/projects/**
 
@@ -663,7 +667,11 @@ endif
 " Font and colours -------------------------------
 
 if has('nvim')
+  if IsOnHost('portegez30-mint')
     set guifont=DejaVuSansMono\ Nerd\ Font\ Mono:h11
+  else
+    set guifont=DejaVuSansMono\ Nerd\ Font\ Mono:h9
+  endif
 elseif has("gui_running")
   if has("win32")
     set gfn=DejaVuSansMono_NF:h9:cANSI
