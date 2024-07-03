@@ -198,9 +198,9 @@ autocmd! BufEnter * silent! lcd %:p:h
 " h =save help history; n =file to save info; % =save/restore buffers
 if has('nvim')
   if exists('g:started_by_firenvim') && g:started_by_firenvim
-    set viminfo='100,<80,s100,h
+    set shada='100,<80,s100,h
   else
-    set viminfo='100,<80,s100,h,%
+    set shada='100,<80,s100,h,%,n~/.vim/shada
   end
 else
   set viminfo='100,<80,s100,h,%,n~/.vim/viminfo
