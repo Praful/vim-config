@@ -201,6 +201,9 @@ Plug 'JuliaEditorSupport/julia-vim'
 
 " Plug 'romainl/vim-devdocs'
 
+" japanese: enable using ctrl-J
+" Plug 'tyru/eskk.vim'
+
 " Matching  ------------------------------------------------------
 "
 " See https://github.com/wellle/targets.vim

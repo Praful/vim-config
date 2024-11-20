@@ -46,6 +46,9 @@ vim.api.nvim_create_autocmd({'TextChanged', 'TextChangedI'}, {
 -- don't automatically takeover textareas. Use c-e shortcut when required
 vim.g.firenvim_config = {
   localSettings ={
+    -- ['web.whatsapp.com'] = {
+      -- takeover = 'never',
+    -- },
     ['.*'] = {
       filename = os.getenv('TMPDIR') .. '/firenvim/{hostname}_{pathname%10}.{extension}',
       takeover = 'never'
