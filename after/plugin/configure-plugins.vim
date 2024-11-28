@@ -37,9 +37,11 @@ let g:fzf_mru_case_sensitive = 0
 " netrw
 " ---------------
 "  don't load netrw
-let g:netrw_liststyle=3
-let g:loaded_netrw= 1
-let g:netrw_loaded_netrwPlugin= 1
+" 27/11/2024 - move this to vimrc from configure-plugins.vim since it's processed too 
+" late to avoid a conflict defining Open command (which a plugin defines first)
+" let g:netrw_liststyle=3
+" let g:loaded_netrw= 1
+" let g:netrw_loaded_netrwPlugin= 1
 
 
 " ---------------

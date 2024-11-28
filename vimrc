@@ -77,6 +77,12 @@ so $PK_VIMFILES/mswin-personal.vim
 
 " Basic options ---------------------------------------------------------------
 
+" 27/11/2024 - move this to vimrc from configure-plugins.vim since it's processed too 
+" late to avoid a conflict defining Open command (which a plugin defines first)
+" disable netrw
+let g:loaded_netrw = 1
+let g:loaded_netrwPlugin = 1
+
 " In general, you don't need this because if a (g)vimrc is found in the 
 " usual place, it's enabled. But there are edge cases when this doesn't apply,
 " eg providing a file with -u.
