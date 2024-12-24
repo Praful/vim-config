@@ -96,6 +96,8 @@ hi Type         gui=BOLD,ITALIC guifg=#F8B453 guibg=NONE
 hi Underlined   gui=UNDERLINE guifg=CornflowerBlue guibg=NONE
 hi Macro        gui=NONE guifg=#CC6666 guibg=NONE
 
+" used to highlight unused variables in Python
+hi Conceal      gui=NONE guifg=#FFFFFF guibg=#707070
 
 hi htmlBold gui=BOLD
 hi htmlItalic gui=ITALIC
