@@ -10,6 +10,11 @@
 "
 " The plugin manager has changed from using vundle to neobundle to dein and now 
 " vim-plug, which is simple and just works (so far!).
+"
+" To profile plugin startup times, run:
+"
+"   python <(curl -sSL https://raw.githubusercontent.com/hyiltiz/vim-plugins-profile/master/vim-plugins-profile.py)
+"
 "=============================================================================
 
 " automate installation of vimplug
@@ -29,7 +34,8 @@ Plug 'Lokaltog/vim-easymotion'
 " After install, turn shell ~/.vim/bundle/vimproc, (n,g)make -f your_machines_makefile
 " Plug 'Shougo/vimproc', {'do': 'make'}
 
-Plug 'xolox/vim-easytags'
+" 20250108 - remove since we're using fzf and coc to find methods/vars in programs
+" Plug 'xolox/vim-easytags'
 "required by vim-session
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-shell'
@@ -194,7 +200,7 @@ Plug 'hail2u/vim-css3-syntax', {'for':['css','scss','sass']}
 "Plug 'groenewege/vim-less'
 "Plug 'wavded/vim-stylus'
 "Plug 'tpope/vim-cucumber'
-Plug 'JuliaEditorSupport/julia-vim'
+" Plug 'JuliaEditorSupport/julia-vim'
 "PowerShell highlighting/help
 " Plug 'PProvost/vim-ps1', {'for': 'powershell'}
 
@@ -231,7 +237,8 @@ Plug 'michaeljsmith/vim-indent-object'
 
 " Plug 'nelstrom/vim-visual-star-search', {'for': 'ruby'}
 
-Plug 'tpope/vim-unimpaired'
+" 20250108 - not using
+" Plug 'tpope/vim-unimpaired'
 
 " search/replace highlighting
 Plug 'markonm/traces.vim'

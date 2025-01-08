@@ -558,7 +558,7 @@ command! -bang -nargs=* RgDir
   \ call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".<q-args>, 1, {'dir': system('git -C '.expand('%:p:h').' rev-parse --show-toplevel 2> /dev/null')[:-2]}, <bang>0)
 
 "Rg3 allows :Rgf <search> <dir> with preview and allows dir completion using <tab> key
-" eg Rgf bfs $DATA<tab>
+" eg Rg3 bfs $DATA<tab>
 command! -bang -nargs=* -complete=file Rg3
   \ call fzf#vim#grep(
   \   'rg --column --line-number --no-heading --color=always --smart-case '.<q-args>, 1,
