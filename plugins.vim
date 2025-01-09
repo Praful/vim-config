@@ -13,6 +13,7 @@
 "
 " To profile plugin startup times, run:
 "
+"   use python 3.10
 "   python <(curl -sSL https://raw.githubusercontent.com/hyiltiz/vim-plugins-profile/master/vim-plugins-profile.py)
 "
 "=============================================================================
@@ -37,8 +38,8 @@ Plug 'Lokaltog/vim-easymotion'
 " 20250108 - remove since we're using fzf and coc to find methods/vars in programs
 " Plug 'xolox/vim-easytags'
 "required by vim-session
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-shell'
+" Plug 'xolox/vim-misc'
+" Plug 'xolox/vim-shell'
 
 " This has to be installed manually. See
 " http://vim-taglist.sourceforge.net/installation.html
@@ -70,8 +71,7 @@ let g:NERDSpaceDelims = 1
 Plug 'scrooloose/nerdcommenter'
 
 Plug 'tpope/vim-surround'
-" Plug 'tpope/vim-fugitive'
-Plug 'sickill/vim-pasta'
+" Plug 'sickill/vim-pasta'
 " vim-speeddating:  use CTRL-A/CTRL-X to increment dates, times etc
 Plug 'tpope/vim-speeddating'
 " Plug "atweiden/vim-dragvisuals")
@@ -83,10 +83,6 @@ Plug 'pbogut/fzf-mru.vim'
 
 " Bbye allows you to delete buffers (close files) without closing your windows or messing up your layout.
 Plug 'moll/vim-bbye'
-
-" don't need because viminfo seems to take care of it
-" Plug 'xolox/vim-session'
-" Plug 'xolox/vim-session', !has('nvim') ? { 'do': {} } : {'on': []}
 
 "automatic closing of quotes, parentheses, etc
 Plug 'Raimondi/delimitMate'
@@ -101,20 +97,6 @@ Plug 'Raimondi/delimitMate'
 "   Manually trigger suggestion	<M-Bslash>
 Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
 
-" Not fast enough yet (comment out for now)
-" Setup:
-"     sudo docker run --entrypoint /opt/tabby/bin/tabby-cpu -it -p 8080:8080 -v $HOME/.tabby:/data tabbyml/tabby serve --model StarCoder-1B 
-"     To stop server: sudo docker stop <container id>  (use docker ps to find container id)
-"     Get token from http://localhost:8080/
-"     In ~/.tabby-client/agent/config.toml, add section [server] with token.
-"
-" Plug 'TabbyML/vim-tabby'
-" Tabby plugin will not show inline completion automatically, you can trigger the completion manually by pressing <C-\>.
-" let g:tabby_trigger_mode = 'manual'
-" let g:tabby_keybinding_accept = '<C-F9>'
-" let g:tabby_node_binary = '$HOME/.config/nvm/versions/node/v21.5.0/bin/node'
-
-" Plug 'madox2/vim-ai'
 
 " Plug 'sheerun/vim-polyglot'
 Plug 'vim-autoformat/vim-autoformat'
@@ -125,17 +107,6 @@ Plug 'tpope/vim-dispatch'
 
 " Install nightly build, replace ./install.sh with install.cmd on windows
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-
-" <leader>j  - Norma/visual: go to any variable/class/constant/name/symbol 
-" <leader>ab - Normal mode: open previous opened file (after jump)
-" <leader>al - Normal mode: open last closed search window again
-" More help: https://github.com/pechorin/any-jump.vim
-" Plug 'pechorin/any-jump.vim'
-
-" Python ------------------------------------------------------
-" this was temperamental; replace with vim-slime, which works in kitty
-" Plug 'jupyter-vim/jupyter-vim'
 
 
 " General language plugins ------------------------------------------------------
@@ -181,7 +152,6 @@ Plug 'leshill/vim-json', {'for':['javascript','json']}
 Plug 'leafgarland/typescript-vim', {'for':'typescript'}
 
 "   HTML ------------------------------------------------------
-" Plug 'nono/vim-handlebars',  {'autoload':{'filetypes':['html', 'htm']}})
 " use <c-y>comma to complete expression eg html:5<c-y>,
 " Plug 'mattn/emmet-vim'
 Plug 'othree/html5.vim',  {'for':['html', 'htm']}
@@ -244,7 +214,8 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'markonm/traces.vim'
 
 " Libraries ------------------------------------------------------
-Plug 'vim-scripts/L9'
+" Plug 'vim-scripts/L9'
+
 Plug 'tpope/vim-repeat'
 
 " Plug 'mattn/webapi-vim'
