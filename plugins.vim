@@ -38,8 +38,9 @@ Plug 'Lokaltog/vim-easymotion'
 " 20250108 - remove since we're using fzf and coc to find methods/vars in programs
 " Plug 'xolox/vim-easytags'
 "required by vim-session
-" Plug 'xolox/vim-misc'
-" Plug 'xolox/vim-shell'
+"these allow you to open file/url under cursor in the right app
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-shell'
 
 " This has to be installed manually. See
 " http://vim-taglist.sourceforge.net/installation.html

@@ -439,7 +439,7 @@ nnoremap <silent> gl :wincmd l<CR>
 " Equal Size Windows
 nnoremap <silent> g= :wincmd =<CR>
 " Swap Windows
-nnoremap <silent> gx :wincmd x<CR>
+" nnoremap <silent> gx :wincmd x<CR>
 
 " _  quick horizontal splits
 nnoremap _ :sp<cr>
@@ -595,6 +595,7 @@ nnoremap <silent> <Leader>fx :botright copen<CR>
 nnoremap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 
 nnoremap <leader>o :Open<CR>
+
 
 " Define F3 to paste the results of the last search into a new window
 nnoremap <F3> :redir @a<CR>:g//<CR>:redir END<CR>:new<CR>:put! a<CR><CR>
