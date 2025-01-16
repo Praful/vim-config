@@ -17,7 +17,8 @@ endif
 
 let colors_name = "deep-onyx"
 
-hi Normal       guifg=#ffffff guibg=#303030
+" hi Normal       guifg=#ffffff guibg=#303030
+hi Normal       guifg=#FFF6DC guibg=#303030
 "
 " Search
 hi IncSearch    gui=NONE guifg=#000000 guibg=#FF8000
@@ -82,7 +83,8 @@ hi Constant     gui=BOLD guifg=#d75f87 guibg=NONE
 hi Character    gui=NONE guifg=#D86868 guibg=NONE
 hi Error        gui=BOLD guifg=#ffffff guibg=#8000ff
 " hi Identifier   gui=BOLD guifg=cornflowerblue guibg=NONE
-hi Identifier   gui=BOLD guifg=#92d4ff guibg=NONE
+" hi Identifier   gui=BOLD guifg=#92d4ff guibg=NONE
+hi Identifier   gui=BOLD guifg=#89B4FA guibg=NONE
 " hi Identifier   gui=BOLD guifg=#569cd6 guibg=NONE
 hi Delimiter    gui=BOLD guifg=#F8B453 guibg=NONE
 hi Operator     gui=BOLD guifg=#F8B453 guibg=NONE
