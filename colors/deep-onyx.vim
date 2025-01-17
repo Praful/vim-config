@@ -86,7 +86,8 @@ hi Error        gui=BOLD guifg=#ffffff guibg=#8000ff
 " hi Identifier   gui=BOLD guifg=#92d4ff guibg=NONE
 hi Identifier   gui=BOLD guifg=#89B4FA guibg=NONE
 " hi Identifier   gui=BOLD guifg=#569cd6 guibg=NONE
-hi Delimiter    gui=BOLD guifg=#F8B453 guibg=NONE
+hi Delimiter    gui=BOLD guifg=#FFFF80 guibg=NONE
+" hi Delimiter    gui=BOLD guifg=#F8B453 guibg=NONE
 hi Operator     gui=BOLD guifg=#F8B453 guibg=NONE
 hi Ignore       gui=NONE guifg=bg      guibg=NONE
 hi PreProc      gui=NONE guifg=#D86868 guibg=NONE
