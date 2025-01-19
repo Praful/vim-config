@@ -19,7 +19,8 @@ let colors_name = "deep-onyx"
 
 " hi Normal       guifg=#ffffff guibg=#303030 " white
 " hi Normal       guifg=#FFF6DC guibg=#303030 "off-white 1
-hi Normal       guifg=#FAF9F6 guibg=#303030 "off-white 2
+" hi Normal       guifg=#FAF9F6 guibg=#303030 "off-white 2
+hi Normal       guifg=#FFF6E7 guibg=#303030 "off-white 1a
 "
 " Search
 hi IncSearch    gui=NONE guifg=#000000 guibg=#FF8000
