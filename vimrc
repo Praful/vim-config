@@ -596,7 +596,10 @@ nnoremap <silent> <Leader>fx :botright copen<CR>
 " and ask which one to jump to
 nnoremap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 
-nnoremap <leader>o :Open<CR>
+" this command broke in vim 9.1.1147. I've commented out in vim-shell plugin
+" and added here as Open2
+" command! -bar -nargs=? -complete=file Open2 call xolox#shell#open_cmd(<q-args>)
+nnoremap <leader>o :Open2<CR>
 
 
 " Define F3 to paste the results of the last search into a new window
