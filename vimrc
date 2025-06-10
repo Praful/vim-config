@@ -701,7 +701,8 @@ else
   " the font is set in the terminal emulator
   " set gfn=DejaVuSansMono_NF:h9:cANSI
 endif
-colorscheme deep-onyx
+" colorscheme deep-onyx
+colorscheme catppuccin_macchiato
 
 " Status line -----------------------------------------------------------------
 
