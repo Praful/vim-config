@@ -764,7 +764,9 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#wordcount#enabled = 0
 " let g:airline_theme='bubblegum2'
 " let g:airline_theme='wombat2'
-let g:airline_theme='molokai'
+" let g:airline_theme='molokai'
+let g:airline_theme = 'catppuccin_macchiato'
+
 " percent/total lines/current line/current column/hex character code
 " let g:airline_section_z = '%3p%% %L/%#__accent_bold#%4l%#__restore__#:%3c 0x%-3B'
 " percent current-line/total-lines : current-column 0x hex-character-code

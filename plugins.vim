@@ -57,6 +57,8 @@ Plug 'glacambre/firenvim', has('nvim') ? { 'do': { _ -> firenvim#install(0) } } 
 " UI Additions ------------------------------------------------------
 Plug 'bling/vim-airline'
 
+Plug 'catppuccin/vim', { 'as': 'catppuccin' }
+
 " Commands ------------------------------------------------------
 " <leader>K to invoke
 " Plug 'beloglazov/vim-online-thesaurus'
