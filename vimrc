@@ -701,8 +701,14 @@ else
   " the font is set in the terminal emulator
   " set gfn=DejaVuSansMono_NF:h9:cANSI
 endif
+
 " colorscheme deep-onyx
 colorscheme catppuccin_macchiato
+" override colorscheme highlight groups
+" Search
+hi IncSearch    gui=NONE guifg=#000000 guibg=#FF8000
+hi Search    gui=NONE guifg=#000000 guibg=#FFFF80
+hi Comment      gui=ITALIC  guifg=#A0A0A0 guibg=NONE
 
 " Status line -----------------------------------------------------------------
 
