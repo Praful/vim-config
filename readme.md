@@ -2,11 +2,12 @@ This repository contains my Vim config files. I keep them on GitHub so that I ca
 
 I've made the repository public so that others can look at the files. There's nothing special about them. I put them here for those few people who like to browse other people's Vim config files in the hope that they may learn something. I learnt more about Vim by looking at `vimrc` files of those with greater experience.
 
-Do not use these files as they are! They're customised for my requirements and yours will be different. The files will just make Vim confusing for you, especially if you're learning! 
+Do not use these files as they are! They're customised for my requirements and yours will be different. The files will just make Vim confusing for you, especially if you're learning!
 
-More recently (Mar 2023) I restructured the git repository so that it mirrors the vim folder structure. Therefore, once cloned, the repository can be copied to `.vim` or `vimfiles` folder as is. I use this config on Windows 10/11 and Linux Mint.
+More recently (Mar 2023) I restructured the git repository so that it mirrors the vim folder structure. Therefore, once cloned, the repository can be copied to `.vim` or `vimfiles` folder as is. I use this config on Linux Mint and, occasionally, Windows 11.
 
 My configuration and the plugins I use require the following to be present:
+
 - [ctags](https://github.com/universal-ctags/ctags): add to path.
 - [node](https://nodejs.org/en/download/): required by neoclide/coc.nvim.
 - [fzf](https://github.com/junegunn/fzf.vim): add to path
@@ -18,15 +19,16 @@ My configuration and the plugins I use require the following to be present:
 My `vimrc` file has evolved over many years and could do with being tidied up! For me, it's good enough.
 
 If you're a newcomer to Vim, a vimrc to start with is Tim Pope's [sensible vimrc file](https://github.com/tpope/vim-sensible). For advice on best practice and structuring your Vim config files, see:
+
 1. https://www.reddit.com/r/vim/wiki/vimrctips
-2. https://github.com/romainl/idiomatic-vimrc 
+2. https://github.com/romainl/idiomatic-vimrc
 3. https://vimways.org/2018/from-vimrc-to-vim
 
 If you want to know the meaning of a setting, press K whilst the cursor is on the word. That will open Vim help for that word.
 
 Some of the more possibly interesting mappings are:
 
-- Since, by default, `h` and `l` move left and right, I've remapped `H` and `L` to move to the beginning and end of line. This means that `H` doesn't go to the top of the screen. I've added `T` to go to the top, which mirrors `zt` (moves current line and cursor to the top). On a similar note, since I've remapped `L` (by default, it goes to the bottom of the screen),  I've remapped `B` to go to the bottom (to mirror `zb`). Of course, that means I can't use `B`'s original mapping (go back a WORD) but that's not a mapping I used.
+- Since, by default, `h` and `l` move left and right, I've remapped `H` and `L` to move to the beginning and end of line. This means that `H` doesn't go to the top of the screen. I've added `T` to go to the top, which mirrors `zt` (moves current line and cursor to the top). On a similar note, since I've remapped `L` (by default, it goes to the bottom of the screen), I've remapped `B` to go to the bottom (to mirror `zb`). Of course, that means I can't use `B`'s original mapping (go back a WORD) but that's not a mapping I used.
 - Continuing the theme of left and right, I've mapped `CTRL-H` and `CTRL-L` to go to the previous/next buffer. I used to use tabs in Vim because of tabs in other editors and IDEs. But buffers are better because tabs don't behave the way they do in other programs, for example, you can end up with the same file in two tabs! The path of least resistance is to use buffers!
 - Since `k` and `j` go up and down, I've mapped `CTRL-K` and `CTRL-J` to move the current line up or down two lines
 - `\\` seems a good way to cancel search highlights (= `:noh`).

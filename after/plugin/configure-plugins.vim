@@ -489,7 +489,8 @@ function! ShowDocumentation()
   if CocAction('hasProvider', 'hover')
     call CocActionAsync('doHover')
   else
-    call feedkeys('gh', 'in')
+    " call feedkeys('gh', 'in')
+    call feedkeys('K', 'in')
   endif
 endfunction
 

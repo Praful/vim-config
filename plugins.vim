@@ -42,6 +42,8 @@ Plug 'Lokaltog/vim-easymotion'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-shell'
 
+" Plug 'chriszarate/yazi.vim'
+
 " This has to be installed manually. See
 " http://vim-taglist.sourceforge.net/installation.html
 " Plug 'taglist.vim'

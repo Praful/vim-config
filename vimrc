@@ -39,11 +39,35 @@ if (!empty(glob($PK_PLUGINS)))
   source $PK_PLUGINS
 endif
 
+" Disable features that slow down viewing/editig of large files
+function! HandleLargeFiles()
+  let l:max_size = 1 * 1024 * 1024  " 3MB
+  let l:filesize = getfsize(@%)
+
+  if l:filesize > l:max_size
+    setlocal filetype=  " prevents syntax from loading
+    " syntax clear          " clears syntax rules for this buffer
+    setlocal synmaxcol=1  " don't highlight anything
+    " setlocal syntax=OFF
+    setlocal noswapfile
+    setlocal noundofile
+    setlocal foldmethod=manual
+    setlocal nofoldenable
+    " setlocal nowrap
+    setlocal nospell
+    setlocal nocursorline
+    setlocal showbreak=NONE
+    setlocal noruler
+
+    let b:airline_enabled = 0
+
+    echo "Large file detected: performance mode enabled"
+  endif
+endfunction
+
 if has("win32")
   " see DLL installed since vim binary was compiled with ruby 3.0
-  " set rubydll=C:/apps/ruby/3.1.2-1/bin/x64-ucrt-ruby310.dll
   set rubydll=$APPS/ruby/3.1.2-1/bin/x64-ucrt-ruby310.dll
-  " set pythonthreedll=C:/apps/Python/current/python311.dll
   set pythonthreedll=$APPS/Python/current/python311.dll
   set pythonthreehome=$APPS/Python/current
 elseif has('unix')
@@ -97,6 +121,7 @@ filetype plugin indent on
 " set all& "reset everything to their defaults
 "
 set encoding=utf-8
+
 if has("win32")
   " directx allows coloured emoji; the others are trial and error. See:
   " https://docs.microsoft.com/en-gb/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createcustomrenderingparams?redirectedfrom=MSDN
@@ -126,7 +151,7 @@ set undofile
 set undoreload=10000
 set nolist
 set listchars=tab:▸\ ,eol:¶,extends:❯,precedes:❮,trail:-,nbsp:•
-"set shell=/bin/bash
+" set shell=/bin/bash
 set lazyredraw
 " Tenths of a second to show the matching paren, when 'showmatch' is set
 set matchtime=3 
@@ -138,16 +163,6 @@ set nottimeout
 set autowrite
 " keep a backup file
 set backup	
-"
-" Set PowerShell as shell
-" stops FZFMru and other FZF commands working
-" if has("win32")
-  " set shell=pwsh
-  " " set shellcmdflag=-NonInteractive\ -Command
-  " set shellcmdflag=-Command
-  " set shellpipe=|
-  " set shellredir=>
-" endif
 
 
 "set dictionary=/usr/share/dict/words
@@ -260,16 +275,10 @@ if has('mouse')
   set mousehide  
 endif
 
-" This loads large files with long lines quicker since syntax highlighting isn't
-" attempted up to 3000 characters per line (the default)
-set synmaxcol=150
-
 if has('syntax') && !exists('g:syntax_on')
   syntax enable
 endif
 
-" Disable syntax highlighting for large files
-autocmd BufWinEnter * if line2byte(line("$") + 1) > 1000000 | syntax clear | endif
 
 " Tabs, spaces, wrapping ---------------------------------------------------------------
 
@@ -319,8 +328,8 @@ inoremap <s-cr> <esc>A:<cr>
 noremap <S-ENTER> O<ESC>j
 noremap <ENTER> o<ESC>k
 
-command! Txml set ft=xml | execute "%!tidy -q -i -xml"
-command! Thtml set ft=html | execute "%!tidy -q -i -html"
+command! FormatXml set ft=xml | execute "%!tidy -q -i -xml"
+command! FormatHtml set ft=html | execute "%!tidy -q -i -html"
 
 " Searching and positioning ----------------------------------------------------------
 "
@@ -334,20 +343,7 @@ set ignorecase
 set smartcase 
 set gdefault 
 
-if executable('ack')
-  set grepprg=ack\ --nogroup\ --column\ --smart-case\ --nocolor\ --follow\ $*
-  set grepformat=%f:%l:%c:%m
-endif
-if executable('ag')
-  set grepprg=ag\ --nogroup\ --column\ --smart-case\ --nocolor\ --follow
-  set grepformat=%f:%l:%c:%m
-endif
-if executable('pt')
-  set grepprg=pt\ --nogroup\ --smart-case\ --nocolor\ --follow
-  set grepformat=%f:%l:%c:%m
-endif
 if executable('rg')
-  " set grepprg=rg\ --vimgrep\ --smart-case\ --follow
   set grepprg=rg\ --vimgrep\ --smart-case\ --follow\ --color=never
   set grepformat=%f:%l:%c:%m
 endif
@@ -503,6 +499,10 @@ if has("autocmd")
     " see http://stackoverflow.com/questions/15353988/progressively-slower-reloading-time-of-vimrc
     autocmd!
 
+
+    autocmd BufReadPre * call HandleLargeFiles()
+    " autocmd BufEnter * call HandleLargeFiles()
+
     " Set readonly files to also be non-modifiable by default, and others to be modifiable by default.
     " https://groups.google.com/g/vim_use/c/gpRquKx-HGI?pli=1
     " This allows the autosave when focus is lost below by stopping us changing 
@@ -530,9 +530,9 @@ if has("autocmd")
     " autocmd BufRead,BufNewFile *.txt setlocal spell
     " Exclude .txt files otherwise vim's help is spell-checked.
     " autocmd BufRead,BufNewFile *.txt setlocal spell
-    autocmd BufRead,BufNewFile *.eml setlocal spell
-    autocmd BufRead,BufNewFile *.htm setlocal spell
-    autocmd BufRead,BufNewFile *.html setlocal spell
+    " autocmd BufRead,BufNewFile *.eml setlocal spell
+    " autocmd BufRead,BufNewFile *.htm setlocal spell
+    " autocmd BufRead,BufNewFile *.html setlocal spell
   augroup END
 
 endif 
@@ -655,7 +655,9 @@ inoremap <m-j> <esc><m-j>a
 inoremap <m-k> <esc><m-k>a
 
 " helpers for profiling
-nnoremap <silent> <leader>dd :exe ":profile start c:/data/logs/vim-profile.log"<cr>:exe ":profile func *"<cr>:exe ":profile file *"<cr>
+nnoremap <silent> <leader>dd :execute 'profile start ' . $TEMP . '/vim-profile.log'<CR>
+    \ :execute 'profile func *'<CR>
+    \ :execute 'profile file *'<CR>
 nnoremap <silent> <leader>dp :exe ":profile pause"<cr>
 nnoremap <silent> <leader>dc :exe ":profile continue"<cr>
 nnoremap <silent> <leader>dq :exe ":profile pause"<cr>:noautocmd qall!<cr>
@@ -702,29 +704,26 @@ else
   " set gfn=DejaVuSansMono_NF:h9:cANSI
 endif
 
+" color scheme  -----------------------------------------------------------------
 " colorscheme deep-onyx
 colorscheme catppuccin_macchiato
-" override colorscheme highlight groups
+" override some settings for colorscheme catppuccin_macchiato
+
+hi SpellBad gui=undercurl guisp=red guibg=bg guifg=fg
+
 " Search
 hi IncSearch    gui=NONE guifg=#000000 guibg=#FF8000
 hi Search    gui=NONE guifg=#000000 guibg=#FFFF80
 hi Comment      gui=ITALIC  guifg=#A0A0A0 guibg=NONE
 
+" Cursor
+hi Cursor       gui=NONE guifg=#000000 guibg=#FF8000
+hi lCursor       gui=NONE guifg=#000000 guibg=#FF8000
+hi CursorIM       gui=NONE guifg=#000000 guibg=#FF8000
+
 " Status line -----------------------------------------------------------------
 
 set laststatus=2                               " make status line always appear
-" set statusline=
-" set statusline+=%-3.3n\                      " buffer number
-" set statusline+=%f\                          " filename
-" set statusline+=%h%m%r%w                     " status flags
-" set statusline+=\[%{strlen(&ft)?&ft:'none'}] " file type
-" set stl+=%{&ff!='unix'?','.toupper(&ff):''}]\   " file format
-"
-" set statusline+=%=                           " right align remainder
-" set statusline+=0x%-8B                       " character value
-" set statusline+=%-14(%l,%c%V%)               " line, character
-" set statusline+=%<%P                         " file position
-
 set statusline=%F%m%r%h%w\[%{strlen(&ft)?&ft:'none'}]\ (%{&ff}/%Y)\ %=line\ %l\/%L,\ col\ %c:\ 0x%-8B\ %<%P
 
 " Show line number, cursor position.
