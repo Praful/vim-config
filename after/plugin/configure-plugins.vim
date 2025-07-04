@@ -33,16 +33,6 @@ let g:matchup_matchparen_insert_timeout = 2500
 " ---------------
 let g:fzf_mru_case_sensitive = 0
 
-" ---------------
-" netrw
-" ---------------
-"  don't load netrw
-" 27/11/2024 - move this to vimrc from configure-plugins.vim since it's processed too 
-" late to avoid a conflict defining Open command (which a plugin defines first)
-" let g:netrw_liststyle=3
-" let g:loaded_netrw= 1
-" let g:netrw_loaded_netrwPlugin= 1
-
 
 " ---------------
 " Speeddating
@@ -66,54 +56,6 @@ if exists("g:loaded_speeddating")
   vmap  -     <Plug>SpeedDatingDown
 endif
 
-" ---------------
-" Easytags
-" ---------------
-
-if exists("g:loaded_easytags")
-  " Tell taglist where Exuberant Tags is installed and map F8 to toggle tag list
-  "
-  " on and off.
-  if has("win32")
-    let Tlist_Ctags_Cmd="C:\\apps\\ctags58\\ctags.exe"
-  else
-    let Tlist_Ctags_Cmd="/usr/local/Cellar/ctags/5.8/bin/ctags"
-  end
-
-  let Tlist_GainFocus_On_ToggleOpen=1
-  let Tlist_Use_Right_Window = 1
-  let Tlist_Close_On_Select = 1
-  noremap <leader>tt :TlistToggle<CR>
-  "Easytags (enables CTRL=] and CTRL-T) by autotagging
-  "set tags=./.tags;,~/.vimtags
-
-  " enable async mode
-  let g:easytags_async = 1
-
-  " Allow project specific tags
-  " let g:easytags_dynamic_files = 1
-
-  " disable autoupdate
-  " let g:easytags_auto_update = 0
-  "   use local tag files instead of the global .vimtags
-  "let g:easytags_dynamic_files = 1
-  "k
-  "   enable/disable highlighting
-  let g:easytags_auto_highlight = 1
-  set updatetime=10000
-  "Disable autosync between program and tag list. Commented out for now to see if
-  "python version speeds it up.
-  "let g:easytags_on_cursorhold = 0
-  "Update tag list when file is saves
-  "let g:easytags_events = ['BufWritePost']
-  " let g:easytags_by_filetype="~/.vim/easytags"
-  let g:easytags_python_enabled = 1
-
-  highlight MyTagListFileName guifg=black guibg=orange
-  " title eg Function, Method, etc
-  highlight MyTagListTitle gui=bold guifg=#92d4ff
-endif
-
 
 " ---------------
 " Bufkill
@@ -134,21 +76,6 @@ if exists("g:loaded_unimpaired")
   vmap <m-k> [egv
   vmap <m-j> ]egv
 endif
-
-
-" Enable omni completion.
-
-" if has("autocmd")
-  " augroup PK4
-    " autocmd!
-    " autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    " autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    " autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    " autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-    " autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-    " autocmd FileType ruby,eruby setlocal omnifunc=rubycomplete#Complete
-  " augroup END
-" end
 
 " ---------------
 " Ruby
@@ -230,48 +157,59 @@ nnoremap <Leader>bp :PlugUpgrade<cr>
 nnoremap <Leader>bc :PlugClean<cr>
 
 " ---------------
-" Search Google using gs
-" See https://vi.stackexchange.com/questions/9001/how-do-i-search-google-from-vim
+" Web search 
 " ---------------
-let g:search_engine = "https://www.google.co.uk/search?q="
+let g:search_engine = "https://www.duckduckgo.com/search?q="
 
-function! GoogleSearch()
-  let searchterm=@x
-  let cmd =  "!" . "\"" . Browser() . "\"" . " \"" . g:search_engine . searchterm . "\" "
-  " echom "cmd=".cmd
-  execute(cmd)
+function! OpenURL(url)
+  let l:url = a:url
+  if has('mac')
+    call system('open ' . shellescape(l:url))
+  elseif has('unix')
+    call system('xdg-open ' . shellescape(l:url) . ' &')
+  elseif has('win32') || has('win64')
+    call system('start "" ' . shellescape(l:url))
+  else
+    echo "Unsupported OS"
+  endif
 endfunction
 
-" Remove all newlines
-function! Chomp(string)
-    return substitute(a:string, '\n\+$', '', '')
+" https://stackoverflow.com/questions/1533565/how-to-get-visually-selected-text-in-vimscript#6271254
+function! s:get_visual_selection()
+    let [line_start, column_start] = getpos("'<")[1:2]
+    let [line_end, column_end] = getpos("'>")[1:2]
+    let lines = getline(line_start, line_end)
+    if len(lines) == 0
+        return ''
+    endif
+    let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
+    let lines[0] = lines[0][column_start - 1:]
+    return join(lines, "\n")
 endfunction
 
+function! SearchWeb(from_visual)
+  let l:search_term = ''
+
+  if a:from_visual
+    let l:search_term = s:get_visual_selection()
+  else
+    let l:search_term = expand('<cword>')
+  endif
+
+  " Strip newline and URL-encode
+  let l:search_term = substitute(l:search_term, '\n', ' ', 'g')
+  let l:encoded = substitute(l:search_term, ' ', '+', 'g')
+  let l:url = 'https://www.duckduckgo.com/search?q=' . l:encoded
+
+  call OpenURL(l:url)
+endfunction
+
+command! SearchWeb call SearchWeb()
 
 " Paste current word or selection in x register
-noremap gs "xyiw<Esc> :silent! :call GoogleSearch()<CR>
-vnoremap gs "xy<Esc>  :silent! :call GoogleSearch()<CR>
+nnoremap gs :silent! :call SearchWeb(0)<CR>
+vnoremap gs :silent! :<C-U>call SearchWeb(1)<CR>
 
-function! FileExists(f)
-  return filereadable(a:f)
-endfunction
-
-function! Browser()
-  "NB: the dot below is a string concatenation operator.
-  let browsers = [($LOCALAPPDATA."/Google/Chrome/Application/chrome.exe"), "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe", "C:/Program Files (x86)/Internet Explorer/iexplore.exe"]
-
-  for prog in browsers
-    "echoerr prog
-    if FileExists(prog)
-      return prog
-    endif
-  endfor
-
-  " echom "No browser found."
-  return ""
-
-endfunction
-"
 " ---------------
 " ALE
 " ---------------

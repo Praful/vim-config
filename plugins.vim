@@ -42,6 +42,7 @@ Plug 'Lokaltog/vim-easymotion'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-shell'
 
+" works in vim but not in gvim
 " Plug 'chriszarate/yazi.vim'
 
 " This has to be installed manually. See
@@ -123,7 +124,7 @@ Plug 'jpalardy/vim-slime'
 Plug 'luochen1990/rainbow'
 let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
 
-" colourises #123456 codes
+" colourises codes like #123456 
 Plug 'chrisbra/Colorizer'
 
 " Ruby ------------------------------------------------------
@@ -219,11 +220,7 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'markonm/traces.vim'
 
 " Libraries ------------------------------------------------------
-" Plug 'vim-scripts/L9'
-
 Plug 'tpope/vim-repeat'
-
-" Plug 'mattn/webapi-vim'
 
 
 call plug#end()

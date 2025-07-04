@@ -250,7 +250,9 @@ set guioptions-=r
 set guioptions-=l
 " set guioptions+=egmrtL
 set guioptions-=L
-set guioptions+=egk
+
+" not supported by nvim; maybe not required for vim?
+" set guioptions+=egk
 
 " Use Windows clipboard as default register for yank, delete, change and put.
 " This make * the default register, which is used to access the Windows
@@ -596,10 +598,10 @@ nnoremap <silent> <Leader>fx :botright copen<CR>
 " and ask which one to jump to
 nnoremap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 
-" this command broke in vim 9.1.1147. I've commented out in vim-shell plugin
-" and added here as Open2
-" command! -bar -nargs=? -complete=file Open2 call xolox#shell#open_cmd(<q-args>)
-nnoremap <leader>o :Open2<CR>
+" this command (using vim-shell plugin) broke in vim 9.1.1147 because
+" vim has an open plugin. Disable it:
+let g:loaded_openPlugin = 1
+nnoremap <leader>o :Open<CR>
 
 
 " Define F3 to paste the results of the last search into a new window
