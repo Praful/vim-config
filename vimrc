@@ -712,6 +712,9 @@ colorscheme catppuccin_macchiato
 " override some settings for colorscheme catppuccin_macchiato
 
 hi SpellBad gui=undercurl guisp=red guibg=bg guifg=fg
+hi SpellLocal gui=undercurl guisp=red guibg=bg guifg=fg
+hi SpellCap gui=undercurl guisp=red guibg=bg guifg=fg
+hi SpellRare gui=undercurl guisp=red guibg=bg guifg=fg
 
 " Search
 hi IncSearch    gui=NONE guifg=#000000 guibg=#FF8000
