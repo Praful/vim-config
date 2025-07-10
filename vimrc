@@ -681,11 +681,11 @@ if has('unix')
 endif
 
 
-" Run python file: current buffer (focsed) is a python file; result shown
+" Run program: current buffer (focused) is a program file; result is shown
 " in new buffer. The output buffer is a scratch buffer and is reused for
 " each run. It's never saved.
 
-function! RunPythonInOutputBuffer()
+function! RunCommandInOutputBuffer(command)
   let filepath = expand('%:p')
   if empty(filepath)
     echo "Buffer not saved! Please save your file first."
@@ -723,14 +723,16 @@ function! RunPythonInOutputBuffer()
 
   call append(0, 'Output of ' . filepath . ' at ' . strftime("%Y-%m-%d %H:%M:%S"))
   call append(1, repeat('=', len(getline(1))))
-  let output = systemlist('python ' . shellescape(filepath))
+  let output = systemlist(a:command . ' ' . shellescape(filepath))
   call append(2, output)
 
   normal! 3G
   setlocal nomodifiable nomodified
 endfunction
 
-nnoremap <leader>rp :call RunPythonInOutputBuffer()<CR>
+nnoremap <leader>rp :call RunCommandInOutputBuffer('python')<CR>
+nnoremap <leader>rr :call RunCommandInOutputBuffer('ruby')<CR>
+nnoremap <leader>rb :call RunCommandInOutputBuffer('bash')<CR>
 
 
 " Font and colours -------------------------------
