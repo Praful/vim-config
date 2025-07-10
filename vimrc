@@ -680,6 +680,59 @@ if has('unix')
   command! -bar -nargs=0 SudoW :silent exe “write !sudo tee % >/dev/null” | silent edit!
 endif
 
+
+" Run python file: current buffer (focsed) is a python file; result shown
+" in new buffer. The output buffer is a scratch buffer and is reused for
+" each run. It's never saved.
+
+function! RunPythonInOutputBuffer()
+  let filepath = expand('%:p')
+  if empty(filepath)
+    echo "Buffer not saved! Please save your file first."
+    return
+  endif
+
+  if isdirectory(filepath)
+    echo "Current buffer is a directory, not a file!"
+    return
+  endif
+
+  " Change to the directory of the file
+  execute 'cd ' . fnameescape(fnamemodify(filepath, ':h'))
+
+  let bufname = '__PythonOutput__'
+  let existing_bufnr = bufnr(bufname)
+
+  " If buffer exists and is visible in a window, switch to it
+  if existing_bufnr != -1 && bufwinnr(existing_bufnr) != -1
+    execute bufwinnr(existing_bufnr) . 'wincmd w'
+  " Else if buffer exists but not visible, open it in a split
+  elseif existing_bufnr != -1
+    execute 'sbuffer ' . existing_bufnr
+  " Else buffer doesn't exist: create it
+  else
+    new
+    setlocal buftype=nofile bufhidden=hide noswapfile
+    execute 'silent keepalt file ' . bufname
+  endif
+
+  " Write output into buffer
+  setlocal modifiable
+  %delete _
+  setlocal nomodified
+
+  call append(0, 'Output of ' . filepath . ' at ' . strftime("%Y-%m-%d %H:%M:%S"))
+  call append(1, repeat('=', len(getline(1))))
+  let output = systemlist('python ' . shellescape(filepath))
+  call append(2, output)
+
+  normal! 3G
+  setlocal nomodifiable nomodified
+endfunction
+
+nnoremap <leader>rp :call RunPythonInOutputBuffer()<CR>
+
+
 " Font and colours -------------------------------
 
 if has('nvim')
@@ -749,12 +802,6 @@ if has("win32")
 else
   set tags=~/.vim/vimtags
 end
-
-
-" ---------------
-" deoplete - no longer used
-" ---------------
-" let g:deoplete#enable_at_startup = 1"
 
 " ---------------
 " vim-airline
