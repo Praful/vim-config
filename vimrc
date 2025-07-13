@@ -700,7 +700,7 @@ function! RunCommandInOutputBuffer(command)
   " Change to the directory of the file
   execute 'cd ' . fnameescape(fnamemodify(filepath, ':h'))
 
-  let bufname = '__PythonOutput__'
+  let bufname = '__ProgramOutput__'
   let existing_bufnr = bufnr(bufname)
 
   " If buffer exists and is visible in a window, switch to it
