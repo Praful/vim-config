@@ -745,7 +745,7 @@ if has('nvim')
   endif
 elseif has("gui_running")
   if has("win32")
-    set gfn=DejaVuSansMono_NF:h9:cANSI
+    set gfn=DejaVuSansMono_NFM:h9:cANSI
   elseif has('macunix')
     set guifont=DejaVuSansMNF:h13
   elseif has('unix')
