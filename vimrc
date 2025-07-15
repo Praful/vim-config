@@ -332,6 +332,7 @@ noremap <ENTER> o<ESC>k
 
 command! FormatXml set ft=xml | execute "%!tidy -q -i -xml"
 command! FormatHtml set ft=html | execute "%!tidy -q -i -html"
+command! FormatJSON %!python -m json.tool
 
 " Searching and positioning ----------------------------------------------------------
 "

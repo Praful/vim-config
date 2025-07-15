@@ -576,11 +576,6 @@ map <leader>rt :TestFile<CR>
 map <leader>rs :TestSuite<CR>
 map <leader>rl :TestLast<CR>
 map <leader>rv :TestVisit<CR>
-"
-" run current file (unrelated to vim-test
-" map <leader>rr :!"%:p"<CR>
-" noremap <leader>tr :silent !start "1" "%:p"<CR>
-" nmap <leader>tr :! start "1" "%:p"<CR>
 
 " ---------------
 " Misc functions
@@ -595,7 +590,6 @@ function! TestLanguages()
   :ruby print("Ruby good")
   " :python print("Python2 good")
 endfunction
-" noremap <C-F11> :call TestLanguages()<CR>
 
 "-----------------------
 
@@ -652,34 +646,3 @@ function! CopyMatches(reg)
   execute 'let @'.reg.' = join(hits, "\n") . "\n"'
 endfunction
 command! -register CopyMatches call CopyMatches(<q-reg>)
-"Autocompletion -----------------------
-"Move in omni pop-up with C-j/k
-" function! OmniPopup(action)
-"
-  " if pumvisible()
-    " if a:action == 'j'
-      " " return "\<DOWN>"
-      " return "\<C-N>"
-    " elseif a:action == 'k'
-      " return "\<C-P>"
-      " " return "\<UP>"
-    " elseif a:action == 'r'
-      " return "\<C-y>"
-    " endif
-  " endif
-  " return a:action
-" endfunction
-"
-" Move down without choosing option
-" inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
-"
-" " Move up without choosing option
-" inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
-" " Choose currently highlighted option for autocompletion
-" inoremap <silent><C-ENTER> <C-R>=OmniPopup('r')<CR>
-
-"-----------------------
-" auto-format plugin
-" let g:python3_host_prog="/usr/bin/python"
-" let g:python3_host_prog="/home/praful/.pyenv/shims/python3"
-noremap <F4> :Autoformat<CR>
