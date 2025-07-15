@@ -723,7 +723,9 @@ function! RunCommandInOutputBuffer(command)
 
   call append(0, 'Output of ' . filepath . ' at ' . strftime("%Y-%m-%d %H:%M:%S"))
   call append(1, repeat('=', len(getline(1))))
-  let output = systemlist(a:command . ' ' . shellescape(filepath))
+  let cmd = a:command . ' ' . shellescape(filepath)
+  " echo "Running: " . cmd
+  let output = systemlist(cmd)
   call append(2, output)
 
   normal! 3G

@@ -578,7 +578,7 @@ map <leader>rl :TestLast<CR>
 map <leader>rv :TestVisit<CR>
 "
 " run current file (unrelated to vim-test
-map <leader>rr :!"%:p"<CR>
+" map <leader>rr :!"%:p"<CR>
 " noremap <leader>tr :silent !start "1" "%:p"<CR>
 " nmap <leader>tr :! start "1" "%:p"<CR>
 
