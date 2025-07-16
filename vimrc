@@ -784,6 +784,8 @@ hi Cursor       gui=NONE guifg=#000000 guibg=#FF8000
 hi lCursor       gui=NONE guifg=#000000 guibg=#FF8000
 hi CursorIM       gui=NONE guifg=#000000 guibg=#FF8000
 
+hi MatchParen  gui=NONE guifg=#000000 guibg=#FFFF80 
+
 " Status line -----------------------------------------------------------------
 
 set laststatus=2                               " make status line always appear
