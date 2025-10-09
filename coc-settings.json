@@ -3,5 +3,6 @@
   "python.pythonPath": "/home/praful/.pyenv/shims/python",
   "coc.preferences.formatOnType": true,
   "coc.preferences.formatOnSave": true,
+  "extensions.updateCheck": "weekly",
   "inlayHint.enable": false
 }

@@ -379,7 +379,7 @@ imap <script><silent><nowait><expr> <C-o> codeium#Accept()
 " https://github.com/neoclide/coc.nvim?tab=readme-ov-file
 " ---------------
 
-let g:coc_global_extensions = ['coc-html', 'coc-pyright', 'coc-css', 'coc-json', 'coc-markdown-preview-enhanced', 'coc-webview', 'coc-yank']
+let g:coc_global_extensions = ['coc-html', 'coc-pyright', 'coc-css', 'coc-json', 'coc-markdown-preview-enhanced', 'coc-webview', 'coc-yank', "coc-snippets"]
 " other options:
 " let g:coc_global_extensions = ['coc-html', 'coc-pyright', 'coc-css', 'coc-json', 'coc-emmet', 'coc-tsserver',  'coc-flutter', 'coc-solargraph']
 
@@ -401,6 +401,27 @@ inoremap <silent><expr> <C-k> coc#pum#visible() ? coc#pum#prev(1) : "\<C-k>"
 " if autocompletion dropdown visible, use <tab> to accept highlighted completion
 " otherwise use <tab> as a normal tab.
 inoremap <silent><expr> <tab> pumvisible() ? coc#pum#confirm() : "\<C-g>u\<tab>"
+
+" coc-snippets ------------------
+" Use <C-l> for trigger snippet expand.
+imap <c-0> <Plug>(coc-snippets-expand)
+
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <c-9> <Plug>(coc-snippets-select)
+
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-9>'
+
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-8>'
+
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <c-9> <Plug>(coc-snippets-expand-jump)
+
+" Use <leader>x for convert visual selected code to snippet
+" xmap <leader>x  <Plug>(coc-convert-snippet)
+" --------------------------------- 
+
 
 " use <c-enter> to show completion dropdown
 if has('nvim')
