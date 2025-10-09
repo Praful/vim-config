@@ -630,6 +630,458 @@ nnoremap <leader>fef mmgg=G'm
 " Yank entire buffer with gy
 nnoremap gy :%y+<cr>
 
+" delete enter buffer without saving in register or messing up jump list or marks
+" nnoremap dy :silent! execute "keepjumps keepmarks 0,$delete _"<CR>
+" This version clears then pastes from default register. This is useful for
+" pasting from eg chatGPT and removing previous version. Cursor position is saved.
+nnoremap dy :let l=line(".")<CR>:%delete _<CR>0"+p<CR>:call cursor(l, col("."))<CR>
+
+" Make Y behave like D and C
+nnoremap Y y$
+
+" Alt-shift-J: Duplicate line down
+nnoremap <silent> <m-s-j> mzyyp`zj
+
+" Alt-shift-k: Duplicate line up
+nnoremap <silent> <m-s-k> mzyyp`z
+
+" Use unimpaired for this now: [e and ]e
+" Alt-j: Move current line up
+" nnoremap <silent> <m-j> mz:m+<cr>`z==
+" Alt-k: Move current line down
+" nnoremap <silent> <m-k> mz:m-2<cr>`z==
+
+
+" mirror ^o/^i which jumps back/forward in jump list
+" Alt-o: Jump back in the changelist
+nnoremap <m-o> g;
+" Alt-i: Jump forward in the changelist
+nnoremap <m-i> g,
+
+" Alt-j: Move current line up (insert mode)
+inoremap <m-j> <esc><m-j>a
+" Alt-k: Move current line down (insert mode)
+inoremap <m-k> <esc><m-k>a
+
+" helpers for profiling
+nnoremap <silent> <leader>dd :execute 'profile start ' . $TEMP . '/vim-profile.log'<CR>
+    \ :execute 'profile func *'<CR>
+    \ :execute 'profile file *'<CR>
+nnoremap <silent> <leader>dp :exe ":profile pause"<cr>
+nnoremap <silent> <leader>dc :exe ":profile continue"<cr>
+nnoremap <silent> <leader>dq :exe ":profile pause"<cr>:noautocmd qall!<cr>
+
+" To insert timestamp, press F3.
+" nnoremap <F3> a<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR><Esc>
+" inoremap <F3> <C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR>
+"
+" If you search text then type :Filter, the results will be put in a scratch buffer.
+" See http://vim.wikia.com/wiki/VimTip1063
+command! -nargs=? Filter let @a='' | execute 'g/<args>/y A' | new | setlocal bt=nofile | put! a
+
+" Reverse slashes
+nnoremap <silent> <Leader>/ :let tmp=@/<Bar>s:\\:/:e<Bar>let @/=tmp<Bar>noh<CR>
+nnoremap <silent> <Leader><Bslash> :let tmp=@/<Bar>s:/:\\:e<Bar>let @/=tmp<Bar>noh<CR>
+" Useful if editing file that requires sudo to write.
+if has('unix')
+  command! -bar -nargs=0 SudoW :silent exe “write !sudo tee % >/dev/null” | silent edit!
+endif
+
+
+" Run program: current buffer (focused) is a program file; result is shown
+" in new buffer. The output buffer is a scratch buffer and is reused for
+" each run. It's never saved.
+
+function! RunCommandInOutputBuffer(command)
+  let filepath = expand('%:p')
+  if empty(filepath)
+    echo "Buffer not saved! Please save your file first."
+    return
+  endif
+
+  if isdirectory(filepath)
+    echo "Current buffer is a directory, not a file!"
+    return
+  endif
+
+  " Change to the directory of the file
+  execute 'cd ' . fnameescape(fnamemodify(filepath, ':h'))
+
+  let bufname = '__ProgramOutput__'
+  let existing_bufnr = bufnr(bufname)
+
+  " If buffer exists and is visible in a window, switch to it
+  if existing_bufnr != -1 && bufwinnr(existing_bufnr) != -1
+    execute bufwinnr(existing_bufnr) . 'wincmd w'
+  " Else if buffer exists but not visible, open it in a split
+  elseif existing_bufnr != -1
+    execute 'sbuffer ' . existing_bufnr
+  " Else buffer doesn't exist: create it
+  else
+    new
+    setlocal buftype=nofile bufhidden=hide noswapfile
+    execute 'silent keepalt file ' . bufname
+  endif
+
+  " Write output into buffer
+  setlocal modifiable
+  %delete _
+  setlocal nomodified
+
+  call append(0, 'Output of ' . filepath . ' at ' . strftime("%Y-%m-%d %H:%M:%S"))
+  call append(1, repeat('=', len(getline(1))))
+  let cmd = a:command . ' ' . shellescape(filepath)
+  " echo "Running: " . cmd
+  let output = systemlist(cmd)
+  call append(2, output)
+
+  normal! 3G
+  setlocal nomodifiable nomodified
+endfunction
+
+nnoremap <leader>rp :call RunCommandInOutputBuffer('python')<CR>
+nnoremap <leader>rr :call RunCommandInOutputBuffer('ruby')<CR>
+nnoremap <leader>rb :call RunCommandInOutputBuffer('bash')<CR>
+
+
+" Font and colours -------------------------------
+
+if has('nvim')
+  if IsOnHost('portegez30-mint')
+    set guifont=DejaVuSansMono\ Nerd\ Font\ Mono:h11
+  else
+    set guifont=DejaVuSansMono\ Nerd\ Font\ Mono:h9
+  endif
+elseif has("gui_running")
+  if has("win32")
+    set gfn=DejaVuSansMono_NFM:h9:cANSI
+  elseif has('macunix')
+    set guifont=DejaVuSansMNF:h13
+  elseif has('unix')
+    if IsOnHost('portegez30-mint')
+      set guifont=DejaVuSansMono\ Nerd\ Font\ Mono\ 11
+    else
+      set guifont=DejaVuSansMono\ Nerd\ Font\ Mono\ 9
+    endif
+  endif
+else
+  set termguicolors
+  " the font is set in the terminal emulator
+  " set gfn=DejaVuSansMono_NF:h9:cANSI
+endif
+
+" color scheme  -----------------------------------------------------------------
+" colorscheme deep-onyx
+colorscheme catppuccin_macchiato
+" override some settings for colorscheme catppuccin_macchiato
+
+hi SpellBad gui=undercurl guisp=red guibg=bg guifg=fg
+hi SpellLocal gui=undercurl guisp=red guibg=bg guifg=fg
+hi SpellCap gui=undercurl guisp=red guibg=bg guifg=fg
+hi SpellRare gui=undercurl guisp=red guibg=bg guifg=fg
+
+" Search
+hi IncSearch    gui=NONE guifg=#000000 guibg=#FF8000
+hi Search    gui=NONE guifg=#000000 guibg=#FFFF80
+hi Comment      gui=ITALIC  guifg=#A0A0A0 guibg=NONE
+
+" Cursor
+hi Cursor       gui=NONE guifg=#000000 guibg=#FF8000
+hi lCursor       gui=NONE guifg=#000000 guibg=#FF8000
+hi CursorIM       gui=NONE guifg=#000000 guibg=#FF8000
+
+hi MatchParen  gui=NONE guifg=#000000 guibg=#FFFF80 
+
+" Status line -----------------------------------------------------------------
+
+set laststatus=2                               " make status line always appear
+set statusline=%F%m%r%h%w\[%{strlen(&ft)?&ft:'none'}]\ (%{&ff}/%Y)\ %=line\ %l\/%L,\ col\ %c:\ 0x%-8B\ %<%P
+
+" Show line number, cursor position.
+set ruler
+
+
+" Plugins -----------------------------------------------------------------
+"
+" Plugins are defined in plugins.vim and initialised in configure-plugins.vim in the after 
+" folder. Here we do the plugin pre-load stuff. 
+
+" ---------------
+" Easytags
+" ---------------
+if has("win32")
+  set tags=~\.vim\vimtags;c:\apps\ruby\2.0-64\tags
+  let g:easytags_cmd = "C:\\apps\\ctags58\\ctags.exe"
+else
+  set tags=~/.vim/vimtags
+end
+
+" ---------------
+" vim-airline
+" ---------------
+" if exists("g:loaded_airline")
+" add tab bar at top to show opened files
+if exists('g:started_by_firenvim') && g:started_by_firenvim
+  let g:airline#extensions#tabline#enabled = 0
+else
+  let g:airline#extensions#tabline#enabled = 1
+end
+
+let g:airline_powerline_fonts = 1
+" let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+" wordcount can slow down opening large text files
+let g:airline#extensions#wordcount#enabled = 0
+" let g:airline_theme='bubblegum2'
+" let g:airline_theme='wombat2'
+" let g:airline_theme='molokai'
+let g:airline_theme = 'catppuccin_macchiato'
+
+" percent/total lines/current line/current column/hex character code
+" let g:airline_section_z = '%3p%% %L/%#__accent_bold#%4l%#__restore__#:%3c 0x%-3B'
+" percent current-line/total-lines : current-column 0x hex-character-code
+let g:airline_section_z = '☰ %3p%% %#__accent_bold#%l%#__restore__#/%L :%#__accent_bold#%3c%#__restore__# 0x%-3B'
+
+" Add character value (%B in hex) to status line"
+let s:def_statusline = '%3p%% %L/%#__accent_bold#%4l%#__restore__#:%3c 0x%-3B'
+" endif
+
+" ---------------
+" YankRing - setup callback to override Y definition
+" ---------------
+"make Y consistent with C and D on yankring
+function! YRRunAfterMaps()
+  nnoremap <silent> Y   :<C-U>YRYankCount 'y$'<CR>
+endfunction
+
+" End of vimrc =====================================================================
+" Yank entire buffer with gy
+nnoremap gy :%y+<cr>
+
+
+" Make Y behave like D and C
+nnoremap Y y$
+
+" Alt-shift-J: Duplicate line down
+nnoremap <silent> <m-s-j> mzyyp`zj
+
+" Alt-shift-k: Duplicate line up
+nnoremap <silent> <m-s-k> mzyyp`z
+
+" Use unimpaired for this now: [e and ]e
+" Alt-j: Move current line up
+" nnoremap <silent> <m-j> mz:m+<cr>`z==
+" Alt-k: Move current line down
+" nnoremap <silent> <m-k> mz:m-2<cr>`z==
+
+
+" mirror ^o/^i which jumps back/forward in jump list
+" Alt-o: Jump back in the changelist
+nnoremap <m-o> g;
+" Alt-i: Jump forward in the changelist
+nnoremap <m-i> g,
+
+" Alt-j: Move current line up (insert mode)
+inoremap <m-j> <esc><m-j>a
+" Alt-k: Move current line down (insert mode)
+inoremap <m-k> <esc><m-k>a
+
+" helpers for profiling
+nnoremap <silent> <leader>dd :execute 'profile start ' . $TEMP . '/vim-profile.log'<CR>
+    \ :execute 'profile func *'<CR>
+    \ :execute 'profile file *'<CR>
+nnoremap <silent> <leader>dp :exe ":profile pause"<cr>
+nnoremap <silent> <leader>dc :exe ":profile continue"<cr>
+nnoremap <silent> <leader>dq :exe ":profile pause"<cr>:noautocmd qall!<cr>
+
+" To insert timestamp, press F3.
+" nnoremap <F3> a<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR><Esc>
+" inoremap <F3> <C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR>
+"
+" If you search text then type :Filter, the results will be put in a scratch buffer.
+" See http://vim.wikia.com/wiki/VimTip1063
+command! -nargs=? Filter let @a='' | execute 'g/<args>/y A' | new | setlocal bt=nofile | put! a
+
+" Reverse slashes
+nnoremap <silent> <Leader>/ :let tmp=@/<Bar>s:\\:/:e<Bar>let @/=tmp<Bar>noh<CR>
+nnoremap <silent> <Leader><Bslash> :let tmp=@/<Bar>s:/:\\:e<Bar>let @/=tmp<Bar>noh<CR>
+" Useful if editing file that requires sudo to write.
+if has('unix')
+  command! -bar -nargs=0 SudoW :silent exe “write !sudo tee % >/dev/null” | silent edit!
+endif
+
+
+" Run program: current buffer (focused) is a program file; result is shown
+" in new buffer. The output buffer is a scratch buffer and is reused for
+" each run. It's never saved.
+
+function! RunCommandInOutputBuffer(command)
+  let filepath = expand('%:p')
+  if empty(filepath)
+    echo "Buffer not saved! Please save your file first."
+    return
+  endif
+
+  if isdirectory(filepath)
+    echo "Current buffer is a directory, not a file!"
+    return
+  endif
+
+  " Change to the directory of the file
+  execute 'cd ' . fnameescape(fnamemodify(filepath, ':h'))
+
+  let bufname = '__ProgramOutput__'
+  let existing_bufnr = bufnr(bufname)
+
+  " If buffer exists and is visible in a window, switch to it
+  if existing_bufnr != -1 && bufwinnr(existing_bufnr) != -1
+    execute bufwinnr(existing_bufnr) . 'wincmd w'
+  " Else if buffer exists but not visible, open it in a split
+  elseif existing_bufnr != -1
+    execute 'sbuffer ' . existing_bufnr
+  " Else buffer doesn't exist: create it
+  else
+    new
+    setlocal buftype=nofile bufhidden=hide noswapfile
+    execute 'silent keepalt file ' . bufname
+  endif
+
+  " Write output into buffer
+  setlocal modifiable
+  %delete _
+  setlocal nomodified
+
+  call append(0, 'Output of ' . filepath . ' at ' . strftime("%Y-%m-%d %H:%M:%S"))
+  call append(1, repeat('=', len(getline(1))))
+  let cmd = a:command . ' ' . shellescape(filepath)
+  " echo "Running: " . cmd
+  let output = systemlist(cmd)
+  call append(2, output)
+
+  normal! 3G
+  setlocal nomodifiable nomodified
+endfunction
+
+nnoremap <leader>rp :call RunCommandInOutputBuffer('python')<CR>
+nnoremap <leader>rr :call RunCommandInOutputBuffer('ruby')<CR>
+nnoremap <leader>rb :call RunCommandInOutputBuffer('bash')<CR>
+
+
+" Font and colours -------------------------------
+
+if has('nvim')
+  if IsOnHost('portegez30-mint')
+    set guifont=DejaVuSansMono\ Nerd\ Font\ Mono:h11
+  else
+    set guifont=DejaVuSansMono\ Nerd\ Font\ Mono:h9
+  endif
+elseif has("gui_running")
+  if has("win32")
+    set gfn=DejaVuSansMono_NFM:h9:cANSI
+  elseif has('macunix')
+    set guifont=DejaVuSansMNF:h13
+  elseif has('unix')
+    if IsOnHost('portegez30-mint')
+      set guifont=DejaVuSansMono\ Nerd\ Font\ Mono\ 11
+    else
+      set guifont=DejaVuSansMono\ Nerd\ Font\ Mono\ 9
+    endif
+  endif
+else
+  set termguicolors
+  " the font is set in the terminal emulator
+  " set gfn=DejaVuSansMono_NF:h9:cANSI
+endif
+
+" color scheme  -----------------------------------------------------------------
+" colorscheme deep-onyx
+colorscheme catppuccin_macchiato
+" override some settings for colorscheme catppuccin_macchiato
+
+hi SpellBad gui=undercurl guisp=red guibg=bg guifg=fg
+hi SpellLocal gui=undercurl guisp=red guibg=bg guifg=fg
+hi SpellCap gui=undercurl guisp=red guibg=bg guifg=fg
+hi SpellRare gui=undercurl guisp=red guibg=bg guifg=fg
+
+" Search
+hi IncSearch    gui=NONE guifg=#000000 guibg=#FF8000
+hi Search    gui=NONE guifg=#000000 guibg=#FFFF80
+hi Comment      gui=ITALIC  guifg=#A0A0A0 guibg=NONE
+
+" Cursor
+hi Cursor       gui=NONE guifg=#000000 guibg=#FF8000
+hi lCursor       gui=NONE guifg=#000000 guibg=#FF8000
+hi CursorIM       gui=NONE guifg=#000000 guibg=#FF8000
+
+hi MatchParen  gui=NONE guifg=#000000 guibg=#FFFF80 
+
+" Status line -----------------------------------------------------------------
+
+set laststatus=2                               " make status line always appear
+set statusline=%F%m%r%h%w\[%{strlen(&ft)?&ft:'none'}]\ (%{&ff}/%Y)\ %=line\ %l\/%L,\ col\ %c:\ 0x%-8B\ %<%P
+
+" Show line number, cursor position.
+set ruler
+
+
+" Plugins -----------------------------------------------------------------
+"
+" Plugins are defined in plugins.vim and initialised in configure-plugins.vim in the after 
+" folder. Here we do the plugin pre-load stuff. 
+
+" ---------------
+" Easytags
+" ---------------
+if has("win32")
+  set tags=~\.vim\vimtags;c:\apps\ruby\2.0-64\tags
+  let g:easytags_cmd = "C:\\apps\\ctags58\\ctags.exe"
+else
+  set tags=~/.vim/vimtags
+end
+
+" ---------------
+" vim-airline
+" ---------------
+" if exists("g:loaded_airline")
+" add tab bar at top to show opened files
+if exists('g:started_by_firenvim') && g:started_by_firenvim
+  let g:airline#extensions#tabline#enabled = 0
+else
+  let g:airline#extensions#tabline#enabled = 1
+end
+
+let g:airline_powerline_fonts = 1
+" let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+" wordcount can slow down opening large text files
+let g:airline#extensions#wordcount#enabled = 0
+" let g:airline_theme='bubblegum2'
+" let g:airline_theme='wombat2'
+" let g:airline_theme='molokai'
+let g:airline_theme = 'catppuccin_macchiato'
+
+" percent/total lines/current line/current column/hex character code
+" let g:airline_section_z = '%3p%% %L/%#__accent_bold#%4l%#__restore__#:%3c 0x%-3B'
+" percent current-line/total-lines : current-column 0x hex-character-code
+let g:airline_section_z = '☰ %3p%% %#__accent_bold#%l%#__restore__#/%L :%#__accent_bold#%3c%#__restore__# 0x%-3B'
+
+" Add character value (%B in hex) to status line"
+let s:def_statusline = '%3p%% %L/%#__accent_bold#%4l%#__restore__#:%3c 0x%-3B'
+" endif
+
+" ---------------
+" YankRing - setup callback to override Y definition
+" ---------------
+"make Y consistent with C and D on yankring
+function! YRRunAfterMaps()
+  nnoremap <silent> Y   :<C-U>YRYankCount 'y$'<CR>
+endfunction
+
+" End of vimrc =====================================================================
+" Yank entire buffer with gy
+nnoremap gy :%y+<cr>
+
+
 " Make Y behave like D and C
 nnoremap Y y$
 
