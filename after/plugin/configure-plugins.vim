@@ -694,3 +694,92 @@ function! CopyMatches(reg)
   execute 'let @'.reg.' = join(hits, "\n") . "\n"'
 endfunction
 command! -register CopyMatches call CopyMatches(<q-reg>)
+
+function! RestartGVim2()
+  " Save all modified buffers
+  wall
+
+  if !has('gui_running')
+    echo "This function is for GVim only."
+    return
+  endif
+
+  " Use $TMP for session file
+  if has('win32') || has('win64')
+    let tmpdir = $TEMP
+  else
+    let tmpdir = $TMP
+  endif
+  let session_file = tmpdir . '/vim_restart_session.vim'
+
+  " Save GVim window position and size
+  let win_x = getwinposx()
+  let win_y = getwinposy()
+  let win_lines = &lines
+  let win_columns = &columns
+
+  " Save session including buffers, tabs, folds, cursor positions
+  execute 'mksession! ' . fnameescape(session_file)
+
+  " Launch new GVim window with session and schedule deletion after delay
+  if has('win32') || has('win64')
+    " Windows: use timeout to delete session after 5 seconds
+    call system('start "" cmd /c "timout /t 1 >nul & gvim -geometry '.win_columns.'x'.win_lines.'+'.win_x.'+'.win_y.' -S ' . fnameescape(session_file))
+    " Can't reliably delete automatically on Windows, user may remove later
+  else
+    " Unix: run in background, delete after 5 seconds
+    " Pause at beginning to allow current gvim to close else swap file is still open; sleep
+    " before deleting session file else it's unavailable to new gvim session.
+    call system('sleep 2 && gvim -geometry '.win_columns.'x'.win_lines.'+'.win_x.'+'.win_y.' -S ' . fnameescape(session_file) . ' & sleep 5 && rm -f ' . fnameescape(session_file) . ' &')
+  endif
+
+  " Quit current GVim
+  quitall!
+endfunction
+
+function! RestartGVim()
+  " Save all modified buffers
+  wall
+
+  if !has('gui_running')
+    echo "This function is for GVim only."
+    return
+  endif
+
+  " Session file in $TMP
+  if has('win32') || has('win64')
+    let tmpdir = $TEMP
+  else
+    let tmpdir = $TMP
+  endif
+  let session_file = tmpdir . '/vim_restart_session.vim'
+
+  " Save GVim window position and size
+  let win_x = getwinposx()
+  let win_y = getwinposy()
+  let win_lines = &lines
+  let win_columns = &columns
+
+  " Save session with all tabs, splits, folds, cursor positions, buffers
+  execute 'mksession! ' . fnameescape(session_file)
+
+  " Launch new GVim asynchronously with a short delay (1 sec) to let old gvim close, which   
+  " avoids swap file being open when new gvim starts.
+  if has('win32') || has('win64')
+    " Windows: delay 1s using timeout, launch asynchronously with start
+    let cmd = 'start "" cmd /c "timeout /t 1 >nul && gvim -geometry '.win_columns.'x'.win_lines.'+'.win_x.'+'.win_y.' -S ' . fnameescape(session_file) . '"'
+    call system(cmd)
+  else
+    " Unix: launch asynchronously
+    let cmd = 'bash -c "sleep 1 && gvim -geometry '.win_columns.'x'.win_lines.'+'.win_x.'+'.win_y.' -S ' . fnameescape(session_file) . ' && sleep 10 && rm -f ' . fnameescape(session_file) . '" &'
+    call system(cmd)
+  endif
+
+  " Quit current GVim
+  quitall!
+endfunction
+
+" Mapping
+nnoremap <leader>rv :call RestartGVim()<CR>
+" Mapping
+nnoremap <leader>rv :call RestartGVim()<CR>

@@ -250,6 +250,10 @@ set guioptions-=r
 set guioptions-=l
 " set guioptions+=egmrtL
 set guioptions-=L
+" remove gui confirm
+set guioptions-=c
+
+
 
 " not supported by nvim; maybe not required for vim?
 " set guioptions+=egk
@@ -446,18 +450,63 @@ nnoremap _ :sp<cr>
 nnoremap <bar> :vsp<cr>
 
 
-" Buffers 
-noremap <leader>n :enew<CR>
-noremap <c-h> :bprevious<CR>
-noremap <c-l> :bnext<CR>
-inoremap <c-h> <esc>:bprevious<cr>
-inoremap <c-l> <esc>:bnext<cr>
+" For gvim, a gui prompt appears if buffer is not saved; this
+" replaces with terminal prompt for unsaved buffers only. For
+" saved buffers, the buffer is saved because of autocmd that saves 
+" when focus is lost.
+function! CLI_BufSwitch(direction)
+  " direction: 'next' or 'prev'
+  if &modified && bufname('%') ==# ''
+    echohl WarningMsg
+    echo 'Buffer "' . bufname('%') . '" has never been saved Save? [y/n/c]'
+    echohl None
+
+    " Get single key without Enter
+    let choice = nr2char(getchar())
+
+    if choice ==? 'y'
+      write
+    elseif choice ==? 'n'
+      bd!
+    elseif choice ==? 'c' || choice ==? ''
+      return
+    else
+      " Any other key cancels
+      return
+    endif
+  endif
+
+  " Switch buffer
+  if a:direction ==# 'next'
+    bnext
+  elseif a:direction ==# 'prev'
+    bprevious
+  endif
+endfunction
+
+nnoremap <silent> <c-h> :call CLI_BufSwitch('prev')<CR>
+nnoremap <silent> <c-l> :call CLI_BufSwitch('next')<CR>
+inoremap <silent> <c-h> <esc>:call CLI_BufSwitch('prev')<CR>
+inoremap <silent> <c-l> <esc>:call CLI_BufSwitch('next')<CR>
 
 " as above but use alt key because in kitty, we define c-h/c-l as next/prev kitty tab
-noremap <m-h> :bprevious<CR>
-noremap <m-l> :bnext<CR>
-inoremap <m-h> <esc>:bprevious<cr>
-inoremap <m-l> <esc>:bnext<cr>
+nnoremap <silent> <m-h> :call CLI_BufSwitch('prev')<CR>
+nnoremap <silent> <m-l> :call CLI_BufSwitch('next')<CR>
+inoremap <silent> <m-h> <esc>:call CLI_BufSwitch('prev')<CR>
+inoremap <silent> <m-l> <esc>:call CLI_BufSwitch('next')<CR>
+" adfa
+" Buffers 
+noremap <leader>n :enew<CR>
+" noremap <c-h> :bprevious<CR>
+" noremap <c-l> :bnext<CR>
+" inoremap <c-h> <esc>:bprevious<cr>
+" inoremap <c-l> <esc>:bnext<cr>
+
+" as above but use alt key because in kitty, we define c-h/c-l as next/prev kitty tab
+" noremap <m-h> :bprevious<CR>
+" noremap <m-l> :bnext<CR>
+" inoremap <m-h> <esc>:bprevious<cr>
+" inoremap <m-l> <esc>:bnext<cr>
 
 " Tabs
 " we don't use tabs
@@ -764,6 +813,7 @@ elseif has("gui_running")
       set guifont=DejaVuSansMono\ Nerd\ Font\ Mono\ 9
     endif
   endif
+
 else
   set termguicolors
   " the font is set in the terminal emulator
