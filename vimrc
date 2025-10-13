@@ -1076,7 +1076,7 @@ set ruler
 
 " Plugins -----------------------------------------------------------------
 "
-" Plugins are defined in plugins.vim and initialised in configure-plugins.vim in the after 
+"Plugins are defined in plugins.vim and initialised in configure-plugins.vim in the after 
 " folder. Here we do the plugin pre-load stuff. 
 
 " ---------------
