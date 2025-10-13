@@ -494,7 +494,7 @@ nnoremap <silent> <m-h> :call CLI_BufSwitch('prev')<CR>
 nnoremap <silent> <m-l> :call CLI_BufSwitch('next')<CR>
 inoremap <silent> <m-h> <esc>:call CLI_BufSwitch('prev')<CR>
 inoremap <silent> <m-l> <esc>:call CLI_BufSwitch('next')<CR>
-" adfa
+
 " Buffers 
 noremap <leader>n :enew<CR>
 " noremap <c-h> :bprevious<CR>
