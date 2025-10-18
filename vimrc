@@ -399,7 +399,7 @@ set scrolloff=5
 
 "close window eg when displaying help
 " nnoremap <leader>Q :BD<CR>
-nnoremap <leader>q <c-w>c
+nnoremap <leader>Q <c-w>c
 " Q puts into Ex mode, which I don't use.
 
 "Scoll two lines and leave cursor where it is.
