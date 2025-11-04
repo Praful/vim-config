@@ -783,3 +783,19 @@ endfunction
 nnoremap <leader>rv :call RestartGVim()<CR>
 " Mapping
 nnoremap <leader>rv :call RestartGVim()<CR>
+
+" number selected lines 1, 2, ...
+command! -range NumberLines <line1>,<line2>s/^/\=printf('%d. ', line('.') - <line1> + 1)
+
+" select text; run this to make into markdown code block
+xnoremap <leader>cb :<C-U>call WrapSelectionInCodeBlock()<CR>
+command! -range CodeBlock call WrapSelectionInCodeBlock()
+function! WrapSelectionInCodeBlock()
+    " Get start and end of visual selection
+    let l:start = line("'<")
+    let l:end = line("'>")
+    " Insert closing backticks after the selection
+    call append(l:end, '```')
+    " Insert opening backticks before the selection
+    call append(l:start - 1, '```')
+endfunction
