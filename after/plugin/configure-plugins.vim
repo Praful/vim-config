@@ -577,8 +577,8 @@ nnoremap ,/ :History/<CR>
 " ---------------
 " YankRing
 " ---------------
-" nnoremap <leader>y  :RShow<CR>
 nnoremap <leader>y  :<C-u>CocList --normal yank<cr>
+nnoremap ,y  :<C-u>CocList --normal yank<cr>
 
 
 " ---------------
