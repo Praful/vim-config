@@ -579,7 +579,7 @@ if has("autocmd")
           \ endif
 
     autocmd BufRead,BufNewFile *.md setlocal spell
-    " autocmd BufRead,BufNewFile *.txt setlocal spell
+    autocmd BufRead,BufNewFile *.txt setlocal spell
     " Exclude .txt files otherwise vim's help is spell-checked.
     " autocmd BufRead,BufNewFile *.txt setlocal spell
     " autocmd BufRead,BufNewFile *.eml setlocal spell
