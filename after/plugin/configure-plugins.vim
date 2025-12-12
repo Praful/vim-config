@@ -278,7 +278,7 @@ nmap <silent> <C-ENTER> :SlimeSendCurrentLine<cr>
 " send selected text to terminal
 xmap <silent> <C-ENTER> <Plug>SlimeRegionSend
 
-" Previousl used jupyter-vim; replaced by slime above
+" Previously used jupyter-vim; replaced by slime above
 " jupyter-vim: Send current line to jupyter console 
 " nnoremap <buffer> <silent> <F3> :JupyterSendCode getline('.')<CR>
 "

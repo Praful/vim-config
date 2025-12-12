@@ -118,6 +118,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " General language plugins ------------------------------------------------------
 
 " sends selected text to terminal; doesn't need to be in any mode
+" :SlimConfig to point to KITTY_LISTEN_ON and KITTY_WINDOW_ID
 Plug 'jpalardy/vim-slime'
 
 " rainbow parentheses
