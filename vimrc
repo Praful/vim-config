@@ -65,32 +65,32 @@ function! HandleLargeFiles()
   endif
 endfunction
 
-if has("win32")
-  " see DLL installed since vim binary was compiled with ruby 3.0
-  set rubydll=$APPS/ruby/3.1.2-1/bin/x64-ucrt-ruby310.dll
-  set pythonthreedll=$APPS/Python/current/python311.dll
-  set pythonthreehome=$APPS/Python/current
-elseif has('unix')
-  " temporary fix for python3 because package libpython3.12-dev is not available yet for Linux Mint
-  if executable('pyenv')
-    " Construct the path to the libpython file
-    if has('nvim')
-      "TODO how to set python location to pyenv 
-      let g:python3_host_prog = trim(system('pyenv prefix')) . '/bin/python3'
-      let g:ruby_host_prog = '/usr/local/bin/neovim-ruby-host'
-      " let g:ruby_host_prog = '/var/lib/gems/3.0.0/gems/neovim-0.10.0/exe/neovim-ruby-host'
-    else
-      let pythonthreedll = trim(system('pyenv prefix')) . '/lib/libpython3.12.so.1.0'
-      if filereadable(pythonthreedll)
-        let &pythonthreedll = pythonthreedll
-      else
-        echomsg "Error: libpython file not found in the active pyenv environment."
-      endif
-    end
-  else
-    echomsg "Error: pyenv is not installed or not in PATH."
-  endif
-endif
+" pk 28/12/2025 removed after switch to uv
+" if has("win32")
+  " " see DLL installed since vim binary was compiled with ruby 3.0
+  " set rubydll=$APPS/ruby/3.1.2-1/bin/x64-ucrt-ruby310.dll
+  " set pythonthreedll=$APPS/Python/current/python311.dll
+  " set pythonthreehome=$APPS/Python/current
+" elseif has('unix')
+  " " temporary fix for python3 because package libpython3.12-dev is not available yet for Linux Mint
+  " if executable('pyenv')
+    " " Construct the path to the libpython file
+    " if has('nvim')
+      " "TODO how to set python location to pyenv 
+      " let g:python3_host_prog = trim(system('pyenv prefix')) . '/bin/python3'
+      " let g:ruby_host_prog = '/usr/local/bin/neovim-ruby-host'
+    " else
+      " let pythonthreedll = trim(system('pyenv prefix')) . '/lib/libpython3.12.so.1.0'
+      " if filereadable(pythonthreedll)
+        " let &pythonthreedll = pythonthreedll
+      " else
+        " echomsg "Error: libpython file not found in the active pyenv environment."
+      " endif
+    " end
+  " else
+    " echomsg "Error: pyenv is not installed or not in PATH."
+  " endif
+" endif
 
 
 " if has("win32")
@@ -208,10 +208,6 @@ inoremap jj <ESC>
 "use confirm instead of aborting an action
 set confirm
 
-" This doesn't seem to work; try alternative. Now re-instated as least bad option until further investigation.
-" Some plugins don't like this. Use alternative
-" set autochdir " current directory is always matching the content of the active window
-autocmd! BufEnter * silent! lcd %:p:h
 
 " remember some stuff after quiting vim: marks, registers, searches, buffer list. vim and nvim can't
 " share viminfo since they have different formats. nvim uses a shada file; store it in its own (default) directory
@@ -756,6 +752,14 @@ function! RunCommandInOutputBuffer(command)
   " Change to the directory of the file
   execute 'cd ' . fnameescape(fnamemodify(filepath, ':h'))
 
+  let l:cmd_str = a:command
+  
+  " If command mentions 'python' and venv is active, use venv python
+  if exists('$VIRTUAL_ENV') && match(l:cmd_str, "python") >= 0
+    " echom "Using venv python" 
+    let l:cmd_str = $VIRTUAL_ENV . '/bin/python'
+  endif
+
   let bufname = '__ProgramOutput__'
   let existing_bufnr = bufnr(bufname)
 
@@ -779,8 +783,12 @@ function! RunCommandInOutputBuffer(command)
 
   call append(0, 'Output of ' . filepath . ' at ' . strftime("%Y-%m-%d %H:%M:%S"))
   call append(1, repeat('=', len(getline(1))))
-  let cmd = a:command . ' ' . shellescape(filepath)
+  " let cmd = a:command . ' ' . shellescape(filepath)
+  let cmd = l:cmd_str . ' ' . shellescape(filepath)
   " echo "Running: " . cmd
+  " let output = systemlist('uv run ' . cmd)
+  " let output = systemlist(cmd)
+  " echom "running " . cmd
   let output = systemlist(cmd)
   call append(2, output)
 
@@ -788,7 +796,7 @@ function! RunCommandInOutputBuffer(command)
   setlocal nomodifiable nomodified
 endfunction
 
-nnoremap <leader>rp :call RunCommandInOutputBuffer('python')<CR>
+nnoremap <leader>rp :call RunCommandInOutputBuffer('python3')<CR>
 nnoremap <leader>rr :call RunCommandInOutputBuffer('ruby')<CR>
 nnoremap <leader>rb :call RunCommandInOutputBuffer('bash')<CR>
 
@@ -850,6 +858,47 @@ set statusline=%F%m%r%h%w\[%{strlen(&ft)?&ft:'none'}]\ (%{&ff}/%Y)\ %=line\ %l\/
 " Show line number, cursor position.
 set ruler
 
+let g:prev_lcd = ''
+
+function! UpdateVenvOnBuf()
+  let l:cur = expand('%:p:h')
+  if l:cur !=# g:prev_lcd
+    silent! lcd %:p:h
+    call ActivateVenv()
+    let g:prev_lcd = l:cur
+  endif
+endfunction
+
+" Save the original PATH on startup
+let g:original_path = $PATH
+
+function! ActivateVenv()
+  " Find the nearest .venv in the current directory or parents
+  let l:venv = finddir('.venv', '.;')
+  if !empty(l:venv)
+    let l:venv_bin = fnamemodify(l:venv, ':p') . '/bin'
+
+    " Prepend current venv/bin to original path
+    let $PATH = l:venv_bin . ':' . g:original_path
+    let $VIRTUAL_ENV = fnamemodify(l:venv, ':p')
+  else
+    " No venv found; reset to original PATH and unset VIRTUAL_ENV
+    let $PATH = g:original_path
+    unlet! $VIRTUAL_ENV
+  endif
+endfunction
+
+" Call on Vim startup
+autocmd VimEnter * call ActivateVenv()
+
+" Call on directory change
+" autocmd DirChanged * call ActivateVenv()
+
+" This doesn't seem to work; try alternative. Now re-instated as least bad option until further investigation.
+" Some plugins don't like this. Use alternative
+" set autochdir " current directory is always matching the content of the active window
+" autocmd! BufEnter * silent! lcd %:p:h
+autocmd BufEnter * call UpdateVenvOnBuf()
 
 " Plugins -----------------------------------------------------------------
 "
