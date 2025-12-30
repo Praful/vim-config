@@ -11,8 +11,7 @@
 " The vimrc file is stored in ~/vimfiles/ (Windows) or ~/.vim/ (Unix)
 " For info about Vim initialisation, type :h startup
 " 
-" Used in Windows gvim mainly but works in vim and on Unix-like systems if set up
-" correctly.
+" Used in Linux mainly but works in Windows if set up correctly.
 "
 " A quick, sorted, list of slow plugins is produced by:
 "   https://github.com/hyiltiz/vim-plugins-profile
@@ -576,11 +575,6 @@ if has("autocmd")
 
     autocmd BufRead,BufNewFile *.md setlocal spell
     autocmd BufRead,BufNewFile *.txt setlocal spell
-    " Exclude .txt files otherwise vim's help is spell-checked.
-    " autocmd BufRead,BufNewFile *.txt setlocal spell
-    " autocmd BufRead,BufNewFile *.eml setlocal spell
-    " autocmd BufRead,BufNewFile *.htm setlocal spell
-    " autocmd BufRead,BufNewFile *.html setlocal spell
   augroup END
 
 endif 
@@ -664,7 +658,6 @@ nnoremap <silent> <leader>ul :t.\|s/./-/g\|:nohls<cr>
 nnoremap <leader>fw Vgq
 
 " Format whole file then return cursor to current location.
-"nnoremap <leader>fef ggVG=
 nnoremap <leader>fef mmgg=G'm
 
 " operator pending mapping allows to operate on the whole buffer (A = all)
@@ -785,9 +778,6 @@ function! RunCommandInOutputBuffer(command)
   call append(1, repeat('=', len(getline(1))))
   " let cmd = a:command . ' ' . shellescape(filepath)
   let cmd = l:cmd_str . ' ' . shellescape(filepath)
-  " echo "Running: " . cmd
-  " let output = systemlist('uv run ' . cmd)
-  " let output = systemlist(cmd)
   " echom "running " . cmd
   let output = systemlist(cmd)
   call append(2, output)
@@ -891,9 +881,6 @@ endfunction
 " Call on Vim startup
 autocmd VimEnter * call ActivateVenv()
 
-" Call on directory change
-" autocmd DirChanged * call ActivateVenv()
-
 " This doesn't seem to work; try alternative. Now re-instated as least bad option until further investigation.
 " Some plugins don't like this. Use alternative
 " set autochdir " current directory is always matching the content of the active window
@@ -945,12 +932,5 @@ let g:airline_section_z = '☰ %3p%% %#__accent_bold#%l%#__restore__#/%L :%#__ac
 let s:def_statusline = '%3p%% %L/%#__accent_bold#%4l%#__restore__#:%3c 0x%-3B'
 " endif
 
-" ---------------
-" YankRing - setup callback to override Y definition
-" ---------------
-"make Y consistent with C and D on yankring
-function! YRRunAfterMaps()
-  nnoremap <silent> Y   :<C-U>YRYankCount 'y$'<CR>
-endfunction
 
 " End of vimrc =====================================================================
