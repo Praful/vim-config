@@ -865,16 +865,34 @@ let g:original_path = $PATH
 function! ActivateVenv()
   " Find the nearest .venv in the current directory or parents
   let l:venv = finddir('.venv', '.;')
-  if !empty(l:venv)
-    let l:venv_bin = fnamemodify(l:venv, ':p') . '/bin'
 
-    " Prepend current venv/bin to original path
+  if !empty(l:venv)
+    let l:venv_path = fnamemodify(l:venv, ':p')
+    let l:venv_bin  = l:venv_path . '/bin'
+    let l:python    = l:venv_bin . '/python'
+
+    " Update shell environment
     let $PATH = l:venv_bin . ':' . g:original_path
-    let $VIRTUAL_ENV = fnamemodify(l:venv, ':p')
+    let $VIRTUAL_ENV = l:venv_path
+
+    " Only reconfigure coc if the venv changed
+    if get(g:, 'current_venv', '') !=# l:venv_path
+      let g:current_venv = l:venv_path
+      let g:coc_python_path = l:python
+      silent! call coc#rpc#restart()
+    endif
+
   else
-    " No venv found; reset to original PATH and unset VIRTUAL_ENV
+    " No venv found; reset environment
     let $PATH = g:original_path
     unlet! $VIRTUAL_ENV
+
+    " Only reset coc if we previously had a venv
+    if exists('g:current_venv')
+      unlet g:current_venv
+      let g:coc_python_path = exepath('python3')
+      silent! call coc#rpc#restart()
+    endif
   endif
 endfunction
 
