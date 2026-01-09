@@ -934,6 +934,8 @@ end
 let g:airline_powerline_fonts = 1
 " let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
 " wordcount can slow down opening large text files
 let g:airline#extensions#wordcount#enabled = 0
 " let g:airline_theme='bubblegum2'
