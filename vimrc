@@ -879,7 +879,7 @@ function! ActivateVenv()
     if get(g:, 'current_venv', '') !=# l:venv_path
       let g:current_venv = l:venv_path
       let g:coc_python_path = l:python
-      silent! call coc#rpc#restart()
+      " silent! call coc#rpc#restart()
     endif
 
   else
@@ -891,7 +891,7 @@ function! ActivateVenv()
     if exists('g:current_venv')
       unlet g:current_venv
       let g:coc_python_path = exepath('python3')
-      silent! call coc#rpc#restart()
+      " silent! call coc#rpc#restart()
     endif
   endif
 endfunction
