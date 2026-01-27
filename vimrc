@@ -786,7 +786,7 @@ function! RunCommandInOutputBuffer(command)
   setlocal nomodifiable nomodified
 endfunction
 
-nnoremap <leader>rp :call RunCommandInOutputBuffer('python3')<CR>
+nnoremap <leader>rp :call RunCommandInOutputBuffer('uv run')<CR>
 nnoremap <leader>rr :call RunCommandInOutputBuffer('ruby')<CR>
 nnoremap <leader>rb :call RunCommandInOutputBuffer('bash')<CR>
 
@@ -854,7 +854,8 @@ function! UpdateVenvOnBuf()
   let l:cur = expand('%:p:h')
   if l:cur !=# g:prev_lcd
     silent! lcd %:p:h
-    call ActivateVenv()
+    " call ActivateVenv()
+    "
     let g:prev_lcd = l:cur
   endif
 endfunction
@@ -862,11 +863,13 @@ endfunction
 " Save the original PATH on startup
 let g:original_path = $PATH
 
+" no longer used: use coc-settings instead to set python path
 function! ActivateVenv()
   " Find the nearest .venv in the current directory or parents
   let l:venv = finddir('.venv', '.;')
 
   if !empty(l:venv)
+    " echo "Found venv: " . l:venv
     let l:venv_path = fnamemodify(l:venv, ':p')
     let l:venv_bin  = l:venv_path . '/bin'
     let l:python    = l:venv_bin . '/python'
@@ -877,9 +880,10 @@ function! ActivateVenv()
 
     " Only reconfigure coc if the venv changed
     if get(g:, 'current_venv', '') !=# l:venv_path
+      " echo "Activated venv: " . l:venv_path
       let g:current_venv = l:venv_path
       let g:coc_python_path = l:python
-      " silent! call coc#rpc#restart()
+      silent! call coc#rpc#restart()
     endif
 
   else
@@ -889,15 +893,15 @@ function! ActivateVenv()
 
     " Only reset coc if we previously had a venv
     if exists('g:current_venv')
-      unlet g:current_venv
+      " echo "Deactivated venv: " . g:current_venv
       let g:coc_python_path = exepath('python3')
-      " silent! call coc#rpc#restart()
+      silent! call coc#rpc#restart()
     endif
   endif
 endfunction
 
 " Call on Vim startup
-autocmd VimEnter * call ActivateVenv()
+" autocmd VimEnter * call ActivateVenv()
 
 " This doesn't seem to work; try alternative. Now re-instated as least bad option until further investigation.
 " Some plugins don't like this. Use alternative

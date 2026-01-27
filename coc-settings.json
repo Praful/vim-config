@@ -1,6 +1,7 @@
 {
   "python.formatting.provider": "autopep8",
-  "python.pythonPath": "/home/praful/.pyenv/shims/python",
+  "python.pythonPath": "python3",
+  "python.venvPath": "${workspaceFolder}/.venv",
   "coc.preferences.formatOnType": true,
   "coc.preferences.formatOnSave": true,
   "extensions.updateCheck": "weekly",
