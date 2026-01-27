@@ -1,7 +1,8 @@
 {
   "python.formatting.provider": "autopep8",
-  "python.pythonPath": "python3",
-  "python.venvPath": "${workspaceFolder}/.venv",
+  "python.pythonPath": "/home/praful/.config/uv/coc/.venv/bin/python3",
+  "python.formatting.autopep8Path": "/home/praful/.config/uv/coc/.venv/bin/autopep8",
+  "python.venvPath": ".venv",
   "coc.preferences.formatOnType": true,
   "coc.preferences.formatOnSave": true,
   "extensions.updateCheck": "weekly",
