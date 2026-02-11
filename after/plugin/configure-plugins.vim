@@ -558,8 +558,10 @@ nnoremap ,g  :Rg3
 
 " tags in current buffer
 nnoremap ,t  :BTags<CR>
+nnoremap gt  :BTags<CR>
 " tags for project
 nnoremap ,T  :Tags
+nnoremap gT  :Tags
 nnoremap ,b  :Buffers<CR>
 nnoremap ,w  :CocList words<CR>
 
