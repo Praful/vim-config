@@ -64,34 +64,6 @@ function! HandleLargeFiles()
   endif
 endfunction
 
-" pk 28/12/2025 removed after switch to uv
-" if has("win32")
-  " " see DLL installed since vim binary was compiled with ruby 3.0
-  " set rubydll=$APPS/ruby/3.1.2-1/bin/x64-ucrt-ruby310.dll
-  " set pythonthreedll=$APPS/Python/current/python311.dll
-  " set pythonthreehome=$APPS/Python/current
-" elseif has('unix')
-  " " temporary fix for python3 because package libpython3.12-dev is not available yet for Linux Mint
-  " if executable('pyenv')
-    " " Construct the path to the libpython file
-    " if has('nvim')
-      " "TODO how to set python location to pyenv 
-      " let g:python3_host_prog = trim(system('pyenv prefix')) . '/bin/python3'
-      " let g:ruby_host_prog = '/usr/local/bin/neovim-ruby-host'
-    " else
-      " let pythonthreedll = trim(system('pyenv prefix')) . '/lib/libpython3.12.so.1.0'
-      " if filereadable(pythonthreedll)
-        " let &pythonthreedll = pythonthreedll
-      " else
-        " echomsg "Error: libpython file not found in the active pyenv environment."
-      " endif
-    " end
-  " else
-    " echomsg "Error: pyenv is not installed or not in PATH."
-  " endif
-" endif
-
-
 " if has("win32")
 " behave mswin -> in mwswin-personal
 " this has shortcuts like c-x, c-insert. Use for Linux too
@@ -230,6 +202,12 @@ set wildmode=list:full
 " set wildmode=list:longest,full
 set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,*.jpg,*.gif,*.png,*.gem,*.swp,*.zip,*.pdf,*~,*/.git,*/.svn,*/.DS_Store,*.class,tags,__pycache__
 set wildignorecase
+
+" cmdline autocomplete
+autocmd CmdlineChanged [:\/\?] call wildtrigger()
+set wildmode=noselect:lastused,full
+set wildoptions=pum
+
 
 " Any selected text is auto copied to Windows clipboard
 " PK 20101013 don't autocopy because we want to select text and replace selected text from clipboard.

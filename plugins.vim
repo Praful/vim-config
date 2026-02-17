@@ -166,6 +166,11 @@ Plug 'vim-scripts/indenthtml.vim',  {'for':['html', 'htm']}
 
 Plug 'hail2u/vim-css3-syntax', {'for':['css','scss','sass']}
 
+"   Python ------------------------------------------------------
+"   doc
+" https://github.com/girishji/pythondoc.vim?tab=readme-ov-file
+" Plug 'girishji/pythondoc.vim'
+
 "   Other Languages ------------------------------------------------------
 "Plug 'msanders/cocoa.vim'
 "Plug 'mutewinter/taskpaper.vim'
