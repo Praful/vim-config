@@ -170,6 +170,8 @@ Plug 'hail2u/vim-css3-syntax', {'for':['css','scss','sass']}
 "   doc
 " https://github.com/girishji/pythondoc.vim?tab=readme-ov-file
 " Plug 'girishji/pythondoc.vim'
+" https://github.com/fs111/pydoc.vim
+Plug 'fs111/pydoc.vim'
 
 "   Other Languages ------------------------------------------------------
 "Plug 'msanders/cocoa.vim'

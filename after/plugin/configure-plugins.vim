@@ -157,6 +157,13 @@ nnoremap <Leader>bp :PlugUpgrade<cr>
 nnoremap <Leader>bc :PlugClean<cr>
 
 " ---------------
+" pydoc
+" ---------------
+let g:pydoc_cmd = 'python -m pydoc'
+let g:pydoc_highlight=0
+" percentage of current window
+let g:pydoc_window_lines=0.5
+" ---------------
 " Web search 
 " ---------------
 let g:search_engine = "https://www.duckduckgo.com/search?q="
