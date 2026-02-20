@@ -159,7 +159,7 @@ nnoremap <Leader>bc :PlugClean<cr>
 " ---------------
 " pydoc
 " ---------------
-let g:pydoc_cmd = 'python -m pydoc'
+let g:pydoc_cmd = 'python3 -m pydoc'
 let g:pydoc_highlight=0
 " percentage of current window
 let g:pydoc_window_lines=0.5
