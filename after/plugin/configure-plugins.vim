@@ -386,7 +386,7 @@ imap <script><silent><nowait><expr> <C-o> codeium#Accept()
 " https://github.com/neoclide/coc.nvim?tab=readme-ov-file
 " ---------------
 
-let g:coc_global_extensions = ['coc-html', 'coc-pyright', 'coc-css', 'coc-json', 'coc-markdown-preview-enhanced', 'coc-webview', 'coc-yank', "coc-snippets"]
+let g:coc_global_extensions = ['coc-html', 'coc-pyright', 'coc-css', 'coc-json', 'coc-markdown-preview-enhanced', 'coc-webview', 'coc-yank', 'coc-snippets', 'coc-flutter']
 " other options:
 " let g:coc_global_extensions = ['coc-html', 'coc-pyright', 'coc-css', 'coc-json', 'coc-emmet', 'coc-tsserver',  'coc-flutter', 'coc-solargraph']
 
