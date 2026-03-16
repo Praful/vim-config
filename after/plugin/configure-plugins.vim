@@ -455,7 +455,7 @@ nmap <silent> gm :CocList outline methods<cr>
 nmap <silent> ga :CocList symbols<cr>
 
 " Use K to show documentation in preview window
-nnoremap <silent> gh :call ShowDocumentation()<CR>
+nnoremap <silent> go :call ShowDocumentation()<CR>
 
 function! ShowDocumentation()
   if CocAction('hasProvider', 'hover')
