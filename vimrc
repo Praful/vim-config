@@ -752,11 +752,14 @@ function! RunCommandInOutputBuffer(command)
   %delete _
   setlocal nomodified
 
+  " Change to the directory of the file
+  exe 'cd ' . fnamemodify(filepath, ':h')
+
   call append(0, 'Output of ' . filepath . ' at ' . strftime("%Y-%m-%d %H:%M:%S"))
   call append(1, repeat('=', len(getline(1))))
   " let cmd = a:command . ' ' . shellescape(filepath)
   let cmd = l:cmd_str . ' ' . shellescape(filepath)
-  " echom "running " . cmd
+  " echom "dir " . getcwd()
   let output = systemlist(cmd)
   call append(2, output)
 
