@@ -929,8 +929,9 @@ let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#wordcount#enabled = 0
 " let g:airline_theme='bubblegum2'
 " let g:airline_theme='wombat2'
-let g:airline_theme='molokai'
-" let g:airline_theme = 'catppuccin_macchiato'
+" let g:airline_theme='molokai'
+" let g:airline_theme='iceberg'
+let g:airline_theme = 'catppuccin_macchiato_pk'
 
 " percent/total lines/current line/current column/hex character code
 " let g:airline_section_z = '%3p%% %L/%#__accent_bold#%4l%#__restore__#:%3c 0x%-3B'
