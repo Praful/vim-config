@@ -800,11 +800,15 @@ else
 endif
 
 " color scheme  -----------------------------------------------------------------
+set background=dark
 " colorscheme deep-onyx
-colorscheme catppuccin_macchiato
+" colorscheme catppuccin_macchiato
+colorscheme iceberg-pk
+
 " override some settings for colorscheme catppuccin_macchiato
 
 hi SpellBad gui=undercurl guisp=red guibg=bg guifg=fg
+
 hi SpellLocal gui=undercurl guisp=red guibg=bg guifg=fg
 hi SpellCap gui=undercurl guisp=red guibg=bg guifg=fg
 hi SpellRare gui=undercurl guisp=red guibg=bg guifg=fg
@@ -925,8 +929,8 @@ let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#wordcount#enabled = 0
 " let g:airline_theme='bubblegum2'
 " let g:airline_theme='wombat2'
-" let g:airline_theme='molokai'
-let g:airline_theme = 'catppuccin_macchiato'
+let g:airline_theme='molokai'
+" let g:airline_theme = 'catppuccin_macchiato'
 
 " percent/total lines/current line/current column/hex character code
 " let g:airline_section_z = '%3p%% %L/%#__accent_bold#%4l%#__restore__#:%3c 0x%-3B'
