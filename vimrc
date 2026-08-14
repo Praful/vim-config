@@ -803,7 +803,8 @@ endif
 set background=dark
 " colorscheme deep-onyx
 " colorscheme catppuccin_macchiato
-colorscheme iceberg-pk
+colorscheme catppuccin_macchiato_pk
+" colorscheme iceberg-pk
 
 " override some settings for colorscheme catppuccin_macchiato
 
