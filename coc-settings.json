@@ -6,5 +6,8 @@
   "coc.preferences.formatOnType": true,
   "coc.preferences.formatOnSave": true,
   "extensions.updateCheck": "weekly",
-  "inlayHint.enable": false
+  "inlayHint.enable": false,
+  "json.schemaDownload.trustedDomains": {
+    "https://raw.githubusercontent.com": true
+  }
 }
