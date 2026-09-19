@@ -386,7 +386,7 @@ imap <script><silent><nowait><expr> <C-o> codeium#Accept()
 " https://github.com/neoclide/coc.nvim?tab=readme-ov-file
 " ---------------
 
-let g:coc_global_extensions = ['coc-html', 'coc-pyright', 'coc-css', 'coc-json', 'coc-markdown-preview-enhanced', 'coc-webview', 'coc-yank', 'coc-snippets', 'coc-flutter']
+let g:coc_global_extensions = ['coc-html', 'coc-pyright', 'coc-css', 'coc-json', 'coc-webview', 'coc-yank', 'coc-snippets', 'coc-flutter']
 " other options:
 " let g:coc_global_extensions = ['coc-html', 'coc-pyright', 'coc-css', 'coc-json', 'coc-emmet', 'coc-tsserver',  'coc-flutter', 'coc-solargraph']
 
@@ -399,7 +399,8 @@ set signcolumn=yes
 " Update time for linting
 set updatetime=300
 
-nmap <F5> :CocCommand markdown-preview-enhanced.openPreview<CR>
+" nmap <F5> :CocCommand markdown-preview-enhanced.openPreview<CR>
+nmap <F5> <Plug>MarkdownPreview<CR>
 
 " mapping to move to next/prev autocompletion option in dropdown
 inoremap <silent><expr> <C-j> coc#pum#visible() ? coc#pum#next(1) : "\<C-j>"

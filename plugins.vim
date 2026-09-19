@@ -128,6 +128,13 @@ let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowTo
 " colourises codes like #123456 
 Plug 'chrisbra/Colorizer'
 
+" markdown ------------------------------------------------------
+let g:mkdp_auto_start = 0
+let g:mkdp_auto_close = 1
+
+" requires binary to be installed in path: see https://github.com/tjhop/vim-markdown-preview 
+Plug 'tjhop/vim-markdown-preview'
+
 " Ruby ------------------------------------------------------
 Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
 
