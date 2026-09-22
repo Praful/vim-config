@@ -400,7 +400,7 @@ set signcolumn=yes
 set updatetime=300
 
 " nmap <F5> :CocCommand markdown-preview-enhanced.openPreview<CR>
-nmap <F5> <Plug>MarkdownPreview<CR>
+nnoremap <F5> :MarkdownPreview<CR>
 
 " mapping to move to next/prev autocompletion option in dropdown
 inoremap <silent><expr> <C-j> coc#pum#visible() ? coc#pum#next(1) : "\<C-j>"
