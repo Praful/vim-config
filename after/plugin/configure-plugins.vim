@@ -150,7 +150,7 @@ nnoremap <Leader>bd :Bdelete<CR>
 " vim-plug
 " ---------------
 nnoremap <Leader>bi :PlugInstall<cr>
-nnoremap <Leader>bu :PlugUpdate<cr>
+nnoremap <nowait> <Leader>bu :PlugUpdate<cr>
 "Upgrade plug-in manager
 nnoremap <Leader>bp :PlugUpgrade<cr>
 " Run :PlugClean. It will detect and remove undeclared plugins.
