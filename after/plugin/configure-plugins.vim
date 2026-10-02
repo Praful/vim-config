@@ -164,6 +164,20 @@ let g:pydoc_highlight=0
 " percentage of current window
 let g:pydoc_window_lines=0.5
 " ---------------
+" Ruff Linter
+
+function! RuffSortImports()
+    let l:pos = getpos('.')
+    silent execute '!ruff check --select I --fix ' . shellescape(expand('%:p'))
+    edit!
+    call setpos('.', l:pos)
+endfunction
+
+nnoremap <leader>ri :call RuffSortImports()<CR>
+command! RuffImports call RuffSortImports()
+
+nnoremap <leader>ri :RuffImports<CR>
+" ---------------
 " Web search 
 " ---------------
 let g:search_engine = "https://www.duckduckgo.com/search?q="
