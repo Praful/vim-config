@@ -557,6 +557,9 @@ if has("autocmd")
 
 endif 
 
+" toggle modifiable
+nnoremap <leader>ro :set invmodifiable<Bar>set modifiable?<CR>
+
 " Open in VS code
 "
 
@@ -604,10 +607,16 @@ nnoremap <leader>ew :e $DATA/PowerShell/profile.ps1<cr>
 nnoremap <leader>et1 :e $MYVIMDIR/zsh-tips-by-zapper.txt<cr>
 nnoremap <leader>et2 :e $MYVIMDIR/vim-tips-by-zapper.txt<cr>
 
-" reload vimrc once it's saved (http://vim.wikia.com/wiki/Open_vimrc_file)
-autocmd! BufWritePost $MYVIMRC :source $MYVIMRC
-autocmd! BufWritePost $PK_PLUGINS :source $PK_PLUGINS
-autocmd! BufWritePost $PK_PLUGINS_CONFIG :source $PK_PLUGINS_CONFIG
+" Reload vimrc once it's saved (http://vim.wikia.com/wiki/Open_vimrc_file)
+" The tab bar loses its colour scheme when a colourscheme is set in vimrc. Putting
+" a guard for the loading it seems to have done the trick. However, if there are issues
+" with the tabbar, add "| AirlineRefresh after sourcing file.
+augroup reload_vim_config
+    autocmd!
+    autocmd BufWritePost $MYVIMRC source $MYVIMRC 
+    autocmd BufWritePost $PK_PLUGINS source $PK_PLUGINS
+    autocmd BufWritePost $PK_PLUGINS_CONFIG source $PK_PLUGINS_CONFIG 
+augroup END
 
 " Open Quickfix
 nnoremap <silent> <Leader>fx :botright copen<CR>
@@ -801,30 +810,34 @@ endif
 
 " color scheme  -----------------------------------------------------------------
 set background=dark
+
 " colorscheme deep-onyx
 " colorscheme catppuccin_macchiato
-colorscheme catppuccin_macchiato_pk
-" colorscheme iceberg-pk
 
-" override some settings for colorscheme catppuccin_macchiato
+if get(g:, 'colors_name', '') !=# 'catppuccin_macchiato_pk'
+      colorscheme catppuccin_macchiato_pk
+      " colorscheme catppuccin_macchiato_pk
 
-hi SpellBad gui=undercurl guisp=red guibg=bg guifg=fg
+      " override some settings for colorscheme catppuccin_macchiato
 
-hi SpellLocal gui=undercurl guisp=red guibg=bg guifg=fg
-hi SpellCap gui=undercurl guisp=red guibg=bg guifg=fg
-hi SpellRare gui=undercurl guisp=red guibg=bg guifg=fg
+      hi SpellBad gui=undercurl guisp=red guibg=bg guifg=fg
 
-" Search
-hi IncSearch    gui=NONE guifg=#000000 guibg=#FF8000
-hi Search    gui=NONE guifg=#000000 guibg=#FFFF80
-hi Comment      gui=ITALIC  guifg=#A0A0A0 guibg=NONE
+      hi SpellLocal gui=undercurl guisp=red guibg=bg guifg=fg
+      hi SpellCap gui=undercurl guisp=red guibg=bg guifg=fg
+      hi SpellRare gui=undercurl guisp=red guibg=bg guifg=fg
 
-" Cursor
-hi Cursor       gui=NONE guifg=#000000 guibg=#FF8000
-hi lCursor       gui=NONE guifg=#000000 guibg=#FF8000
-hi CursorIM       gui=NONE guifg=#000000 guibg=#FF8000
+      " Search
+      hi IncSearch    gui=NONE guifg=#000000 guibg=#FF8000
+      hi Search    gui=NONE guifg=#000000 guibg=#FFFF80
+      hi Comment      gui=ITALIC  guifg=#A0A0A0 guibg=NONE
 
-hi MatchParen  gui=NONE guifg=#000000 guibg=#FFFF80 
+      " Cursor
+      hi Cursor       gui=NONE guifg=#000000 guibg=#FF8000
+      hi lCursor       gui=NONE guifg=#000000 guibg=#FF8000
+      hi CursorIM       gui=NONE guifg=#000000 guibg=#FF8000
+
+      hi MatchParen  gui=NONE guifg=#000000 guibg=#FFFF80 
+endif
 
 " Status line -----------------------------------------------------------------
 
