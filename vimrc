@@ -27,7 +27,6 @@ if has("win32")
   let $VIMRUNTIME = $APPS.'/Vim/current/'
   let $PK_VIMFILES = $HOME.'/vimfiles'
 else
-" let $VIMRUNTIME = '/usr/local/share/vim/vim90/' 
   let $PK_VIMFILES = $HOME.'/.vim'
 endif
 let $PK_PLUGINS = $PK_VIMFILES.'/plugins.vim'
@@ -526,13 +525,7 @@ if has("autocmd")
 
 
     autocmd BufReadPre * call HandleLargeFiles()
-    " autocmd BufEnter * call HandleLargeFiles()
 
-    " Set readonly files to also be non-modifiable by default, and others to be modifiable by default.
-    " https://groups.google.com/g/vim_use/c/gpRquKx-HGI?pli=1
-    " This allows the autosave when focus is lost below by stopping us changing 
-    " a readonly file in the first place.
-    autocmd BufRead,BufWinEnter * if &ft!='qf' | let &l:modifiable = (&readonly ? 0 : 1) | endif
 
     "Autosave file when focus is lost; the silent! ignores the error
     "message that appears when a buffer has never been saved before.
@@ -555,10 +548,21 @@ if has("autocmd")
     autocmd BufRead,BufNewFile *.txt setlocal spell
   augroup END
 
+  augroup readonly_buffers
+
+    " Set readonly files to also be non-modifiable by default, and others to be modifiable by default.
+    " https://groups.google.com/g/vim_use/c/gpRquKx-HGI?pli=1
+    " This allows the autosave when focus is lost below by stopping us changing 
+    " a readonly file in the first place.
+    " autocmd BufRead,BufWinEnter * if &ft!='qf' | let &l:modifiable = (&readonly ? 0 : 1) | endif
+    " autocmd BufRead * if &ft !=# 'qf' && &readonly | setlocal nomodifiable | endif
+    autocmd!
+    autocmd BufRead * if &ft !=# 'qf' && &readonly | setlocal nomodifiable | endif
+  augroup END
 endif 
 
 " toggle modifiable
-nnoremap <leader>ro :set invmodifiable<Bar>set modifiable?<CR>
+nnoremap <leader>r :setlocal invmodifiable<Bar>setlocal modifiable?<CR>
 
 " Open in VS code
 "
@@ -611,11 +615,16 @@ nnoremap <leader>et2 :e $MYVIMDIR/vim-tips-by-zapper.txt<cr>
 " The tab bar loses its colour scheme when a colourscheme is set in vimrc. Putting
 " a guard for the loading it seems to have done the trick. However, if there are issues
 " with the tabbar, add "| AirlineRefresh after sourcing file.
+" Use timer to give time for CLI_BufSwitch to save buffer when switching to
+" a another file.
 augroup reload_vim_config
     autocmd!
-    autocmd BufWritePost $MYVIMRC source $MYVIMRC 
-    autocmd BufWritePost $PK_PLUGINS source $PK_PLUGINS
-    autocmd BufWritePost $PK_PLUGINS_CONFIG source $PK_PLUGINS_CONFIG 
+    autocmd BufWritePost $MYVIMRC
+                \ call timer_start(0, {-> execute('source ' . fnameescape($MYVIMRC))})
+    autocmd BufWritePost $PK_PLUGINS
+                \ call timer_start(0, {-> execute('source ' . fnameescape($PK_PLUGINS))})
+    autocmd BufWritePost $PK_PLUGINS_CONFIG
+                \ call timer_start(0, {-> execute('source ' . fnameescape($PK_PLUGINS_CONFIG))})
 augroup END
 
 " Open Quickfix

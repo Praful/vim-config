@@ -69,13 +69,14 @@ nnoremap Q :BD<CR>
 " ---------------
 " Unimpaired
 " ---------------
-if exists("g:loaded_unimpaired")
-  "Provide aliases for moving lines up/down (m=meta key, which on Windows is Alt)
-  nmap <m-k> [e
-  nmap <m-j> ]e
-  vmap <m-k> [egv
-  vmap <m-j> ]egv
-endif
+"  not using plugin
+" if exists("g:loaded_unimpaired")
+  " "Provide aliases for moving lines up/down (m=meta key, which on Windows is Alt)
+  " nmap <m-k> [e
+  " nmap <m-j> ]e
+  " vmap <m-k> [egv
+  " vmap <m-j> ]egv
+" endif
 
 " ---------------
 " Ruby
@@ -111,24 +112,6 @@ let g:shell_fullscreen_items='mT'
 let g:shell_fullscreen_always_on_top = 0
 
 " ---------------
-" Session
-" ---------------
-" set sessionoptions=resize,winpos,winsize,curdir,folds,help,tabpages,buffers
-"
-
-" if has('nvim')
-  " let g:session_autoload = 'no'
-  " let g:session_autosave = 'no'
-" else
-  " let g:session_autoload = 'yes'
-  " let g:session_autosave = 'yes'
-  " let g:session_autosave_periodic = 5
-  " let g:session_autosave_silent = "yes"
-  " let g:session_lock_enabled = 0
-" end
-
-"
-" ---------------
 " NERDCommenter
 " ---------------
 
@@ -140,6 +123,7 @@ let g:shell_fullscreen_always_on_top = 0
 "https://stackoverflow.com/questions/9051837/how-to-map-c-to-toggle-comments-in-vim
 nmap <C-/>   <Plug>NERDCommenterToggle
 vmap <C-/>   <Plug>NERDCommenterToggle<CR>gv
+
 
 " ---------------
 " Bbye (Buffer Bye)
