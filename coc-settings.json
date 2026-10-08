@@ -7,6 +7,12 @@
       "rootPatterns": ["pyproject.toml", "ruff.toml", ".git"]
     }
   },
+  "python.analysis.typeCheckingMode": "standard",
+  "python.analysis.diagnosticSeverityOverrides": {
+    "reportUnusedImport": "none",
+    "reportUnusedVariable": "none",
+    "reportUndefinedVariable": "none"
+  },
   "python.formatting.provider": "none",
   "python.pythonPath": "/home/praful/.config/uv/coc/.venv/bin/python3",
   "python.venvPath": ".venv",

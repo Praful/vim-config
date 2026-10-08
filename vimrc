@@ -306,6 +306,9 @@ inoremap <s-cr> <esc>A:<cr>
 noremap <S-ENTER> O<ESC>j
 noremap <ENTER> o<ESC>k
 
+"for command window (:Ctrl-F or q:), Enter executes current line
+autocmd CmdwinEnter : nnoremap <buffer> <CR> <CR>
+
 command! FormatXml set ft=xml | execute "%!tidy -q -i -xml"
 command! FormatHtml set ft=html | execute "%!tidy -q -i -html"
 command! FormatJSON %!python -m json.tool
@@ -867,49 +870,6 @@ function! UpdateVenvOnBuf()
     let g:prev_lcd = l:cur
   endif
 endfunction
-
-" Save the original PATH on startup
-let g:original_path = $PATH
-
-" no longer used: use coc-settings instead to set python path
-function! ActivateVenv()
-  " Find the nearest .venv in the current directory or parents
-  let l:venv = finddir('.venv', '.;')
-
-  if !empty(l:venv)
-    " echo "Found venv: " . l:venv
-    let l:venv_path = fnamemodify(l:venv, ':p')
-    let l:venv_bin  = l:venv_path . '/bin'
-    let l:python    = l:venv_bin . '/python'
-
-    " Update shell environment
-    let $PATH = l:venv_bin . ':' . g:original_path
-    let $VIRTUAL_ENV = l:venv_path
-
-    " Only reconfigure coc if the venv changed
-    if get(g:, 'current_venv', '') !=# l:venv_path
-      " echo "Activated venv: " . l:venv_path
-      let g:current_venv = l:venv_path
-      let g:coc_python_path = l:python
-      silent! call coc#rpc#restart()
-    endif
-
-  else
-    " No venv found; reset environment
-    let $PATH = g:original_path
-    unlet! $VIRTUAL_ENV
-
-    " Only reset coc if we previously had a venv
-    if exists('g:current_venv')
-      " echo "Deactivated venv: " . g:current_venv
-      let g:coc_python_path = exepath('python3')
-      silent! call coc#rpc#restart()
-    endif
-  endif
-endfunction
-
-" Call on Vim startup
-" autocmd VimEnter * call ActivateVenv()
 
 " This doesn't seem to work; try alternative. Now re-instated as least bad option until further investigation.
 " Some plugins don't like this. Use alternative

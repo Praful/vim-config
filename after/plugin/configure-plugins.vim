@@ -161,6 +161,26 @@ nnoremap <leader>ri :call RuffSortImports()<CR>
 command! RuffImports call RuffSortImports()
 
 nnoremap <leader>ri :RuffImports<CR>
+
+" open first URL in Vim popup window
+function! OpenPopupURL()
+    for id in popup_list()
+        let bufnr = winbufnr(id)
+        let lines = getbufline(bufnr, 1, '$')
+        let text = join(lines, ' ')
+        let url = matchstr(text, 'https\?://[^[:space:])>]*')
+
+        if !empty(url)
+            call job_start(['xdg-open', url])
+            return
+        endif
+    endfor
+
+    echo 'No URL found in popup'
+endfunction
+
+nnoremap <leader>ur :call OpenPopupURL()<CR>
+
 " ---------------
 " Web search 
 " ---------------
