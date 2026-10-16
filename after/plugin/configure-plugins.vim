@@ -724,51 +724,6 @@ function! CopyMatches(reg)
 endfunction
 command! -register CopyMatches call CopyMatches(<q-reg>)
 
-function! RestartGVim()
-  " Save all modified buffers
-  wall
-
-  if !has('gui_running')
-    echo "This function is for GVim only."
-    return
-  endif
-
-  " Session file in $TMP
-  if has('win32') || has('win64')
-    let tmpdir = $TEMP
-  else
-    let tmpdir = $TMP
-  endif
-  let session_file = tmpdir . '/vim_restart_session.vim'
-
-  " Save GVim window position and size
-  let win_x = getwinposx()
-  let win_y = getwinposy()
-  let win_lines = &lines
-  let win_columns = &columns
-
-  " Save session with all tabs, splits, folds, cursor positions, buffers
-  execute 'mksession! ' . fnameescape(session_file)
-
-  " Launch new GVim asynchronously with a short delay (1 sec) to let old gvim close, which   
-  " avoids swap file being open when new gvim starts.
-  if has('win32') || has('win64')
-    " Windows: delay 1s using timeout, launch asynchronously with start
-    let cmd = 'start "" cmd /c "timeout /t 1 >nul && gvim -geometry '.win_columns.'x'.win_lines.'+'.win_x.'+'.win_y.' -S ' . fnameescape(session_file) . '"'
-    call system(cmd)
-  else
-    " Unix: launch asynchronously
-    let cmd = 'bash -c "sleep 1 && gvim -geometry '.win_columns.'x'.win_lines.'+'.win_x.'+'.win_y.' -S ' . fnameescape(session_file) . ' && sleep 10 && rm -f ' . fnameescape(session_file) . '" &'
-    call system(cmd)
-  endif
-
-  " Quit current GVim
-  quitall!
-endfunction
-
-" Mapping
-nnoremap <leader>rv :call RestartGVim()<CR>
-
 " number selected lines 1, 2, ...
 command! -range NumberLines <line1>,<line2>s/^/\=printf('%d. ', line('.') - <line1> + 1)
 
@@ -784,3 +739,162 @@ function! WrapSelectionInCodeBlock()
     " Insert opening backticks before the selection
     call append(l:start - 1, '```')
 endfunction
+
+" old
+" function! RestartGVim()
+"
+  " " Save all modified buffers
+  " wall
+
+  " if !has('gui_running')
+    " echo "This function is for GVim only."
+    " return
+  " endif
+
+  " " Session file in $TMP
+  " if has('win32') || has('win64')
+    " let tmpdir = $TEMP
+  " else
+    " let tmpdir = $TMP
+  " endif
+  " let session_file = tmpdir . '/vim_restart_session.vim'
+
+  " " Save GVim window position and size
+  " let win_x = getwinposx()
+  " let win_y = getwinposy()
+  " let win_lines = &lines
+  " let win_columns = &columns
+
+  " " Save session with all tabs, splits, folds, cursor positions, buffers
+  " execute 'mksession! ' . fnameescape(session_file)
+
+  " " Launch new GVim asynchronously with a short delay (1 sec) to let old gvim close, which   
+  " " avoids swap file being open when new gvim starts.
+  " if has('win32') || has('win64')
+    " " Windows: delay 1s using timeout, launch asynchronously with start
+    " let cmd = 'start "" cmd /c "timeout /t 1 >nul && gvim -geometry '.win_columns.'x'.win_lines.'+'.win_x.'+'.win_y.' -S ' . fnameescape(session_file) . '"'
+    " call system(cmd)
+  " else
+    " " Unix: launch asynchronously
+    " let cmd = 'bash -c "sleep 1 && gvim -geometry '.win_columns.'x'.win_lines.'+'.win_x.'+'.win_y.' -S ' . fnameescape(session_file) . ' && sleep 10 && rm -f ' . fnameescape(session_file) . '" &'
+    " call system(cmd)
+  " endif
+
+  " " Quit current GVim
+  " quitall!
+" endfunction
+
+function! RestartVim()
+    " Save all modified buffers
+    " wall
+    
+    " Check for unsaved buffers
+    if !empty(filter(getbufinfo({'bufloaded': 1}), 'v:val.changed'))
+        echoerr 'Save modified buffers before restarting'
+        return
+    endif
+
+    " Persistent session file
+    let l:session = expand($PK_VIMFILES . '/restart-session.vim')
+    let l:x = getwinposx()
+    let l:y = getwinposy()
+    let l:cols = &columns
+    let l:lines = &lines
+
+    if has('win32')
+        call SaveGvimGeometry()
+    endif
+
+    " don't save key mappings since they're not restored properly (save old setting then restore after)
+    let l:save_sessionoptions = &sessionoptions
+    set sessionoptions-=options
+    execute 'mksession!' fnameescape(l:session)
+    let &sessionoptions = l:save_sessionoptions
+
+    if !filereadable(l:session)
+        echoerr 'Failed to create session: ' . l:session
+        return
+    endif
+
+    " Wait for original process to exit, then restart
+    let l:pid = getpid()
+    let l:geometry = printf('%dx%d+%d+%d', l:cols, l:lines, l:x, l:y)
+
+    let l:pid = getpid()
+    if has('win32')
+        let l:ps = printf(
+            \ 'Wait-Process -Id %d -ErrorAction SilentlyContinue; ' .
+            \ 'Start-Process -FilePath "gvim.exe" -ArgumentList @("-S", ''%s'')',
+            \ l:pid, substitute(l:session, "'", "''", 'g'))
+
+        let l:job = job_start(
+            \ ['powershell.exe', '-NoProfile', '-Command', l:ps],
+            \ {'stoponexit': '', 'out_io': 'null', 'err_io': 'null'})
+
+    else
+        let l:cmd = 'while kill -0 ' . l:pid . ' 2>/dev/null; do sleep 0.1; done; ' .
+            \ 'exec gvim -geometry ' . shellescape(l:geometry) .
+            \ ' -S ' . shellescape(l:session)
+
+        call job_start(['setsid', 'sh', '-c', l:cmd], {
+            \ 'stoponexit': '',
+            \ 'out_io': 'null',
+            \ 'err_io': 'null'
+            \ })
+    endif
+
+    if job_status(l:job) ==# 'fail'
+        echoerr 'Failed to start restart helper'
+        return
+    endif
+
+    qa!
+endfunction
+nnoremap <silent> <leader>rv :call RestartVim()<CR>
+
+
+function! SaveGvimGeometry()
+    if !has('gui_running')
+        return
+    endif
+
+    let l:geometry = [
+        \ &columns,
+        \ &lines,
+        \ getwinposx(),
+        \ getwinposy()
+        \ ]
+
+    call writefile([string(l:geometry)], expand($PK_VIMFILES . '/gvim-geometry'))
+endfunction
+
+augroup GvimGeometry
+    autocmd!
+    autocmd VimLeavePre * call SaveGvimGeometry()
+    " autocmd VimEnter * call timer_start(300, {-> RestoreGvimGeometry()})
+    autocmd VimEnter * call timer_start(
+            \ has('win32') ? 700 : 300,
+            \ {-> RestoreGvimGeometry()})
+augroup END
+
+function! RestoreGvimGeometry()
+    let l:file = expand($PK_VIMFILES . '/gvim-geometry')
+
+    if !has('gui_running') || !filereadable(l:file)
+        return
+    endif
+
+    let [l:cols, l:rows, l:x, l:y] = eval(readfile(l:file)[0])
+
+    execute 'set columns=' . l:cols
+    execute 'set lines=' . l:rows
+
+    execute 'winpos' l:x l:y
+endfunction
+
+augroup GvimGeometry
+    " autocmd VimEnter * call RestoreGvimGeometry()
+    autocmd SessionLoadPost * call RestoreGvimGeometry()
+augroup END
+
+" End of vimrc =====================================================================

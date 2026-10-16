@@ -925,5 +925,3 @@ let g:airline_section_z = '☰ %3p%% %#__accent_bold#%l%#__restore__#/%L :%#__ac
 let s:def_statusline = '%3p%% %L/%#__accent_bold#%4l%#__restore__#:%3c 0x%-3B'
 " endif
 
-
-" End of vimrc =====================================================================
