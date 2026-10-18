@@ -156,10 +156,7 @@ function! RuffSortImports()
     edit!
     call setpos('.', l:pos)
 endfunction
-
-nnoremap <leader>ri :call RuffSortImports()<CR>
 command! RuffImports call RuffSortImports()
-
 nnoremap <leader>ri :RuffImports<CR>
 
 " open first URL in Vim popup window
@@ -643,16 +640,6 @@ let g:loaded_matchparen=1
 " autocmd bufwritepost *.js silent !standard --fix %
 " set autoread
 "
-
-" ---------------
-" janko-m/vim-test
-" ---------------
-let test#strategy = "dispatch"
-" let test#strategy = "asyncrun_background"
-map <leader>rt :TestFile<CR>
-map <leader>rs :TestSuite<CR>
-map <leader>rl :TestLast<CR>
-map <leader>rv :TestVisit<CR>
 
 " ---------------
 " Misc functions

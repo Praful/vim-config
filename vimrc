@@ -565,7 +565,7 @@ if has("autocmd")
 endif 
 
 " toggle modifiable
-nnoremap <leader>r :setlocal invmodifiable<Bar>setlocal modifiable?<CR>
+nnoremap <leader>ro :setlocal invmodifiable<Bar>setlocal modifiable?<CR>
 
 " Open in VS code
 "
