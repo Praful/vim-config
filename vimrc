@@ -202,8 +202,10 @@ set wildmode=list:full
 set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,*.jpg,*.gif,*.png,*.gem,*.swp,*.zip,*.pdf,*~,*/.git,*/.svn,*/.DS_Store,*.class,tags,__pycache__
 set wildignorecase
 
-" cmdline autocomplete
-autocmd CmdlineChanged [:\/\?] call wildtrigger()
+" cmdline autocomplete, which is in later versions so check it's available
+if exists('*wildtrigger') 
+  autocmd CmdlineChanged [:\/\?] call wildtrigger()
+endif
 set wildmode=noselect:lastused,full
 set wildoptions=pum
 

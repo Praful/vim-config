@@ -1,4 +1,3 @@
-
 -- Set runtime path
 vim.o.runtimepath = vim.o.runtimepath .. ',~/.vim'
 vim.o.runtimepath = vim.o.runtimepath .. ',~/.vim/after'
@@ -12,6 +11,16 @@ vim.cmd('source ~/.vim/vimrc')
 -- Set undo directory
 vim.o.undodir = os.getenv('PK_VIMFILES') .. '/undo-nvim//'
 
+if vim.g.started_by_firenvim then
+    local file = io.open("/tmp/firenvim-startup.log", "a")
+    if file then
+        file:write(
+            "Firenvim started: " .. os.date("%Y-%m-%d %H:%M:%S") .. "\n",
+            "runtimepath: " .. vim.o.runtimepath .. "\n"
+        )
+        file:close()
+    end
+end
 
 -- firenvim config --------------------------------------------------------------
 -- https://github.com/glacambre/firenvim
@@ -45,15 +54,16 @@ vim.api.nvim_create_autocmd({'TextChanged', 'TextChangedI'}, {
 
 -- don't automatically takeover textareas. Use c-e shortcut when required
 vim.g.firenvim_config = {
-  localSettings ={
-    -- ['web.whatsapp.com'] = {
-      -- takeover = 'never',
-    -- },
-    ['.*'] = {
-      filename = os.getenv('TMPDIR') .. '/firenvim/{hostname}_{pathname%10}.{extension}',
-      takeover = 'never'
+    globalSettings = { alt = "all" },
+    localSettings = {
+        [".*"] = {
+            cmdline  = "neovim",
+            content  = "text",
+            priority = 0,
+            selector = "textarea",
+            takeover = "never"
+        }
     }
-  }
 }
 
 -- end firenvim config --------------------------------------------------------

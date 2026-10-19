@@ -865,6 +865,10 @@ augroup GvimGeometry
 augroup END
 
 function! RestoreGvimGeometry()
+    if !has('gui_running') || has('nvim')
+        return
+    endif
+
     let l:file = expand($PK_VIMFILES . '/gvim-geometry')
 
     if !has('gui_running') || !filereadable(l:file)
