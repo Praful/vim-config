@@ -335,6 +335,11 @@ let g:codeium_no_map_tab = v:true
 " use c-o, which we also use in zsh to accept suggestion
 imap <script><silent><nowait><expr> <C-o> codeium#Accept()
 
+" chatgpt.vim plugin and copilot.vim plugin
+imap <silent><script><expr> <C-o> copilot#Accept("\<CR>")
+let g:copilot_no_tab_map = v:true
+imap <C-w> <Plug>(copilot-accept-word)
+
 " Set URL of Tabby server
 " didn't work well; try again when it matures
 " let g:tabby_server_url = 'http://127.0.0.1:8080'

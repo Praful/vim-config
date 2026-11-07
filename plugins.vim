@@ -102,8 +102,17 @@ Plug 'Raimondi/delimitMate'
 "   Insert suggestion	<Tab>
 "   Manually trigger suggestion	<M-Bslash>
 " Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
-Plug 'Exafunction/codeium.vim'
 " Plug 'Exafunction/windsurf.vim'
+" Plug 'nexxai/chatgpt.vim'
+
+" accept suggestion: <C-o>
+" accept next word from suggestion: <C-w>
+" next suggestion: <M-]>
+" previous suggestion: <M-[>
+" clear suggestion: <C-]>
+" manually trigger suggestion: <M-\>
+Plug 'github/copilot.vim'
+
 
 " Plug 'sheerun/vim-polyglot'
 Plug 'vim-autoformat/vim-autoformat'
