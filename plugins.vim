@@ -101,8 +101,9 @@ Plug 'Raimondi/delimitMate'
 "   Previous suggestion	<M-[
 "   Insert suggestion	<Tab>
 "   Manually trigger suggestion	<M-Bslash>
-Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
-
+" Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
+Plug 'Exafunction/codeium.vim'
+" Plug 'Exafunction/windsurf.vim'
 
 " Plug 'sheerun/vim-polyglot'
 Plug 'vim-autoformat/vim-autoformat'

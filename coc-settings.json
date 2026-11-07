@@ -5,6 +5,12 @@
       "args": ["server"],
       "filetypes": ["python"],
       "rootPatterns": ["pyproject.toml", "ruff.toml", ".git"]
+    },
+    "pyrefly": {
+      "command": "pyrefly",
+      "args": ["lsp"],
+      "filetypes": ["python"],
+      "rootPatterns": ["pyrefly.toml", "pyproject.toml", ".git"]
     }
   },
   "python.analysis.typeCheckingMode": "standard",
