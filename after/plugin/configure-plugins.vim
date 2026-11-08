@@ -893,4 +893,25 @@ augroup GvimGeometry
     autocmd SessionLoadPost * call RestoreGvimGeometry()
 augroup END
 
+function! ChangeFontSize(delta) abort
+    let font = &guifont
+
+    if font =~# ':h\d\+'
+        let size = str2nr(matchstr(font, ':h\zs\d\+'))
+        let &guifont = substitute(font, ':h\d\+',
+                    \ ':h' . max([1, size + a:delta]), '')
+    elseif font =~# ' \d\+$'
+        let size = str2nr(matchstr(font, '\d\+$'))
+        let &guifont = substitute(font, '\d\+$',
+                    \ max([1, size + a:delta]), '')
+    else
+        echom 'Unrecognised guifont: ' . font
+    endif
+endfunction
+
+" reset to default font
+nnoremap <C-0> :let &guifont = g:default_guifont<CR>
+
+nnoremap <C-S-+> :call ChangeFontSize(1)<CR>
+nnoremap <C-_> :call ChangeFontSize(-1)<CR>
 " End of vimrc =====================================================================

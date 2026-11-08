@@ -227,6 +227,11 @@ set guioptions-=L
 " remove gui confirm
 set guioptions-=c
 
+" The k option tells gVim to keep the GUI window size in pixels when the font
+" changes, rather than preserving the number of rows and columns. This is useful
+" when changing the font size, as it prevents the window from resizing and
+" potentially losing its position on the screen.
+set guioptions+=k
 
 
 " not supported by nvim; maybe not required for vim?
@@ -821,6 +826,8 @@ else
   " the font is set in the terminal emulator
   " set gfn=DejaVuSansMono_NF:h9:cANSI
 endif
+
+let g:default_guifont = &guifont
 
 " color scheme  -----------------------------------------------------------------
 set background=dark
