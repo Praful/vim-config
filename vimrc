@@ -231,8 +231,9 @@ set guioptions-=c
 " changes, rather than preserving the number of rows and columns. This is useful
 " when changing the font size, as it prevents the window from resizing and
 " potentially losing its position on the screen.
-set guioptions+=k
-
+if !has('nvim')
+  set guioptions+=k
+endif
 
 " not supported by nvim; maybe not required for vim?
 " set guioptions+=egk
