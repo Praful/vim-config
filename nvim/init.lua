@@ -2,6 +2,11 @@
 vim.o.runtimepath = vim.o.runtimepath .. ',~/.vim'
 vim.o.runtimepath = vim.o.runtimepath .. ',~/.vim/after'
 
+vim.g.loaded_node_provider = 0
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_perl_provider = 0   
+
 -- Set pack path
 vim.o.packpath = vim.o.runtimepath
 

@@ -231,7 +231,9 @@ set guioptions-=c
 " changes, rather than preserving the number of rows and columns. This is useful
 " when changing the font size, as it prevents the window from resizing and
 " potentially losing its position on the screen.
-set guioptions+=k
+if !has('nvim')
+  set guioptions+=k
+endif
 
 
 " not supported by nvim; maybe not required for vim?
@@ -795,7 +797,7 @@ function! RunCommandInOutputBuffer(command)
   setlocal nomodifiable nomodified
 endfunction
 
-nnoremap <leader>rp :call RunCommandInOutputBuffer('uv run')<CR>
+nnoremap <leader>rp :call RunCommandInOutputBuffer('uv run --active')<CR>
 nnoremap <leader>rr :call RunCommandInOutputBuffer('ruby')<CR>
 nnoremap <leader>rb :call RunCommandInOutputBuffer('bash')<CR>
 
