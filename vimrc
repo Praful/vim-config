@@ -235,7 +235,6 @@ if !has('nvim')
   set guioptions+=k
 endif
 
-
 " not supported by nvim; maybe not required for vim?
 " set guioptions+=egk
 
