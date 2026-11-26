@@ -804,7 +804,7 @@ nnoremap <leader>rb :call RunCommandInOutputBuffer('bash')<CR>
 " Font and colours -------------------------------
 
 if has('nvim')
-  if IsOnHost('portegez30-mint')
+  if IsOnHost('portegez30-mint') || IsOnHost('honor-fedora')
     set guifont=DejaVuSansMono\ Nerd\ Font\ Mono:h11
   else
     set guifont=DejaVuSansMono\ Nerd\ Font\ Mono:h9
@@ -815,7 +815,7 @@ elseif has("gui_running")
   elseif has('macunix')
     set guifont=DejaVuSansMNF:h13
   elseif has('unix')
-    if IsOnHost('portegez30-mint')
+    if IsOnHost('portegez30-mint') || IsOnHost('honor-fedora')
       set guifont=DejaVuSansMono\ Nerd\ Font\ Mono\ 11
     else
       set guifont=DejaVuSansMono\ Nerd\ Font\ Mono\ 9
